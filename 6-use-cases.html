@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Cases & Workflows - Claude Integration Guide</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6; color: #333; background: #f5f7fa;
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 30px 20px; border-radius: 8px; margin-bottom: 40px;
+        }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        .breadcrumb { margin-bottom: 20px; color: #666; }
+        .breadcrumb a { color: #667eea; text-decoration: none; }
+        section {
+            background: white; padding: 30px; border-radius: 8px;
+            margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        h2 {
+            color: #667eea; margin-top: 0; margin-bottom: 20px;
+            border-bottom: 2px solid #667eea; padding-bottom: 10px;
+        }
+        h3 { color: #764ba2; margin-top: 20px; margin-bottom: 10px; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; color: #d63384; }
+        pre {
+            background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 6px;
+            overflow-x: auto; margin: 15px 0; font-size: 0.9em;
+        }
+        .workflow {
+            background: #f0f4ff; border-left: 4px solid #667eea;
+            padding: 20px; margin: 20px 0; border-radius: 4px;
+        }
+        .step {
+            background: white; border-left: 4px solid #764ba2;
+            padding: 15px; margin: 10px 0; border-radius: 4px;
+        }
+        .step strong { color: #764ba2; display: block; margin-bottom: 5px; }
+        .prompt {
+            background: #2d2d2d; color: #f8f8f2; padding: 10px;
+            border-radius: 4px; margin: 10px 0; font-family: monospace; font-size: 0.9em;
+        }
+        .success { background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 15px 0; border-radius: 4px; }
+        .nav-links {
+            display: flex; justify-content: space-between; margin-top: 40px; gap: 10px;
+        }
+        .nav-links a {
+            flex: 1; padding: 12px; background: #667eea; color: white;
+            text-decoration: none; border-radius: 6px; text-align: center; transition: background 0.3s;
+        }
+        .nav-links a:hover { background: #764ba2; }
+        footer { text-align: center; color: #666; margin-top: 40px; padding: 20px; border-top: 1px solid #ddd; }
+        .use-case-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 20px 0;
+        }
+        .use-case-card {
+            background: #f9f9f9; border: 2px solid #667eea; padding: 20px; border-radius: 8px;
+        }
+        .use-case-card h4 { color: #667eea; margin-bottom: 10px; margin-top: 0; }
+        .use-case-card p { color: #666; margin: 10px 0; }
+        .use-case-card ul { margin-left: 20px; line-height: 1.8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="ai-guide-index.html">Home</a> / Use Cases & Workflows
+        </div>
+
+        <header>
+            <h1>🎯 Use Cases & Development Workflows</h1>
+            <p>Real scenarios showing how to use Claude throughout your development lifecycle</p>
+        </header>
+
+        <section>
+            <h2>📋 Development Workflow Scenarios</h2>
+
+            <h3>Scenario 1: Building a Complete Feature</h3>
+            <div class="workflow">
+                <p><strong>Goal:</strong> Build a "Favorites" feature where users can save products</p>
+
+                <div class="step">
+                    <strong>Step 1: Understand Requirements</strong>
+                    <div class="prompt">Prompt: "I need to build a favorites feature where users can save products. User can view saved products and remove favorites. Share the technical requirements and architecture."</div>
+                    <p>Claude analyzes requirements and suggests architecture for:</p>
+                    <ul>
+                        <li>Database schema changes</li>
+                        <li>API endpoints needed</li>
+                        <li>Frontend components</li>
+                        <li>Testing strategy</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <strong>Step 2: Backend Implementation</strong>
+                    <div class="prompt">Prompt: "Create Laravel API endpoints for favorites:
+- POST /api/favorites (add favorite)
+- DELETE /api/favorites/{id} (remove favorite)
+- GET /api/favorites (list user favorites)
+Include authorization, validation, and eager loading."</div>
+                </div>
+
+                <div class="step">
+                    <strong>Step 3: Frontend Implementation</strong>
+                    <div class="prompt">Prompt: "Create React component for favorites:
+- Heart icon button (filled/unfilled states)
+- Show loading state
+- Handle optimistic updates
+- Sync with API
+- Show success/error messages"</div>
+                </div>
+
+                <div class="step">
+                    <strong>Step 4: Testing</strong>
+                    <div class="prompt">Prompt: "Write tests for favorites feature:
+- Unit tests for API endpoints
+- Component tests for UI
+- E2E tests with Playwright
+- Test API error scenarios"</div>
+                </div>
+
+                <div class="step">
+                    <strong>Step 5: Commit</strong>
+                    <div class="prompt">Use: /commit to auto-generate commit message</div>
+                </div>
+            </div>
+
+            <h3>Scenario 2: Debugging a Bug</h3>
+            <div class="workflow">
+                <p><strong>Issue:</strong> Login form shows loading spinner but never submits</p>
+
+                <div class="step">
+                    <strong>Step 1: Gather Information</strong>
+                    <div class="prompt">Share:
+- Browser console errors
+- Network tab (API request details)
+- LoginForm component code
+- API endpoint code
+- Environment setup</div>
+                </div>
+
+                <div class="step">
+                    <strong>Step 2: Debug</strong>
+                    <div class="prompt">Prompt: "The login form is stuck on loading. Here's the component code, error message, and network request. What's wrong and how to fix it?"</div>
+                </div>
+
+                <div class="step">
+                    <strong>Step 3: Implement Fix</strong>
+                    <p>Claude provides:</p>
+                    <ul>
+                        <li>Root cause analysis</li>
+                        <li>Code fix with explanation</li>
+                        <li>Prevention strategies</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <strong>Step 4: Test Fix</strong>
+                    <div class="prompt">Prompt: "Write tests to prevent this regression"</div>
+                </div>
+
+                <div class="step">
+                    <strong>Step 5: Commit</strong>
+                    <div class="prompt">Use: /commit with message like "fix: resolve login form hanging on submission"</div>
+                </div>
+            </div>
+
+            <h3>Scenario 3: Code Review & Refactoring</h3>
+            <div class="workflow">
+                <p><strong>Goal:</strong> Review PR and suggest improvements</p>
+
+                <div class="step">
+                    <strong>Step 1: Review PR</strong>
+                    <div class="prompt">Use: /review-pr 456 to analyze the PR</div>
+                </div>
+
+                <div class="step">
+                    <strong>Step 2: Check for Issues</strong>
+                    <div class="prompt">Claude checks for:
+- Security vulnerabilities
+- Performance problems
+- Code style violations
+- Missing tests
+- SOLID principle violations</div>
+                </div>
+
+                <div class="step">
+                    <strong>Step 3: Request Refactoring</strong>
+                    <div class="prompt">Prompt: "This component is too large. How would you refactor it? Show the refactored version with tests."</div>
+                </div>
+
+                <div class="step">
+                    <strong>Step 4: Apply Changes</strong>
+                    <p>Implement refactoring suggestions and commit</p>
+                </div>
+            </div>
+
+            <h3>Scenario 4: Performance Optimization</h3>
+            <div class="workflow">
+                <p><strong>Issue:</strong> Dashboard page loads slowly</p>
+
+                <div class="step">
+                    <strong>Step 1: Profile Performance</strong>
+                    <div class="prompt">Prompt: "My dashboard is slow. Here's the Lighthouse report and React DevTools profile. What's the bottleneck?"</div>
+                </div>
+
+                <div class="step">
+                    <strong>Step 2: Identify Issues</strong>
+                    <p>Claude identifies:</p>
+                    <ul>
+                        <li>Unnecessary re-renders</li>
+                        <li>N+1 database queries</li>
+                        <li>Large bundle size</li>
+                        <li>Missing lazy loading</li>
+                    </ul>
+                </div>
+
+                <div class="step">
+                    <strong>Step 3: Implement Optimizations</strong>
+                    <div class="prompt">Prompt: "Fix these performance issues: [specific issues]. Include before/after metrics."</div>
+                </div>
+
+                <div class="step">
+                    <strong>Step 4: Verify Improvement</strong>
+                    <div class="prompt">Prompt: "Run Lighthouse again and show improvement in metrics"</div>
+                </div>
+            </div>
+
+        </section>
+
+        <section>
+            <h2>📱 Feature Development Use Cases</h2>
+
+            <div class="use-case-grid">
+                <div class="use-case-card">
+                    <h4>🔐 Authentication</h4>
+                    <ul>
+                        <li>Login/signup flows</li>
+                        <li>Password reset</li>
+                        <li>2FA implementation</li>
+                        <li>Session management</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-card">
+                    <h4>💳 Payment Processing</h4>
+                    <ul>
+                        <li>Stripe integration</li>
+                        <li>Subscription management</li>
+                        <li>Invoice generation</li>
+                        <li>Refund handling</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-card">
+                    <h4>📧 Email & Notifications</h4>
+                    <ul>
+                        <li>Transactional emails</li>
+                        <li>Email templates</li>
+                        <li>Push notifications</li>
+                        <li>SMS delivery</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-card">
+                    <h4>👥 User Management</h4>
+                    <ul>
+                        <li>Profile management</li>
+                        <li>User roles & permissions</li>
+                        <li>Team collaboration</li>
+                        <li>Audit logging</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-card">
+                    <h4>📊 Analytics & Reporting</h4>
+                    <ul>
+                        <li>Event tracking</li>
+                        <li>Dashboard creation</li>
+                        <li>Report generation</li>
+                        <li>Data visualization</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-card">
+                    <h4>🔍 Search & Filtering</h4>
+                    <ul>
+                        <li>Full-text search</li>
+                        <li>Advanced filters</li>
+                        <li>Autocomplete</li>
+                        <li>Elasticsearch setup</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-card">
+                    <h4>📁 File Management</h4>
+                    <ul>
+                        <li>File upload</li>
+                        <li>Storage integration</li>
+                        <li>File preview</li>
+                        <li>Virus scanning</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-card">
+                    <h4>🌍 Multi-language & Localization</h4>
+                    <ul>
+                        <li>i18n setup</li>
+                        <li>Translation management</li>
+                        <li>RTL support</li>
+                        <li>Date/currency formatting</li>
+                    </ul>
+                </div>
+            </div>
+
+        </section>
+
+        <section>
+            <h2>🧪 Testing & QA Workflows</h2>
+
+            <h3>Complete Testing Pipeline</h3>
+            <div class="workflow">
+                <div class="step">
+                    <strong>Step 1: Unit Tests</strong>
+                    <div class="prompt">Prompt: "Write Jest unit tests for this utility function covering all branches and edge cases"</div>
+                </div>
+
+                <div class="step">
+                    <strong>Step 2: Component Tests</strong>
+                    <div class="prompt">Prompt: "Write React Testing Library tests for this component testing user interactions"</div>
+                </div>
+
+                <div class="step">
+                    <strong>Step 3: Integration Tests</strong>
+                    <div class="prompt">Prompt: "Write integration tests that test API calls and state management together"</div>
+                </div>
+
+                <div class="step">
+                    <strong>Step 4: E2E Tests</strong>
+                    <div class="prompt">Prompt: "Create Playwright test for complete user workflow: signup → login → feature use → logout"</div>
+                </div>
+
+                <div class="step">
+                    <strong>Step 5: Performance Tests</strong>
+                    <div class="prompt">Prompt: "Create Playwright test to measure Core Web Vitals and performance metrics"</div>
+                </div>
+            </div>
+
+        </section>
+
+        <section>
+            <h2>🚀 Deployment & DevOps Workflows</h2>
+
+            <h3>CI/CD Pipeline Setup</h3>
+            <div class="workflow">
+                <div class="step">
+                    <strong>Step 1: Code Quality Checks</strong>
+                    <div class="prompt">Prompt: "Create GitHub Actions workflow that runs linting and code formatting checks"</div>
+                </div>
+
+                <div class="step">
+                    <strong>Step 2: Test Execution</strong>
+                    <div class="prompt">Prompt: "Add unit tests, integration tests, and E2E tests to GitHub Actions workflow"</div>
+                </div>
+
+                <div class="step">
+                    <strong>Step 3: Security Scanning</strong>
+                    <div class="prompt">Prompt: "Add security scanning (SAST, dependency check, secrets detection) to CI pipeline"</div>
+                </div>
+
+                <div class="step">
+                    <strong>Step 4: Build & Deploy</strong>
+                    <div class="prompt">Prompt: "Add Docker build and deploy to AWS Lambda/ECS on successful tests"</div>
+                </div>
+
+                <div class="step">
+                    <strong>Step 5: Post-Deployment</strong>
+                    <div class="prompt">Prompt: "Add health checks and smoke tests after deployment, notify Slack on success/failure"</div>
+                </div>
+            </div>
+
+        </section>
+
+        <section>
+            <h2>🐛 Debugging & Troubleshooting</h2>
+
+            <div class="use-case-grid">
+                <div class="use-case-card">
+                    <h4>Frontend Issues</h4>
+                    <ul>
+                        <li>Memory leaks</li>
+                        <li>Infinite loops</li>
+                        <li>State sync problems</li>
+                        <li>API integration errors</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-card">
+                    <h4>Backend Issues</h4>
+                    <ul>
+                        <li>Database query performance</li>
+                        <li>N+1 queries</li>
+                        <li>Memory/timeout issues</li>
+                        <li>Caching problems</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-card">
+                    <h4>Infrastructure Issues</h4>
+                    <ul>
+                        <li>Docker errors</li>
+                        <li>AWS service issues</li>
+                        <li>Network connectivity</li>
+                        <li>Environment variables</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-card">
+                    <h4>Data Issues</h4>
+                    <ul>
+                        <li>Migration problems</li>
+                        <li>Data corruption</li>
+                        <li>Sync issues</li>
+                        <li>Transaction deadlocks</li>
+                    </ul>
+                </div>
+            </div>
+
+        </section>
+
+        <section>
+            <h2>💡 Optimization Workflows</h2>
+
+            <h3>Performance Optimization Checklist</h3>
+            <pre>
+Frontend:
+☐ Code splitting with React.lazy()
+☐ Optimize images (WebP, srcset, lazy loading)
+☐ Memoization (useMemo, useCallback, React.memo)
+☐ Virtual scrolling for long lists
+☐ Bundle analysis and tree shaking
+☐ Compression and minification
+
+Backend:
+☐ Database indexes on frequently queried columns
+☐ Eager loading to avoid N+1 queries
+☐ Caching with Redis
+☐ Query optimization
+☐ Pagination for large datasets
+☐ Connection pooling
+
+General:
+☐ CDN for static assets
+☐ HTTP/2 server push
+☐ Gzip compression
+☐ Browser caching headers
+☐ DNS prefetch
+            </pre>
+
+        </section>
+
+        <section>
+            <h2>📚 Learning & Skill Development</h2>
+
+            <p>Use Claude to accelerate your learning:</p>
+            <ul style="margin-left: 20px; line-height: 2;">
+                <li><strong>Explain Concepts:</strong> "Explain Redux and why it's useful for state management"</li>
+                <li><strong>Learn Patterns:</strong> "Show me different React component composition patterns with pros/cons"</li>
+                <li><strong>Best Practices:</strong> "What are Laravel best practices for building scalable APIs?"</li>
+                <li><strong>Code Examples:</strong> "Show 5 examples of using async/await in JavaScript"</li>
+                <li><strong>Troubleshooting:</strong> "I don't understand why this test is failing. Explain step by step"</li>
+                <li><strong>Architecture:</strong> "Design a microservices architecture for our platform"</li>
+            </ul>
+
+        </section>
+
+        <div class="nav-links">
+            <a href="5-integrations.html">← Integrations</a>
+            <a href="ai-guide-index.html">Back to Home →</a>
+        </div>
+
+        <footer>
+            <p>These use cases represent typical scenarios you'll encounter in SaaS development. Adapt them to your specific needs.</p>
+        </footer>
+    </div>
+</body>
+</html>

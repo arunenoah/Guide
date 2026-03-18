@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Policy - Comprehensive Training Quiz (50 Questions)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1a1a1a;
+            background: #f5f5f5;
+            padding: 30px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        header {
+            background: #0f3460;
+            color: white;
+            padding: 30px;
+            border-bottom: 3px solid #e94560;
+            text-align: center;
+        }
+        header h1 { font-size: 1.8em; margin-bottom: 10px; }
+        .content { padding: 40px; }
+        .quiz-info {
+            background: #e7f3ff;
+            border-left: 4px solid #0066cc;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 3px;
+        }
+        .section-header {
+            background: #0f3460;
+            color: white;
+            padding: 12px 15px;
+            margin: 20px 0 15px 0;
+            border-radius: 3px;
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+        .question-block {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-left: 4px solid #0f3460;
+            border-radius: 3px;
+        }
+        .question-number {
+            color: #0f3460;
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        .question-text {
+            font-weight: 500;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+        .option {
+            display: flex;
+            align-items: flex-start;
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 3px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+        .option:hover {
+            border-color: #0f3460;
+        }
+        .option input[type="radio"] {
+            margin-right: 10px;
+            margin-top: 3px;
+            cursor: pointer;
+        }
+        .option-text {
+            flex: 1;
+        }
+        .correct {
+            background: #d4edda;
+            border: 2px solid #28a745;
+        }
+        .incorrect {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+        }
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 3px;
+            font-size: 0.95em;
+            display: none;
+        }
+        .feedback.show {
+            display: block;
+        }
+        .feedback-correct {
+            background: #d4edda;
+            color: #155724;
+        }
+        .feedback-incorrect {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .submit-button {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 30px 0;
+        }
+        .submit-button:hover {
+            background: #07253f;
+        }
+        .submit-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .results {
+            background: #e7f3ff;
+            border: 2px solid #0066cc;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 3px;
+            display: none;
+            text-align: center;
+        }
+        .results.show {
+            display: block;
+        }
+        .score {
+            font-size: 2em;
+            font-weight: 600;
+            color: #0f3460;
+            margin: 20px 0;
+        }
+        .pass {
+            color: #28a745;
+        }
+        .fail {
+            color: #dc3545;
+        }
+        .footer {
+            background: #0f3460;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 30px;
+            border-top: 3px solid #e94560;
+        }
+        .refresh-button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .refresh-button:hover {
+            background: #218838;
+        }
+        .category-badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✅ Claude Code & AI Agents - Comprehensive Training Quiz</h1>
+            <p>50 Questions | ISO 27001 & SOC 2 Compliant | Required for Access</p>
+        </header>
+
+        <div class="content">
+            <div class="quiz-info">
+                <p><strong>Passing Score:</strong> 85% (43 out of 50 questions)</p>
+                <p><strong>Time Limit:</strong> No time limit</p>
+                <p><strong>Attempts:</strong> Unlimited until you pass</p>
+                <p style="margin-top: 10px;"><strong>Topics Covered:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 5px;">
+                    <li>Security & Secrets (15 questions)</li>
+                    <li>ISO 27001 & SOC 2 Compliance (12 questions)</li>
+                    <li>Agent & MCP Usage (10 questions)</li>
+                    <li>Code Review & Quality (13 questions)</li>
+                </ul>
+            </div>
+
+            <form id="quizForm">
+                <!-- SECTION 1: SECURITY & SECRETS (15 QUESTIONS) -->
+                <div class="section-header">Section 1: Security & Secrets Management (15 Questions)</div>
+
+                <!-- Q1 -->
+                <div class="question-block">
+                    <div class="question-number">Question 1 <span class="category-badge">Security</span></div>
+                    <div class="question-text">According to ISO 27001, who is responsible for information security in an organization?</div>
+                    <label class="option">
+                        <input type="radio" name="q1" value="a">
+                        <div class="option-text"><strong>A)</strong> Only the Security Team</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="b">
+                        <div class="option-text"><strong>B)</strong> Everyone - it's a shared responsibility</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="c">
+                        <div class="option-text"><strong>C)</strong> Only management</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. ISO 27001 requires information security to be everyone's responsibility.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Security is a shared organizational responsibility.</div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="question-block">
+                    <div class="question-number">Question 2 <span class="category-badge">Security</span></div>
+                    <div class="question-text">What must you do if you accidentally share an API key with Claude?</div>
+                    <label class="option">
+                        <input type="radio" name="q2" value="a">
+                        <div class="option-text"><strong>A)</strong> Nothing - Claude is trusted</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="b">
+                        <div class="option-text"><strong>B)</strong> Report to security team within 1 hour, rotate key immediately, log incident</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="c">
+                        <div class="option-text"><strong>C)</strong> Just rotate the key quietly</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Incident reporting and rotation are required for SOC 2 compliance.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Report, rotate, and log are mandatory.</div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="question-block">
+                    <div class="question-number">Question 3 <span class="category-badge">Security</span></div>
+                    <div class="question-text">What is the primary purpose of .env files in application security?</div>
+                    <label class="option">
+                        <input type="radio" name="q3" value="a">
+                        <div class="option-text"><strong>A)</strong> Store all application configuration</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="b">
+                        <div class="option-text"><strong>B)</strong> Separate secrets from code to prevent accidental exposure</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="c">
+                        <div class="option-text"><strong>C)</strong> It doesn't matter where secrets go</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. This is an ISO 27001 control (A.14.2.1 - Information transfer).</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Separation prevents exposure.</div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="question-block">
+                    <div class="question-number">Question 4 <span class="category-badge">Security</span></div>
+                    <div class="question-text">Which of the following is NOT acceptable to share with Claude?</div>
+                    <label class="option">
+                        <input type="radio" name="q4" value="a">
+                        <div class="option-text"><strong>A)</strong> Code structure explanation</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="b">
+                        <div class="option-text"><strong>B)</strong> Production database connection string with password</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="c">
+                        <div class="option-text"><strong>C)</strong> Error message description</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Never share credentials - this is ISO 27001 A.9.2.1 (User identification).</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Database credentials are never shared.</div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="question-block">
+                    <div class="question-number">Question 5 <span class="category-badge">Security</span></div>
+                    <div class="question-text">What is the acceptable use of Claude Code according to SOC 2 Type II?</div>
+                    <label class="option">
+                        <input type="radio" name="q5" value="a">
+                        <div class="option-text"><strong>A)</strong> Any work-related use, including personal projects if no secrets shared</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="b">
+                        <div class="option-text"><strong>B)</strong> Company work only, with proper logging and audit trails</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="c">
+                        <div class="option-text"><strong>C)</strong> Any use is acceptable</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. SOC 2 requires logged, auditable business use only (CC6.1).</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. SOC 2 requires proper use tracking.</div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="question-block">
+                    <div class="question-number">Question 6 <span class="category-badge">Security</span></div>
+                    <div class="question-text">Which data is NEVER acceptable to share with Claude?</div>
+                    <label class="option">
+                        <input type="radio" name="q6" value="a">
+                        <div class="option-text"><strong>A)</strong> Real customer names, emails, phone numbers</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="b">
+                        <div class="option-text"><strong>B)</strong> Payment card information</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="c">
+                        <div class="option-text"><strong>C)</strong> Both A and B (all PII)</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: C. Both violate ISO 27001 (A.13.2.2 - Handling of assets) and SOC 2 data protection.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: C is correct. All PII is prohibited.</div>
+                </div>
+
+                <!-- Q7 -->
+                <div class="question-block">
+                    <div class="question-number">Question 7 <span class="category-badge">Security</span></div>
+                    <div class="question-text">What should be in your .gitignore file per ISO 27001 A.14.2.1?</div>
+                    <label class="option">
+                        <input type="radio" name="q7" value="a">
+                        <div class="option-text"><strong>A)</strong> Only large files</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="b">
+                        <div class="option-text"><strong>B)</strong> .env files, build artifacts, node_modules, and any files with credentials</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="c">
+                        <div class="option-text"><strong>C)</strong> Nothing - all files should be committed</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Proper .gitignore prevents credential leakage (ISO 27001 A.14.2.1).</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Secrets must be excluded.</div>
+                </div>
+
+                <!-- Q8 -->
+                <div class="question-block">
+                    <div class="question-number">Question 8 <span class="category-badge">Security</span></div>
+                    <div class="question-text">How should secrets be managed in production per ISO 27001?</div>
+                    <label class="option">
+                        <input type="radio" name="q8" value="a">
+                        <div class="option-text"><strong>A)</strong> Use environment variables only from secure vaults (AWS Secrets Manager, HashiCorp Vault)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="b">
+                        <div class="option-text"><strong>B)</strong> Commit encrypted secrets to git</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="c">
+                        <div class="option-text"><strong>C)</strong> Store in a text file on the server</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: A. ISO 27001 A.9.1.1 requires secret vaults with access controls.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: A is correct. Use secure vaults only.</div>
+                </div>
+
+                <!-- Q9 -->
+                <div class="question-block">
+                    <div class="question-number">Question 9 <span class="category-badge">Security</span></div>
+                    <div class="question-text">What is the risk of sharing database credentials with Claude?</div>
+                    <label class="option">
+                        <input type="radio" name="q9" value="a">
+                        <div class="option-text"><strong>A)</strong> Attackers could gain unauthorized database access</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="b">
+                        <div class="option-text"><strong>B)</strong> GDPR/CCPA violations if customer data accessed</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="c">
+                        <div class="option-text"><strong>C)</strong> Both A and B are risks</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: C. Both risks violate ISO 27001 and SOC 2 controls.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: C is correct. Both are significant risks.</div>
+                </div>
+
+                <!-- Q10 -->
+                <div class="question-block">
+                    <div class="question-number">Question 10 <span class="category-badge">Security</span></div>
+                    <div class="question-text">According to ISO 27001 A.12.4.1, what must be monitored in information systems?</div>
+                    <label class="option">
+                        <input type="radio" name="q10" value="a">
+                        <div class="option-text"><strong>A)</strong> Unusual activity, unauthorized access attempts, security events</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="b">
+                        <div class="option-text"><strong>B)</strong> Only things that are obviously breaking</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="c">
+                        <div class="option-text"><strong>C)</strong> Nothing needs to be monitored</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: A. ISO 27001 A.12.4.1 requires logging and monitoring of all security events.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: A is correct. Comprehensive monitoring is required.</div>
+                </div>
+
+                <!-- Q11 -->
+                <div class="question-block">
+                    <div class="question-number">Question 11 <span class="category-badge">Security</span></div>
+                    <div class="question-text">What should you do if you discover a team member shared secrets with Claude?</div>
+                    <label class="option">
+                        <input type="radio" name="q11" value="a">
+                        <div class="option-text"><strong>A)</strong> Ignore it - they'll figure it out</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q11" value="b">
+                        <div class="option-text"><strong>B)</strong> Report to security team immediately and document the incident</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q11" value="c">
+                        <div class="option-text"><strong>C)</strong> Tell everyone on Slack to shame them</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. ISO 27001 A.16.1 requires incident reporting and documentation.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Report incidents formally.</div>
+                </div>
+
+                <!-- Q12 -->
+                <div class="question-block">
+                    <div class="question-number">Question 12 <span class="category-badge">Security</span></div>
+                    <div class="question-text">How long should security incident logs be retained per SOC 2?</div>
+                    <label class="option">
+                        <input type="radio" name="q12" value="a">
+                        <div class="option-text"><strong>A)</strong> 30 days</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q12" value="b">
+                        <div class="option-text"><strong>B)</strong> 1 year minimum, with archival for 3+ years</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q12" value="c">
+                        <div class="option-text"><strong>C)</strong> Only while needed for active investigation</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. SOC 2 CC7.2 requires extended log retention for audit trails.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Extended retention is required.</div>
+                </div>
+
+                <!-- Q13 -->
+                <div class="question-block">
+                    <div class="question-number">Question 13 <span class="category-badge">Security</span></div>
+                    <div class="question-text">What is the primary control for preventing secret leaks in git?</div>
+                    <label class="option">
+                        <input type="radio" name="q13" value="a">
+                        <div class="option-text"><strong>A)</strong> Hope developers don't accidentally commit secrets</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q13" value="b">
+                        <div class="option-text"><strong>B)</strong> GitHub secret scanning + pre-commit hooks + .gitignore + code review</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q13" value="c">
+                        <div class="option-text"><strong>C)</strong> Regular git repository audits only</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Defense-in-depth is required by ISO 27001 A.13.1.3.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Multiple layers of protection required.</div>
+                </div>
+
+                <!-- Q14 -->
+                <div class="question-block">
+                    <div class="question-number">Question 14 <span class="category-badge">Security</span></div>
+                    <div class="question-text">Per ISO 27001, who must approve access to Claude Code?</div>
+                    <label class="option">
+                        <input type="radio" name="q14" value="a">
+                        <div class="option-text"><strong>A)</strong> Developers can self-approve</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q14" value="b">
+                        <div class="option-text"><strong>B)</strong> Manager approval required + security team verification (A.9.2.2)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q14" value="c">
+                        <div class="option-text"><strong>C)</strong> Security team only</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. ISO 27001 A.9.2.2 requires authorized access approval.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Approval process is required.</div>
+                </div>
+
+                <!-- Q15 -->
+                <div class="question-block">
+                    <div class="question-number">Question 15 <span class="category-badge">Security</span></div>
+                    <div class="question-text">When Claude access is revoked, what must happen per SOC 2?</div>
+                    <label class="option">
+                        <input type="radio" name="q15" value="a">
+                        <div class="option-text"><strong>A)</strong> Just remove their account</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q15" value="b">
+                        <div class="option-text"><strong>B)</strong> Deactivate account + audit all previous conversations + document reason + log in security system (CC6.2)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q15" value="c">
+                        <div class="option-text"><strong>C)</strong> Delete all history with that user</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. SOC 2 CC6.2 requires documented access termination.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Full audit trail required.</div>
+                </div>
+
+                <!-- SECTION 2: ISO 27001 & SOC 2 COMPLIANCE (12 QUESTIONS) -->
+                <div class="section-header">Section 2: ISO 27001 & SOC 2 Compliance (12 Questions)</div>
+
+                <!-- Q16 -->
+                <div class="question-block">
+                    <div class="question-number">Question 16 <span class="category-badge">Compliance</span></div>
+                    <div class="question-text">What is the primary goal of ISO 27001?</div>
+                    <label class="option">
+                        <input type="radio" name="q16" value="a">
+                        <div class="option-text"><strong>A)</strong> Make developers' lives harder</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q16" value="b">
+                        <div class="option-text"><strong>B)</strong> Establish Information Security Management System (ISMS) with controls and continuous improvement</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q16" value="c">
+                        <div class="option-text"><strong>C)</strong> Only for IT departments</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. ISO 27001 establishes organization-wide ISMS with risk management.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. It's an enterprise-wide framework.</div>
+                </div>
+
+                <!-- Q17 -->
+                <div class="question-block">
+                    <div class="question-number">Question 17 <span class="category-badge">Compliance</span></div>
+                    <div class="question-text">What does SOC 2 Type II measure?</div>
+                    <label class="option">
+                        <input type="radio" name="q17" value="a">
+                        <div class="option-text"><strong>A)</strong> How a company operates at a point in time</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q17" value="b">
+                        <div class="option-text"><strong>B)</strong> Whether security controls work effectively OVER TIME (6+ months)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q17" value="c">
+                        <div class="option-text"><strong>C)</strong> Only password policies</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. SOC 2 Type II audits control effectiveness over time.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Type II requires sustained effectiveness.</div>
+                </div>
+
+                <!-- Q18 -->
+                <div class="question-block">
+                    <div class="question-number">Question 18 <span class="category-badge">Compliance</span></div>
+                    <div class="question-text">What are the Trust Service Criteria (TSC) in SOC 2?</div>
+                    <label class="option">
+                        <input type="radio" name="q18" value="a">
+                        <div class="option-text"><strong>A)</strong> CC (Common Criteria) + PO (Process Operations) + PT (Process, Technology) controls</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q18" value="b">
+                        <div class="option-text"><strong>B)</strong> Just about passwords</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q18" value="c">
+                        <div class="option-text"><strong>C)</strong> Only for financial companies</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: A. SOC 2 audits against CC, PO, PT criteria for security controls.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: A is correct. TSC covers multiple control areas.</div>
+                </div>
+
+                <!-- Q19 -->
+                <div class="question-block">
+                    <div class="question-number">Question 19 <span class="category-badge">Compliance</span></div>
+                    <div class="question-text">What is ISO 27001 Annex A.13.1.3 about?</div>
+                    <label class="option">
+                        <input type="radio" name="q19" value="a">
+                        <div class="option-text"><strong>A)</strong> Separating development, testing, and production systems</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q19" value="b">
+                        <div class="option-text"><strong>B)</strong> Only about hiring</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q19" value="c">
+                        <div class="option-text"><strong>C)</strong> Password complexity</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: A. Separation of environments is a critical control (A.13.1.3).</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: A is correct. Environment separation is required.</div>
+                </div>
+
+                <!-- Q20 -->
+                <div class="question-block">
+                    <div class="question-number">Question 20 <span class="category-badge">Compliance</span></div>
+                    <div class="question-text">Per ISO 27001 A.6.1.1, what must be established for information security?</div>
+                    <label class="option">
+                        <input type="radio" name="q20" value="a">
+                        <div class="option-text"><strong>A)</strong> Only IT policies</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q20" value="b">
+                        <div class="option-text"><strong>B)</strong> Set of policies and objectives approved by management</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q20" value="c">
+                        <div class="option-text"><strong>C)</strong> Nothing specific needed</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. A.6.1.1 requires management-approved information security policies and objectives.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Formal policies are required.</div>
+                </div>
+
+                <!-- Q21 -->
+                <div class="question-block">
+                    <div class="question-number">Question 21 <span class="category-badge">Compliance</span></div>
+                    <div class="question-text">What SOC 2 control covers access controls and user provisioning?</div>
+                    <label class="option">
+                        <input type="radio" name="q21" value="a">
+                        <div class="option-text"><strong>A)</strong> CC6 (Logical and Physical Access Controls)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q21" value="b">
+                        <div class="option-text"><strong>B)</strong> Only PO controls</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q21" value="c">
+                        <div class="option-text"><strong>C)</strong> Not covered in SOC 2</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: A. CC6 covers access control and logical security.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: A is correct. CC6 is the access control criterion.</div>
+                </div>
+
+                <!-- Q22 -->
+                <div class="question-block">
+                    <div class="question-number">Question 22 <span class="category-badge">Compliance</span></div>
+                    <div class="question-text">Which SOC 2 criterion covers availability and performance?</div>
+                    <label class="option">
+                        <input type="radio" name="q22" value="a">
+                        <div class="option-text"><strong>A)</strong> A (Availability criterion - availability, performance, timeliness)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q22" value="b">
+                        <div class="option-text"><strong>B)</strong> S (Security criterion)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q22" value="c">
+                        <div class="option-text"><strong>C)</strong> Only IT operations team responsibility</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: A. The A criterion covers availability and performance requirements.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: A is correct. A criterion covers availability.</div>
+                </div>
+
+                <!-- Q23 -->
+                <div class="question-block">
+                    <div class="question-number">Question 23 <span class="category-badge">Compliance</span></div>
+                    <div class="question-text">What does ISO 27001 require for risk assessment (A.12.6.1)?</div>
+                    <label class="option">
+                        <input type="radio" name="q23" value="a">
+                        <div class="option-text"><strong>A)</strong> Just once when implementing</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q23" value="b">
+                        <div class="option-text"><strong>B)</strong> Continuous monitoring, regular review, and assessment of information security risks</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q23" value="c">
+                        <div class="option-text"><strong>C)</strong> Not required if nothing bad has happened</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. A.12.6.1 requires continuous and regular risk assessment.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Risk assessment is continuous.</div>
+                </div>
+
+                <!-- Q24 -->
+                <div class="question-block">
+                    <div class="question-number">Question 24 <span class="category-badge">Compliance</span></div>
+                    <div class="question-text">Per ISO 27001 A.16.1, what must organizations do with information security incidents?</div>
+                    <label class="option">
+                        <input type="radio" name="q24" value="a">
+                        <div class="option-text"><strong>A)</strong> Keep them secret internally</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q24" value="b">
+                        <div class="option-text"><strong>B)</strong> Report, assess, respond, recover, and learn (with documented procedures)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q24" value="c">
+                        <div class="option-text"><strong>C)</strong> Incidents don't need procedures</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. A.16.1 requires formal incident management procedures.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Incident procedures are required.</div>
+                </div>
+
+                <!-- Q25 -->
+                <div class="question-block">
+                    <div class="question-number">Question 25 <span class="category-badge">Compliance</span></div>
+                    <div class="question-text">What does SOC 2 CC7.2 require regarding information system activity?</div>
+                    <label class="option">
+                        <input type="radio" name="q25" value="a">
+                        <div class="option-text"><strong>A)</strong> No logging needed</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q25" value="b">
+                        <div class="option-text"><strong>B)</strong> System activity monitoring, logging, retention, and secure review</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q25" value="c">
+                        <div class="option-text"><strong>C)</strong> Logs can be deleted after 2 weeks</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. CC7.2 requires monitoring, logging, and retention of system activity.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. CC7.2 requires comprehensive logging.</div>
+                </div>
+
+                <!-- Q26 -->
+                <div class="question-block">
+                    <div class="question-number">Question 26 <span class="category-badge">Compliance</span></div>
+                    <div class="question-text">What is required by SOC 2 for third-party service providers (CC7.3)?</div>
+                    <label class="option">
+                        <input type="radio" name="q26" value="a">
+                        <div class="option-text"><strong>A)</strong> No assessment needed</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q26" value="b">
+                        <div class="option-text"><strong>B)</strong> Identify, select, monitor, and review third-parties' security practices (applies to Claude/AI providers)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q26" value="c">
+                        <div class="option-text"><strong>C)</strong> Trust all third parties equally</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. CC7.3 requires assessment and monitoring of third-party providers (including Claude).</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Third-party assessment required.</div>
+                </div>
+
+                <!-- Q27 -->
+                <div class="question-block">
+                    <div class="question-number">Question 27 <span class="category-badge">Compliance</span></div>
+                    <div class="question-text">What does ISO 27001 A.14.2.1 cover?</div>
+                    <label class="option">
+                        <input type="radio" name="q27" value="a">
+                        <div class="option-text"><strong>A)</strong> Information transfer and confidentiality (preventing unauthorized disclosure)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q27" value="b">
+                        <div class="option-text"><strong>B)</strong> Only email security</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q27" value="c">
+                        <div class="option-text"><strong>C)</strong> Not relevant to Claude Code</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: A. A.14.2.1 requires controls to prevent unauthorized disclosure (includes AI assistance).</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: A is correct. A.14.2.1 covers information transfer controls.</div>
+                </div>
+
+                <!-- SECTION 3: AGENT & MCP USAGE (10 QUESTIONS) -->
+                <div class="section-header">Section 3: Agent & MCP Server Usage (10 Questions)</div>
+
+                <!-- Q28 -->
+                <div class="question-block">
+                    <div class="question-number">Question 28 <span class="category-badge">Agents</span></div>
+                    <div class="question-text">What is an MCP (Model Context Protocol) server in Claude ecosystem?</div>
+                    <label class="option">
+                        <input type="radio" name="q28" value="a">
+                        <div class="option-text"><strong>A)</strong> A way to extend Claude with custom tools and integrations</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q28" value="b">
+                        <div class="option-text"><strong>B)</strong> Only for advanced users</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q28" value="c">
+                        <div class="option-text"><strong>C)</strong> Not relevant to development</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: A. MCP servers extend Claude with custom capabilities.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: A is correct. MCP provides extensibility.</div>
+                </div>
+
+                <!-- Q29 -->
+                <div class="question-block">
+                    <div class="question-number">Question 29 <span class="category-badge">Agents</span></div>
+                    <div class="question-text">When using agents with Claude, what security consideration is critical?</div>
+                    <label class="option">
+                        <input type="radio" name="q29" value="a">
+                        <div class="option-text"><strong>A)</strong> Agents can access any resource without controls</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q29" value="b">
+                        <div class="option-text"><strong>B)</strong> Agents must have minimal permissions, audit trails, and cannot access production credentials</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q29" value="c">
+                        <div class="option-text"><strong>C)</strong> Security doesn't apply to agents</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Agents must follow ISO 27001 A.13.1.3 principle of least privilege.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Agents need security controls.</div>
+                </div>
+
+                <!-- Q30 -->
+                <div class="question-block">
+                    <div class="question-number">Question 30 <span class="category-badge">Agents</span></div>
+                    <div class="question-text">Can you configure an agent to directly access your production database?</div>
+                    <label class="option">
+                        <input type="radio" name="q30" value="a">
+                        <div class="option-text"><strong>A)</strong> Yes, if it's faster</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q30" value="b">
+                        <div class="option-text"><strong>B)</strong> No - agents get read-only access to test/staging data only (ISO 27001 A.13.1.3)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q30" value="c">
+                        <div class="option-text"><strong>C)</strong> Only if the agent is from a trusted vendor</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Agents must never have production database access.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Test-only access required.</div>
+                </div>
+
+                <!-- Q31 -->
+                <div class="question-block">
+                    <div class="question-number">Question 31 <span class="category-badge">Agents</span></div>
+                    <div class="question-text">What must be logged when an agent performs actions per SOC 2?</div>
+                    <label class="option">
+                        <input type="radio" name="q31" value="a">
+                        <div class="option-text"><strong>A)</strong> Nothing - it's automated</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q31" value="b">
+                        <div class="option-text"><strong>B)</strong> Who triggered agent, what actions, when, what data accessed (CC7.2)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q31" value="c">
+                        <div class="option-text"><strong>C)</strong> Only failures need to be logged</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. SOC 2 CC7.2 requires comprehensive agent activity logging.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. All agent actions must be logged.</div>
+                </div>
+
+                <!-- Q32 -->
+                <div class="question-block">
+                    <div class="question-number">Question 32 <span class="category-badge">Agents</span></div>
+                    <div class="question-text">What is required when using MCP servers to access company systems?</div>
+                    <label class="option">
+                        <input type="radio" name="q32" value="a">
+                        <div class="option-text"><strong>A)</strong> No special requirements</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q32" value="b">
+                        <div class="option-text"><strong>B)</strong> Security review, SOC 2 assessment of the server, audit logging, access controls (A.13.1.1, CC6)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q32" value="c">
+                        <div class="option-text"><strong>C)</strong> Only if your company is large</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. MCP servers require security and SOC 2 controls.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Full security controls required.</div>
+                </div>
+
+                <!-- Q33 -->
+                <div class="question-block">
+                    <div class="question-number">Question 33 <span class="category-badge">Agents</span></div>
+                    <div class="question-text">Can an agent write data to production systems?</div>
+                    <label class="option">
+                        <input type="radio" name="q33" value="a">
+                        <div class="option-text"><strong>A)</strong> Yes, agents should be able to modify production</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q33" value="b">
+                        <div class="option-text"><strong>B)</strong> No - only humans with proper approval can modify production (ISO 27001 A.14.2.4)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q33" value="c">
+                        <div class="option-text"><strong>C)</strong> Only on Fridays</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Only authorized humans can change production systems.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Agents cannot write to production.</div>
+                </div>
+
+                <!-- Q34 -->
+                <div class="question-block">
+                    <div class="question-number">Question 34 <span class="category-badge">Agents</span></div>
+                    <div class="question-text">What should you do if you want to create an agent to analyze production data?</div>
+                    <label class="option">
+                        <input type="radio" name="q34" value="a">
+                        <div class="option-text"><strong>A)</strong> Just point it at production database</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q34" value="b">
+                        <div class="option-text"><strong>B)</strong> Create anonymized test data, get security review, verify no PII exposure, log all access (A.13.2.2)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q34" value="c">
+                        <div class="option-text"><strong>C)</strong> Agents shouldn't access any data</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Anonymized data required for agent analysis.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Use anonymized data only.</div>
+                </div>
+
+                <!-- Q35 -->
+                <div class="question-block">
+                    <div class="question-number">Question 35 <span class="category-badge">Agents</span></div>
+                    <div class="question-text">How often should agent actions and MCP server access be reviewed?</div>
+                    <label class="option">
+                        <input type="radio" name="q35" value="a">
+                        <div class="option-text"><strong>A)</strong> Never - set it and forget it</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q35" value="b">
+                        <div class="option-text"><strong>B)</strong> Quarterly minimum, with continuous monitoring (ISO 27001 A.12.4.1, SOC 2 CC7.2)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q35" value="c">
+                        <div class="option-text"><strong>C)</strong> Only if something goes wrong</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Continuous monitoring and quarterly review required.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Regular review required.</div>
+                </div>
+
+                <!-- Q36 -->
+                <div class="question-block">
+                    <div class="question-number">Question 36 <span class="category-badge">Agents</span></div>
+                    <div class="question-text">What happens if an agent error causes unauthorized data access?</div>
+                    <label class="option">
+                        <input type="radio" name="q36" value="a">
+                        <div class="option-text"><strong>A)</strong> Nothing - it's automated</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q36" value="b">
+                        <div class="option-text"><strong>B)</strong> Must be reported as security incident, investigated, and documented (ISO 27001 A.16.1)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q36" value="c">
+                        <div class="option-text"><strong>C)</strong> Only if a human notices it</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. All security incidents require formal incident management.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Incidents must be reported.</div>
+                </div>
+
+                <!-- Q37 -->
+                <div class="question-block">
+                    <div class="question-number">Question 37 <span class="category-badge">Agents</span></div>
+                    <div class="question-text">Can you use agents to automate code deployment to production?</div>
+                    <label class="option">
+                        <input type="radio" name="q37" value="a">
+                        <div class="option-text"><strong>A)</strong> Yes, agents should deploy automatically</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q37" value="b">
+                        <div class="option-text"><strong>B)</strong> No - only approved humans can authorize production changes (ISO 27001 A.14.2.4, SOC 2 CC7)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q37" value="c">
+                        <div class="option-text"><strong>C)</strong> Only to staging</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Humans must approve production changes.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Human approval required.</div>
+                </div>
+
+                <!-- SECTION 4: CODE REVIEW & QUALITY (13 QUESTIONS) -->
+                <div class="section-header">Section 4: Code Review & Quality (13 Questions)</div>
+
+                <!-- Q38 -->
+                <div class="question-block">
+                    <div class="question-number">Question 38 <span class="category-badge">Quality</span></div>
+                    <div class="question-text">What is the minimum number of code reviews required before merge per ISO 27001 A.14.2.3?</div>
+                    <label class="option">
+                        <input type="radio" name="q38" value="a">
+                        <div class="option-text"><strong>A)</strong> Zero - if the author says it's good</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q38" value="b">
+                        <div class="option-text"><strong>B)</strong> Minimum 1 peer review (2 for critical code), logged and documented</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q38" value="c">
+                        <div class="option-text"><strong>C)</strong> Only for new developers</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. ISO 27001 A.14.2.3 requires segregation of duties in code review.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Peer review is mandatory.</div>
+                </div>
+
+                <!-- Q39 -->
+                <div class="question-block">
+                    <div class="question-number">Question 39 <span class="category-badge">Quality</span></div>
+                    <div class="question-text">Who can approve code written by a junior developer?</div>
+                    <label class="option">
+                        <input type="radio" name="q39" value="a">
+                        <div class="option-text"><strong>A)</strong> The junior developer themselves</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q39" value="b">
+                        <div class="option-text"><strong>B)</strong> Only senior developer or tech lead (segregation of duties - A.14.2.3)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q39" value="c">
+                        <div class="option-text"><strong>C)</strong> Any other developer</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Segregation of duties requires different approver.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Senior review required.</div>
+                </div>
+
+                <!-- Q40 -->
+                <div class="question-block">
+                    <div class="question-number">Question 40 <span class="category-badge">Quality</span></div>
+                    <div class="question-text">What should code review focus on per ISO 27001 A.14.2.3?</div>
+                    <label class="option">
+                        <input type="radio" name="q40" value="a">
+                        <div class="option-text"><strong>A)</strong> Just formatting and style</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q40" value="b">
+                        <div class="option-text"><strong>B)</strong> Security, functionality, performance, maintainability, no secrets, compliance</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q40" value="c">
+                        <div class="option-text"><strong>C)</strong> Doesn't matter - just rubber stamp</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Code review must verify security and quality.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Deep review required.</div>
+                </div>
+
+                <!-- Q41 -->
+                <div class="question-block">
+                    <div class="question-number">Question 41 <span class="category-badge">Quality</span></div>
+                    <div class="question-text">What must happen before code goes to production per ISO 27001 A.14.2.7?</div>
+                    <label class="option">
+                        <input type="radio" name="q41" value="a">
+                        <div class="option-text"><strong>A)</strong> Testing in staging, security testing, performance testing, approval</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q41" value="b">
+                        <div class="option-text"><strong>B)</strong> Just hope it works</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q41" value="c">
+                        <div class="option-text"><strong>C)</strong> Quick test in prod then revert</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: A. A.14.2.7 requires testing before production release.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: A is correct. Testing in staging required.</div>
+                </div>
+
+                <!-- Q42 -->
+                <div class="question-block">
+                    <div class="question-number">Question 42 <span class="category-badge">Quality</span></div>
+                    <div class="question-text">What is the minimum acceptable code coverage for AI-generated code?</div>
+                    <label class="option">
+                        <input type="radio" name="q42" value="a">
+                        <div class="option-text"><strong>A)</strong> No tests needed if Claude generated it</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q42" value="b">
+                        <div class="option-text"><strong>B)</strong> Same or higher than human code - at least 80% unit test coverage (SOC 2 controls)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q42" value="c">
+                        <div class="option-text"><strong>C)</strong> 10% is fine</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Same standards apply to AI-generated code.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Same coverage required.</div>
+                </div>
+
+                <!-- Q43 -->
+                <div class="question-block">
+                    <div class="question-number">Question 43 <span class="category-badge">Quality</span></div>
+                    <div class="question-text">What security-specific code review items are critical?</div>
+                    <label class="option">
+                        <input type="radio" name="q43" value="a">
+                        <div class="option-text"><strong>A)</strong> Doesn't matter - security is IT's job</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q43" value="b">
+                        <div class="option-text"><strong>B)</strong> SQL injection, XSS, auth bypass, hardcoded secrets, CSRF, insecure defaults (OWASP top 10)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q43" value="c">
+                        <div class="option-text"><strong>C)</strong> Only password policies</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Every developer reviews for OWASP vulnerabilities.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Security review is everyone's job.</div>
+                </div>
+
+                <!-- Q44 -->
+                <div class="question-block">
+                    <div class="question-number">Question 44 <span class="category-badge">Quality</span></div>
+                    <div class="question-text">How long should code review comments be documented per SOC 2?</div>
+                    <label class="option">
+                        <input type="radio" name="q44" value="a">
+                        <div class="option-text"><strong>A)</strong> Don't need to document - just talk verbally</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q44" value="b">
+                        <div class="option-text"><strong>B)</strong> Permanently in Git/GitHub (audit trail required - CC7.2)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q44" value="c">
+                        <div class="option-text"><strong>C)</strong> Email is fine</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Audit trails in version control required by SOC 2.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Git comments are the audit trail.</div>
+                </div>
+
+                <!-- Q45 -->
+                <div class="question-block">
+                    <div class="question-number">Question 45 <span class="category-badge">Quality</span></div>
+                    <div class="question-text">What should be checked for AI-generated code specifically?</div>
+                    <label class="option">
+                        <input type="radio" name="q45" value="a">
+                        <div class="option-text"><strong>A)</strong> Nothing extra - Claude code is always correct</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q45" value="b">
+                        <div class="option-text"><strong>B)</strong> Error handling, edge cases, N+1 queries, missing security checks, assumptions (extra scrutiny)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q45" value="c">
+                        <div class="option-text"><strong>C)</strong> Less review since it's AI</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. AI code requires extra scrutiny for common mistakes.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. More review needed.</div>
+                </div>
+
+                <!-- Q46 -->
+                <div class="question-block">
+                    <div class="question-number">Question 46 <span class="category-badge">Quality</span></div>
+                    <div class="question-text">What violates ISO 27001 A.14.2.3 (segregation of duties)?</div>
+                    <label class="option">
+                        <input type="radio" name="q46" value="a">
+                        <div class="option-text"><strong>A)</strong> Author approves their own code and merges it</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q46" value="b">
+                        <div class="option-text"><strong>B)</strong> Developer and reviewer are different people</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q46" value="c">
+                        <div class="option-text"><strong>C)</strong> Tech Lead can do everything</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: A. Approving your own code violates segregation of duties.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: A is correct. Segregation required.</div>
+                </div>
+
+                <!-- Q47 -->
+                <div class="question-block">
+                    <div class="question-number">Question 47 <span class="category-badge">Quality</span></div>
+                    <div class="question-text">What must all code changes be tracked with per ISO 27001 A.14.1.1?</div>
+                    <label class="option">
+                        <input type="radio" name="q47" value="a">
+                        <div class="option-text"><strong>A)</strong> Don't need to track anything</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q47" value="b">
+                        <div class="option-text"><strong>B)</strong> Version control (git) with meaningful messages showing what/why changed</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q47" value="c">
+                        <div class="option-text"><strong>C)</strong> Email notifications only</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. A.14.1.1 requires change tracking in version control.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Git is audit trail.</div>
+                </div>
+
+                <!-- Q48 -->
+                <div class="question-block">
+                    <div class="question-number">Question 48 <span class="category-badge">Quality</span></div>
+                    <div class="question-text">What is NOT acceptable in a PR with AI-generated code?</div>
+                    <label class="option">
+                        <input type="radio" name="q48" value="a">
+                        <div class="option-text"><strong>A)</strong> Notation that Claude generated it (for extra scrutiny)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q48" value="b">
+                        <div class="option-text"><strong>B)</strong> Merging without review or testing</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q48" value="c">
+                        <div class="option-text"><strong>C)</strong> Both A is good, B is bad</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: C. Disclose AI involvement, never skip review/testing.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: C is correct. Disclosure + review both needed.</div>
+                </div>
+
+                <!-- Q49 -->
+                <div class="question-block">
+                    <div class="question-number">Question 49 <span class="category-badge">Quality</span></div>
+                    <div class="question-text">What does linting/formatting validation do per ISO 27001 A.14.2.3?</div>
+                    <label class="option">
+                        <input type="radio" name="q49" value="a">
+                        <div class="option-text"><strong>A)</strong> Nothing important</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q49" value="b">
+                        <div class="option-text"><strong>B)</strong> Enforces consistency, detects issues automatically before human review</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q49" value="c">
+                        <div class="option-text"><strong>C)</strong> Fixes all security issues</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Linting is first layer of automated quality checks.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Linting helps catch issues early.</div>
+                </div>
+
+                <!-- Q50 -->
+                <div class="question-block">
+                    <div class="question-number">Question 50 <span class="category-badge">Quality</span></div>
+                    <div class="question-text">What is the most important principle when using Claude Code per this policy?</div>
+                    <label class="option">
+                        <input type="radio" name="q50" value="a">
+                        <div class="option-text"><strong>A)</strong> Speed is more important than security</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q50" value="b">
+                        <div class="option-text"><strong>B)</strong> YOU are responsible for understanding, testing, and securing all code you commit (never share secrets or sensitive data)</div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q50" value="c">
+                        <div class="option-text"><strong>C)</strong> Trust Claude to handle everything</div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Developer accountability is fundamental to ISO 27001 and SOC 2.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Developer responsibility is key.</div>
+                </div>
+
+                <button type="button" class="submit-button" onclick="checkAnswers()">Submit Quiz (50 Questions)</button>
+            </form>
+
+            <div class="results" id="results">
+                <h2>Quiz Results</h2>
+                <div class="score" id="scoreDisplay"></div>
+                <div id="statusMessage"></div>
+                <button class="refresh-button" onclick="location.reload()">Retake Quiz</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Claude Code & AI Agents - Comprehensive Training Quiz v1.0</strong></p>
+            <p>ISO 27001 & SOC 2 Compliant | 50 Questions | Must Pass (85%) for Access</p>
+        </div>
+    </div>
+
+    <script>
+        function checkAnswers() {
+            const correctAnswers = {
+                q1: 'b', q2: 'b', q3: 'b', q4: 'b', q5: 'b',
+                q6: 'c', q7: 'b', q8: 'a', q9: 'c', q10: 'a',
+                q11: 'b', q12: 'b', q13: 'b', q14: 'b', q15: 'b',
+                q16: 'b', q17: 'b', q18: 'a', q19: 'a', q20: 'b',
+                q21: 'a', q22: 'a', q23: 'b', q24: 'b', q25: 'b',
+                q26: 'b', q27: 'a', q28: 'a', q29: 'b', q30: 'b',
+                q31: 'b', q32: 'b', q33: 'b', q34: 'b', q35: 'b',
+                q36: 'b', q37: 'b', q38: 'b', q39: 'b', q40: 'b',
+                q41: 'a', q42: 'b', q43: 'b', q44: 'b', q45: 'b',
+                q46: 'a', q47: 'b', q48: 'c', q49: 'b', q50: 'b'
+            };
+
+            let score = 0;
+            let totalQuestions = Object.keys(correctAnswers).length;
+
+            for (let i = 1; i <= totalQuestions; i++) {
+                const questionName = 'q' + i;
+                const userAnswer = document.querySelector(`input[name="${questionName}"]:checked`);
+
+                if (!userAnswer) {
+                    alert('Please answer all questions before submitting.');
+                    return;
+                }
+
+                const isCorrect = userAnswer.value === correctAnswers[questionName];
+
+                if (isCorrect) {
+                    score++;
+                    userAnswer.closest('.option').classList.add('correct');
+                    userAnswer.closest('.question-block').querySelector('.feedback-correct').classList.add('show');
+                } else {
+                    userAnswer.closest('.option').classList.add('incorrect');
+                    userAnswer.closest('.question-block').querySelector('.feedback-incorrect').classList.add('show');
+                }
+            }
+
+            const percentage = Math.round((score / totalQuestions) * 100);
+            const passed = percentage >= 85;
+
+            document.getElementById('scoreDisplay').textContent = `${score}/${totalQuestions} (${percentage}%)`;
+            document.getElementById('scoreDisplay').className = passed ? 'score pass' : 'score fail';
+
+            const statusMessage = document.getElementById('statusMessage');
+            if (passed) {
+                statusMessage.innerHTML = `
+                    <h3 style="color: #28a745;">✓ PASSED - ISO 27001 & SOC 2 COMPLIANT TRAINING COMPLETE</h3>
+                    <p>You have successfully completed Claude Code and AI Agents training.</p>
+                    <p style="margin-top: 15px; font-weight: 600;">You are authorized to use Claude Code with full access.</p>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #666;">Remember: You are responsible for security, no secrets, proper code review.</p>
+                `;
+            } else {
+                statusMessage.innerHTML = `
+                    <h3 style="color: #dc3545;">✗ DID NOT PASS</h3>
+                    <p>You scored ${percentage}% but need 85% to pass (ISO 27001/SOC 2 requirement).</p>
+                    <p style="margin-top: 15px;">Please review the policy documents and try again.</p>
+                `;
+            }
+
+            document.getElementById('results').classList.add('show');
+            document.getElementById('quizForm').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>

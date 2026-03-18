@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrations & Tools - Claude Integration Guide</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6; color: #333; background: #f5f7fa;
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 30px 20px; border-radius: 8px; margin-bottom: 40px;
+        }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        .breadcrumb { margin-bottom: 20px; color: #666; }
+        .breadcrumb a { color: #667eea; text-decoration: none; }
+        section {
+            background: white; padding: 30px; border-radius: 8px;
+            margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        h2 {
+            color: #667eea; margin-top: 0; margin-bottom: 20px;
+            border-bottom: 2px solid #667eea; padding-bottom: 10px;
+        }
+        h3 { color: #764ba2; margin-top: 20px; margin-bottom: 10px; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; color: #d63384; }
+        pre {
+            background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 6px;
+            overflow-x: auto; margin: 15px 0; font-size: 0.9em;
+        }
+        .setup-box {
+            background: #e7f3ff; border-left: 4px solid #2196F3;
+            padding: 15px; margin: 15px 0; border-radius: 4px;
+        }
+        .setup-box strong { color: #0d47a1; }
+        table {
+            width: 100%; border-collapse: collapse; margin: 15px 0;
+        }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background: #667eea; color: white; }
+        tr:nth-child(even) { background: #f9f9f9; }
+        .feature-list { margin-left: 20px; line-height: 2; }
+        .nav-links {
+            display: flex; justify-content: space-between; margin-top: 40px; gap: 10px;
+        }
+        .nav-links a {
+            flex: 1; padding: 12px; background: #667eea; color: white;
+            text-decoration: none; border-radius: 6px; text-align: center; transition: background 0.3s;
+        }
+        .nav-links a:hover { background: #764ba2; }
+        footer { text-align: center; color: #666; margin-top: 40px; padding: 20px; border-top: 1px solid #ddd; }
+        .integration-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 20px 0;
+        }
+        .integration-card {
+            background: #f9f9f9; border: 2px solid #667eea; padding: 20px; border-radius: 8px;
+        }
+        .integration-card h4 { color: #667eea; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="ai-guide-index.html">Home</a> / Integrations
+        </div>
+
+        <header>
+            <h1>🔗 Integration Guides</h1>
+            <p>Setup GitHub, Playwright, MCP servers, and workflow automation</p>
+        </header>
+
+        <section>
+            <h2>🐙 GitHub Integration</h2>
+
+            <h3>1. Setup GitHub Token</h3>
+            <div class="setup-box">
+                <strong>Step 1:</strong> Generate personal access token
+                <ul class="feature-list">
+                    <li>Go to GitHub Settings → Developer settings → Personal access tokens</li>
+                    <li>Click "Generate new token"</li>
+                    <li>Select scopes: <code>repo</code>, <code>read:user</code>, <code>user:email</code></li>
+                    <li>Copy the token</li>
+                </ul>
+            </div>
+
+            <div class="setup-box">
+                <strong>Step 2:</strong> Add to environment
+                <pre>export GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxx</pre>
+                Or add to <code>.env</code> file:
+                <pre>GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxx</pre>
+            </div>
+
+            <h3>2. Using GitHub with Claude</h3>
+            <table>
+                <tr>
+                    <th>Task</th>
+                    <th>Claude Prompt</th>
+                    <th>What It Does</th>
+                </tr>
+                <tr>
+                    <td>Review PR</td>
+                    <td><code>/review-pr 123</code></td>
+                    <td>Analyze PR #123 for issues and improvements</td>
+                </tr>
+                <tr>
+                    <td>Create PR</td>
+                    <td><code>/commit</code> then push</td>
+                    <td>Creates commit, then use GitHub CLI to create PR</td>
+                </tr>
+                <tr>
+                    <td>Check issues</td>
+                    <td>"What issues are related to auth?"</td>
+                    <td>Claude can search and summarize GitHub issues</td>
+                </tr>
+                <tr>
+                    <td>Create commit</td>
+                    <td><code>/commit</code></td>
+                    <td>Auto-generate commit message</td>
+                </tr>
+            </table>
+
+            <h3>3. GitHub CLI Integration</h3>
+            <pre>
+# Create pull request
+gh pr create --title "Add feature" --body "Description" --base main
+
+# Review PR
+gh pr review 123 --approve
+
+# Get PR details
+gh pr view 123
+
+# List issues
+gh issue list --assignee @me
+            </pre>
+
+        </section>
+
+        <section>
+            <h2>🎭 Playwright Testing Integration</h2>
+
+            <h3>1. Setup Playwright</h3>
+            <pre>npm install @playwright/test --save-dev
+npx playwright install</pre>
+
+            <h3>2. Create playwright.config.ts</h3>
+            <pre>
+import { defineConfig, devices } from '@playwright/test';
+
+export default defineConfig({
+  testDir: './tests/e2e',
+  fullyParallel: true,
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 2 : 0,
+  workers: process.env.CI ? 1 : undefined,
+  reporter: 'html',
+  use: { baseURL: 'http://localhost:3000' },
+  projects: [
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+  ],
+  webServer: {
+    command: 'npm run dev',
+    url: 'http://localhost:3000',
+    reuseExistingServer: !process.env.CI,
+  },
+});
+            </pre>
+
+            <h3>3. Using Playwright with Claude</h3>
+            <div class="integration-grid">
+                <div class="integration-card">
+                    <h4>Generate Test</h4>
+                    <p>"Write a Playwright test for login flow that tests email validation, password requirements, and error handling"</p>
+                </div>
+                <div class="integration-card">
+                    <h4>Debug Test</h4>
+                    <p>"Debug this flaky Playwright test - it sometimes passes and sometimes fails. Here's the error..."</p>
+                </div>
+                <div class="integration-card">
+                    <h4>API Mocking</h4>
+                    <p>"Add API mocking to Playwright test to mock user endpoints and test error scenarios"</p>
+                </div>
+                <div class="integration-card">
+                    <h4>Performance Test</h4>
+                    <p>"Create Playwright test to measure page load time and Core Web Vitals"</p>
+                </div>
+            </div>
+
+            <h3>4. Common Playwright Patterns</h3>
+            <pre>
+// Locate elements
+await page.locator('button:has-text("Login")').click();
+await page.fill('input[type="email"]', 'user@example.com');
+
+// Wait for conditions
+await page.waitForSelector('.success-message');
+await page.waitForURL('/dashboard');
+
+// Network interception
+await page.route('**/api/**', route => route.abort());
+
+// Screenshot & compare
+await expect(page).toHaveScreenshot();
+
+// Fill forms
+await page.fill('form', {
+  email: 'user@example.com',
+  password: 'password123'
+});
+            </pre>
+
+            <h3>5. Run Tests</h3>
+            <pre>
+# Run all tests
+npx playwright test
+
+# Run specific test file
+npx playwright test login.spec.ts
+
+# Run in headed mode (see browser)
+npx playwright test --headed
+
+# Debug mode
+npx playwright test --debug
+
+# Generate test
+npx playwright codegen http://localhost:3000
+            </pre>
+
+        </section>
+
+        <section>
+            <h2>🔧 MCP Servers (Model Context Protocol)</h2>
+
+            <h3>1. What Are MCP Servers?</h3>
+            <p>MCP servers extend Claude's capabilities with custom tools and integrations. They allow Claude to interact with external systems like databases, APIs, and development tools.</p>
+
+            <h3>2. Setup MCP Servers</h3>
+            <div class="setup-box">
+                <strong>Configuration:</strong>
+                <p>MCP servers are configured in your Claude settings. Create <code>~/.claude/mcp-config.json</code>:</p>
+                <pre>
+{
+  "mcpServers": {
+    "database": {
+      "command": "node",
+      "args": ["./mcp-servers/database.js"]
+    },
+    "github": {
+      "command": "node",
+      "args": ["./mcp-servers/github.js"],
+      "env": {
+        "GITHUB_TOKEN": "${process.env.GITHUB_TOKEN}"
+      }
+    }
+  }
+}
+                </pre>
+            </div>
+
+            <h3>3. Common MCP Server Types</h3>
+            <table>
+                <tr>
+                    <th>Server Type</th>
+                    <th>Capabilities</th>
+                    <th>Use Cases</th>
+                </tr>
+                <tr>
+                    <td><strong>Database</strong></td>
+                    <td>Query, insert, update operations</td>
+                    <td>Direct database interaction for data analysis</td>
+                </tr>
+                <tr>
+                    <td><strong>API</strong></td>
+                    <td>Call external REST APIs</td>
+                    <td>Integrate with third-party services</td>
+                </tr>
+                <tr>
+                    <td><strong>File System</strong></td>
+                    <td>Read/write files, browse directories</td>
+                    <td>Project analysis, file generation</td>
+                </tr>
+                <tr>
+                    <td><strong>Git</strong></td>
+                    <td>Repository operations</td>
+                    <td>Code history analysis, branch management</td>
+                </tr>
+                <tr>
+                    <td><strong>GitHub</strong></td>
+                    <td>PR/Issue management</td>
+                    <td>Automated GitHub workflows</td>
+                </tr>
+            </table>
+
+        </section>
+
+        <section>
+            <h2>🚀 CI/CD Integration</h2>
+
+            <h3>GitHub Actions Workflow</h3>
+            <p>Create <code>.github/workflows/claude-test.yml</code>:</p>
+            <pre>
+name: Claude Testing
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test -- --coverage
+
+      - name: Build project
+        run: npm run build
+
+      - name: Run Playwright tests
+        run: npx playwright test
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v2
+            </pre>
+
+            <h3>Deploy to Production</h3>
+            <pre>
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy to AWS
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          npm install
+          npm run build
+          npm run deploy:prod
+            </pre>
+
+        </section>
+
+        <section>
+            <h2>🐳 Docker Integration</h2>
+
+            <h3>Docker Compose for Development</h3>
+            <pre>
+version: '3.9'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://user:pass@db:5432/app
+      - REDIS_URL=redis://cache:6379
+    depends_on:
+      - db
+      - cache
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=app
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  cache:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
+            </pre>
+
+            <h3>Use Claude to Manage Docker</h3>
+            <ul class="feature-list">
+                <li>"Dockerfile has permission issues. Debug and fix."</li>
+                <li>"Create docker-compose setup for development with PostgreSQL, Redis, and app"</li>
+                <li>"Optimize Dockerfile for production - reduce image size and improve caching"</li>
+                <li>"Add health checks to docker-compose services"</li>
+            </ul>
+
+        </section>
+
+        <section>
+            <h2>📊 Monitoring & Logging</h2>
+
+            <h3>Integration Points</h3>
+            <table>
+                <tr>
+                    <th>Tool</th>
+                    <th>Purpose</th>
+                    <th>Claude Integration</th>
+                </tr>
+                <tr>
+                    <td>Sentry</td>
+                    <td>Error tracking</td>
+                    <td>Share error logs for debugging</td>
+                </tr>
+                <tr>
+                    <td>DataDog</td>
+                    <td>Application monitoring</td>
+                    <td>Analyze metrics for performance issues</td>
+                </tr>
+                <tr>
+                    <td>Cloudwatch</td>
+                    <td>AWS monitoring</td>
+                    <td>Debug Lambda/ECS issues</td>
+                </tr>
+                <tr>
+                    <td>ELK Stack</td>
+                    <td>Log aggregation</td>
+                    <td>Search and analyze logs</td>
+                </tr>
+            </table>
+
+        </section>
+
+        <section>
+            <h2>💬 Slack Integration</h2>
+
+            <h3>Notify Team of Deployments</h3>
+            <p>Add to GitHub Actions workflow:</p>
+            <pre>
+      - name: Notify Slack
+        if: always()
+        uses: slackapi/slack-github-action@v1
+        with:
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+          payload: |
+            {
+              "text": "Deployment ${{ job.status }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Deploy Status*: ${{ job.status }}\n*Branch*: ${{ github.ref }}\n*Commit*: ${{ github.sha }}"
+                  }
+                }
+              ]
+            }
+            </pre>
+
+        </section>
+
+        <section>
+            <h2>🌐 AWS Integration</h2>
+
+            <h3>Common Use Cases</h3>
+            <ul class="feature-list">
+                <li><strong>Lambda Functions:</strong> "Create Lambda function that processes S3 uploads"</li>
+                <li><strong>API Gateway:</strong> "Setup API Gateway with Lambda integration and CORS"</li>
+                <li><strong>RDS Databases:</strong> "Debug slow RDS query - share the execution plan"</li>
+                <li><strong>S3 Storage:</strong> "Create S3 bucket policy for public read access with CloudFront"</li>
+                <li><strong>CloudFormation:</strong> "Generate CloudFormation template for VPC setup"</li>
+                <li><strong>Monitoring:</strong> "Analyze CloudWatch logs for errors"</li>
+            </ul>
+
+        </section>
+
+        <div class="nav-links">
+            <a href="4-quick-reference.html">← Quick Reference</a>
+            <a href="6-use-cases.html">Use Cases →</a>
+        </div>
+
+        <footer>
+            <p>These integrations enable seamless workflows across your entire development stack.</p>
+        </footer>
+    </div>
+</body>
+</html>

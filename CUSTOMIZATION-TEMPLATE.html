@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Policy - Customization Template</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1a1a1a;
+            background: #f5f5f5;
+            padding: 30px 20px;
+        }
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        header {
+            background: #0f3460;
+            color: white;
+            padding: 30px;
+            border-bottom: 3px solid #e94560;
+        }
+        header h1 { font-size: 1.8em; margin-bottom: 10px; }
+        .content { padding: 40px; }
+        h2 {
+            color: #0f3460;
+            border-bottom: 3px solid #e94560;
+            padding-bottom: 10px;
+            margin: 35px 0 20px 0;
+            font-size: 1.4em;
+        }
+        h3 {
+            color: #533483;
+            margin: 20px 0 15px 0;
+            font-size: 1.1em;
+        }
+        .section {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            border-left: 4px solid #0f3460;
+        }
+        .example-box {
+            background: #e7f3ff;
+            border-left: 4px solid #0066cc;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.95em;
+        }
+        .template-field {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+        .template-field strong {
+            color: #856404;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .template-field input, .template-field textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+        .template-field textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #0f3460;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .checklist {
+            list-style: none;
+            margin: 15px 0;
+        }
+        .checklist li {
+            padding: 10px 0 10px 30px;
+            position: relative;
+            border-bottom: 1px solid #eee;
+        }
+        .checklist li:before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            color: #0f3460;
+            font-weight: bold;
+        }
+        .footer {
+            background: #0f3460;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 30px;
+            border-top: 3px solid #e94560;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .download-button {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+        .download-button:hover {
+            background: #07253f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Claude Code Policy - Customization Template</h1>
+            <p>Guide to adapting the policy for your company</p>
+        </header>
+
+        <div class="content">
+            <p style="background: #e7f3ff; border-left: 4px solid #0066cc; padding: 15px; margin: 20px 0; border-radius: 3px;">
+                <strong>This template helps you customize the standard Claude Code policy for your company.</strong>
+                Fill in your company-specific details and rules to create an enforceable policy document.
+            </p>
+
+            <h2>1. Company Information Section</h2>
+            <p>Update the policy header with your company information:</p>
+
+            <div class="template-field">
+                <strong>Company Name:</strong>
+                <input type="text" placeholder="e.g., Acme Corporation, Tech Startup Inc." value="[COMPANY_NAME]">
+            </div>
+
+            <div class="template-field">
+                <strong>Document Classification:</strong>
+                <input type="text" placeholder="e.g., Internal Use Only, Confidential" value="Internal Use Only">
+            </div>
+
+            <div class="template-field">
+                <strong>Effective Date:</strong>
+                <input type="date" value="2026-03-17">
+            </div>
+
+            <div class="template-field">
+                <strong>Policy Owner (Title):</strong>
+                <input type="text" placeholder="e.g., Chief Security Officer, VP Engineering" value="[TITLE]">
+            </div>
+
+            <div class="template-field">
+                <strong>Policy Contact Email:</strong>
+                <input type="email" placeholder="e.g., security@company.com" value="security@company.com">
+            </div>
+
+            <h2>2. Company-Specific Restrictions</h2>
+            <p>Add your company's additional rules beyond the standard policy:</p>
+
+            <div class="template-field">
+                <strong>Additional Prohibited Data Types (beyond standard):</strong>
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 10px;">List any additional data your company considers sensitive (e.g., source code, customer contracts, financial models)</p>
+                <textarea placeholder="Example:&#10;- Proprietary algorithms&#10;- Customer contracts&#10;- Financial models&#10;- Strategic plans"></textarea>
+            </div>
+
+            <div class="template-field">
+                <strong>Compliance Requirements (Industry-Specific):</strong>
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 10px;">Add regulations your company must follow</p>
+                <textarea placeholder="Example:&#10;- PCI-DSS (payment cards)&#10;- HIPAA (health data)&#10;- SOC 2 (security audit)&#10;- ISO 27001 (information security)"></textarea>
+            </div>
+
+            <div class="template-field">
+                <strong>Company-Specific Tools/Platforms (Must NOT Share):</strong>
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 10px;">List internal tools/services developers must NOT reference in Claude</p>
+                <textarea placeholder="Example:&#10;- Jira tickets with customer info&#10;- Slack conversations&#10;- Internal wiki pages&#10;- Internal dashboards&#10;- Database credentials&#10;- VPN/infrastructure details"></textarea>
+            </div>
+
+            <h2>3. Role-Based Customizations</h2>
+            <p>Adjust access levels for different roles at your company:</p>
+
+            <table>
+                <tr>
+                    <th>Role</th>
+                    <th>Your Company's Rules</th>
+                </tr>
+                <tr>
+                    <td><strong>Junior Developer</strong></td>
+                    <td>
+                        <textarea placeholder="Standard: Feature building only, requires senior review" style="width: 100%; height: 60px;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Mid-Level Developer</strong></td>
+                    <td>
+                        <textarea placeholder="Standard: Full feature development, can approve junior PRs" style="width: 100%; height: 60px;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Senior Developer</strong></td>
+                    <td>
+                        <textarea placeholder="Standard: Full access, mentorship, critical code review" style="width: 100%; height: 60px;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Tech Lead</strong></td>
+                    <td>
+                        <textarea placeholder="Standard: Architecture decisions, production deployment" style="width: 100%; height: 60px;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Contractor/Vendor</strong></td>
+                    <td>
+                        <textarea placeholder="Default: No access to Claude Code (customize if needed)" style="width: 100%; height: 60px;"></textarea>
+                    </td>
+                </tr>
+            </table>
+
+            <h2>4. Violation Consequences Customization</h2>
+            <p>Adapt consequences to your company's discipline practices:</p>
+
+            <div class="template-field">
+                <strong>First Violation - Standard Consequence:</strong>
+                <textarea placeholder="Standard: Written warning + mandatory retraining&#10;Custom: [YOUR_CONSEQUENCE]"></textarea>
+            </div>
+
+            <div class="template-field">
+                <strong>Second Violation - Standard Consequence:</strong>
+                <textarea placeholder="Standard: Claude access suspended 2 weeks&#10;Custom: [YOUR_CONSEQUENCE]"></textarea>
+            </div>
+
+            <div class="template-field">
+                <strong>Third+ Violation - Standard Consequence:</strong>
+                <textarea placeholder="Standard: Claude access revoked permanently&#10;Custom: [YOUR_CONSEQUENCE]"></textarea>
+            </div>
+
+            <div class="template-field">
+                <strong>Security Breach (Secret Leaked) - Consequence:</strong>
+                <textarea placeholder="Standard: Investigation, credential rotation, may affect employment&#10;Custom: [YOUR_CONSEQUENCE]"></textarea>
+            </div>
+
+            <h2>5. Technology Stack Customization</h2>
+            <p>Add your company-specific frameworks and tools:</p>
+
+            <div class="template-field">
+                <strong>Frontend Frameworks Used:</strong>
+                <input type="text" placeholder="e.g., React 18, Vue 3, Angular 16">
+            </div>
+
+            <div class="template-field">
+                <strong>Backend Frameworks Used:</strong>
+                <input type="text" placeholder="e.g., Laravel 10, Django, Express.js">
+            </div>
+
+            <div class="template-field">
+                <strong>Database Systems Used:</strong>
+                <input type="text" placeholder="e.g., PostgreSQL, MongoDB, DynamoDB">
+            </div>
+
+            <div class="template-field">
+                <strong>Cloud Platforms Used:</strong>
+                <input type="text" placeholder="e.g., AWS, GCP, Azure">
+            </div>
+
+            <div class="template-field">
+                <strong>Testing Frameworks Used:</strong>
+                <input type="text" placeholder="e.g., Jest, Pytest, RSpec, Playwright">
+            </div>
+
+            <h2>6. Internal Standards Customization</h2>
+            <p>Reference your company's coding standards and conventions:</p>
+
+            <div class="template-field">
+                <strong>Code Style Standards Document URL:</strong>
+                <input type="url" placeholder="e.g., https://internal.company.com/dev/code-style">
+            </div>
+
+            <div class="template-field">
+                <strong>Architecture Decision Records (ADR) Location:</strong>
+                <input type="text" placeholder="e.g., /docs/adr/ or https://confluence.company.com/...">
+            </div>
+
+            <div class="template-field">
+                <strong>Security Best Practices Document URL:</strong>
+                <input type="url" placeholder="e.g., https://internal.company.com/security/practices">
+            </div>
+
+            <div class="template-field">
+                <strong>API Design Standards URL:</strong>
+                <input type="url" placeholder="e.g., https://internal.company.com/api/standards">
+            </div>
+
+            <h2>7. Escalation & Support Customization</h2>
+            <p>Define your company's support and escalation procedures:</p>
+
+            <div class="template-field">
+                <strong>Report Violations Email:</strong>
+                <input type="email" placeholder="e.g., security@company.com" value="security@company.com">
+            </div>
+
+            <div class="template-field">
+                <strong>Policy Questions Contact:</strong>
+                <input type="email" placeholder="e.g., tech-lead@company.com" value="tech-lead@company.com">
+            </div>
+
+            <div class="template-field">
+                <strong>Anonymous Report Form URL:</strong>
+                <input type="url" placeholder="e.g., https://company.ethicspoint.com">
+            </div>
+
+            <div class="template-field">
+                <strong>Claude Code Training Course URL:</strong>
+                <input type="url" placeholder="e.g., https://learning.company.com/claude-code-101">
+            </div>
+
+            <h2>8. Deployment & Infrastructure Rules</h2>
+            <p>Customize deployment policies for your infrastructure:</p>
+
+            <div class="template-field">
+                <strong>Required Environments (in order):</strong>
+                <textarea placeholder="Default: Local → Staging → Production&#10;Yours: [YOUR_ENVIRONMENTS]"></textarea>
+            </div>
+
+            <div class="template-field">
+                <strong>Who Can Deploy to Staging:</strong>
+                <textarea placeholder="Default: Developers&#10;Yours: [YOUR_RULE]"></textarea>
+            </div>
+
+            <div class="template-field">
+                <strong>Who Can Deploy to Production:</strong>
+                <textarea placeholder="Default: Tech Lead, DevOps only&#10;Yours: [YOUR_RULE]"></textarea>
+            </div>
+
+            <div class="template-field">
+                <strong>Deployment Approval Requirements:</strong>
+                <textarea placeholder="Default: Tech Lead approval required&#10;Yours: [YOUR_REQUIREMENT]"></textarea>
+            </div>
+
+            <h2>9. Audit & Compliance Procedures</h2>
+            <p>Define how your company audits Claude Code usage:</p>
+
+            <div class="template-field">
+                <strong>Audit Frequency:</strong>
+                <input type="text" placeholder="e.g., Quarterly, Monthly, Weekly" value="Quarterly">
+            </div>
+
+            <div class="template-field">
+                <strong>Who Performs Audits:</strong>
+                <input type="text" placeholder="e.g., Security Team, Compliance Officer" value="Security Team">
+            </div>
+
+            <div class="template-field">
+                <strong>Audit Report Destination:</strong>
+                <input type="email" placeholder="e.g., security-audits@company.com" value="security@company.com">
+            </div>
+
+            <div class="template-field">
+                <strong>Violation Tracking System:</strong>
+                <input type="text" placeholder="e.g., Jira, ServiceNow, Internal Database" value="Security Log">
+            </div>
+
+            <h2>10. Customization Checklist</h2>
+            <p>Before publishing your customized policy, complete this checklist:</p>
+
+            <ul class="checklist">
+                <li>All company information fields filled in</li>
+                <li>Company-specific restrictions documented</li>
+                <li>Compliance requirements updated</li>
+                <li>Role-based access levels customized</li>
+                <li>Violation consequences defined</li>
+                <li>Technology stack updated</li>
+                <li>Internal standards links provided</li>
+                <li>Contact information updated</li>
+                <li>Deployment procedures customized</li>
+                <li>Audit procedures defined</li>
+                <li>Legal review completed (required!)</li>
+                <li>Security team approval obtained</li>
+                <li>Management sign-off received</li>
+                <li>Policy distributed to all developers</li>
+                <li>Training scheduled for team</li>
+                <li>Acknowledgment process set up (HRIS or digital)</li>
+            </ul>
+
+            <h2>11. Implementation Timeline</h2>
+            <p>Recommended timeline for rolling out your customized policy:</p>
+
+            <table>
+                <tr>
+                    <th>Phase</th>
+                    <th>Timeline</th>
+                    <th>Actions</th>
+                </tr>
+                <tr>
+                    <td><strong>Week 1</strong></td>
+                    <td>Days 1-7</td>
+                    <td>Customize policy, get legal review, obtain security approval</td>
+                </tr>
+                <tr>
+                    <td><strong>Week 2</strong></td>
+                    <td>Days 8-14</td>
+                    <td>Get management sign-off, schedule training sessions</td>
+                </tr>
+                <tr>
+                    <td><strong>Week 3</strong></td>
+                    <td>Days 15-21</td>
+                    <td>Conduct team training, distribute policy</td>
+                </tr>
+                <tr>
+                    <td><strong>Week 4</strong></td>
+                    <td>Days 22-28</td>
+                    <td>Developers take policy quiz, provide Claude Code access</td>
+                </tr>
+            </table>
+
+            <h2>12. Final Approval Section</h2>
+            <p>Complete these sign-offs before publishing:</p>
+
+            <div class="template-field">
+                <strong>Approved By (Security Lead):</strong>
+                <input type="text" placeholder="Name and Title">
+                <input type="date">
+            </div>
+
+            <div class="template-field">
+                <strong>Approved By (CTO/VP Engineering):</strong>
+                <input type="text" placeholder="Name and Title">
+                <input type="date">
+            </div>
+
+            <div class="template-field">
+                <strong>Reviewed By (Legal):</strong>
+                <input type="text" placeholder="Name and Title">
+                <input type="date">
+            </div>
+
+            <div class="template-field">
+                <strong>Policy Version Number:</strong>
+                <input type="text" placeholder="e.g., 1.0, 1.1, etc." value="1.0">
+            </div>
+
+            <h2>Next Steps</h2>
+            <ol style="margin-left: 20px; line-height: 2;">
+                <li><strong>Complete all sections above</strong> with your company-specific details</li>
+                <li><strong>Download the base policy</strong> (CLAUDE-CODE-INTERNAL-POLICY.html)</li>
+                <li><strong>Use Find & Replace</strong> to update placeholders with your customizations</li>
+                <li><strong>Have legal review</strong> the customized policy</li>
+                <li><strong>Get security team approval</strong> before publishing</li>
+                <li><strong>Get executive sign-off</strong> (CTO, VP Engineering, etc.)</li>
+                <li><strong>Distribute to team</strong> and require acknowledgment</li>
+                <li><strong>Conduct training</strong> and provide the policy quiz</li>
+                <li><strong>Begin Claude Code access</strong> for trained developers</li>
+                <li><strong>Schedule quarterly audits</strong> to ensure compliance</li>
+            </ol>
+
+        </div>
+
+        <div class="footer">
+            <p><strong>Claude Code Policy - Customization Template v1.0</strong></p>
+            <p>Use this guide to adapt the policy for your company's specific needs</p>
+        </div>
+    </div>
+</body>
+</html>

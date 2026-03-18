@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Policy - One Page Summary</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1a1a1a;
+            background: white;
+            padding: 20px;
+            line-height: 1.4;
+        }
+        .page {
+            width: 8.5in;
+            height: 11in;
+            margin: 0 auto;
+            padding: 0.5in;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: relative;
+            font-size: 11px;
+        }
+        header {
+            background: #0f3460;
+            color: white;
+            padding: 10px 12px;
+            border-bottom: 2px solid #e94560;
+            margin: -0.5in -0.5in 10px -0.5in;
+            padding-left: 0.5in;
+            padding-right: 0.5in;
+        }
+        header h1 {
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+        header p {
+            font-size: 9px;
+            opacity: 0.95;
+        }
+        .columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        .column {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+        h2 {
+            color: #0f3460;
+            background: #e7f3ff;
+            padding: 4px 6px;
+            margin: 0;
+            font-size: 10px;
+            font-weight: 600;
+            border-left: 3px solid #0066cc;
+        }
+        .section {
+            background: #f9f9f9;
+            padding: 8px;
+            border-radius: 2px;
+            border-left: 3px solid #0f3460;
+        }
+        ul {
+            list-style: none;
+            margin: 4px 0;
+            padding-left: 0;
+        }
+        li {
+            padding: 2px 0;
+            padding-left: 16px;
+            position: relative;
+            font-size: 10px;
+        }
+        li:before {
+            content: "•";
+            position: absolute;
+            left: 6px;
+            color: #0f3460;
+            font-weight: bold;
+        }
+        .forbidden {
+            background: #f8d7da;
+            border-left: 3px solid #dc3545 !important;
+            padding: 6px !important;
+        }
+        .allowed {
+            background: #d4edda;
+            border-left: 3px solid #28a745 !important;
+            padding: 6px !important;
+        }
+        .critical {
+            background: #ffe7e7;
+            border-left: 3px solid #dc3545 !important;
+            padding: 6px !important;
+            font-weight: 600;
+        }
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            text-align: center;
+            font-size: 8px;
+            color: #999;
+            border-top: 1px solid #ddd;
+            padding-top: 8px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 1px 3px;
+            border-radius: 2px;
+            font-family: monospace;
+            font-size: 9px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9px;
+            margin: 4px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 3px 4px;
+            text-align: left;
+        }
+        th {
+            background: #0f3460;
+            color: white;
+            font-weight: 600;
+            font-size: 8px;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        @media print {
+            body { padding: 0; }
+            .page { box-shadow: none; width: 100%; height: 100%; margin: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header>
+            <h1>🔐 Claude Code Policy - Quick Reference</h1>
+            <p>Keep this at your desk. Print and reference while using Claude Code.</p>
+        </header>
+
+        <div class="columns">
+            <!-- LEFT COLUMN -->
+            <div class="column">
+                <!-- NEVER DO THIS -->
+                <div class="section forbidden">
+                    <h2>🛑 NEVER DO THIS</h2>
+                    <ul>
+                        <li>Share API keys/secrets</li>
+                        <li>Share passwords or tokens</li>
+                        <li>Share production data</li>
+                        <li>Share customer PII</li>
+                        <li>Commit .env with secrets</li>
+                        <li>Skip code review</li>
+                        <li>Deploy without testing</li>
+                        <li>Merge your own code</li>
+                    </ul>
+                </div>
+
+                <!-- ALWAYS DO THIS -->
+                <div class="section allowed">
+                    <h2>✅ ALWAYS DO THIS</h2>
+                    <ul>
+                        <li>Remove secrets before asking Claude</li>
+                        <li>Use .env.example with placeholders</li>
+                        <li>Test locally first (lint + tests)</li>
+                        <li>Request peer review</li>
+                        <li>Deploy staging before prod</li>
+                        <li>Understand code before committing</li>
+                        <li>Report violations immediately</li>
+                        <li>Ask for help when unsure</li>
+                    </ul>
+                </div>
+
+                <!-- WORKFLOW -->
+                <div class="section">
+                    <h2>📋 The Workflow</h2>
+                    <table>
+                        <tr><td><strong>1.</strong></td><td>Use Claude (locally)</td></tr>
+                        <tr><td><strong>2.</strong></td><td>Test & understand code</td></tr>
+                        <tr><td><strong>3.</strong></td><td>Create feature branch</td></tr>
+                        <tr><td><strong>4.</strong></td><td>Create PR + request review</td></tr>
+                        <tr><td><strong>5.</strong></td><td>Wait for approval</td></tr>
+                        <tr><td><strong>6.</strong></td><td>CI pipeline runs tests</td></tr>
+                        <tr><td><strong>7.</strong></td><td>Senior merges (not you)</td></tr>
+                        <tr><td><strong>8.</strong></td><td>Deploy to staging first</td></tr>
+                        <tr><td><strong>9.</strong></td><td>Tech Lead → Production</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN -->
+            <div class="column">
+                <!-- RED FLAGS -->
+                <div class="section critical">
+                    <h2>⚠️ Red Flags in Code</h2>
+                    <ul>
+                        <li>Missing error handling</li>
+                        <li>N+1 database queries</li>
+                        <li>Plaintext passwords</li>
+                        <li>No input validation</li>
+                        <li>Missing auth/authorization</li>
+                        <li>Hardcoded API keys</li>
+                        <li>No exception handling</li>
+                        <li>Security assumptions</li>
+                    </ul>
+                </div>
+
+                <!-- VIOLATIONS & CONSEQUENCES -->
+                <div class="section">
+                    <h2>📢 Violations</h2>
+                    <table style="font-size: 8px;">
+                        <tr>
+                            <th>Violation</th>
+                            <th>1st</th>
+                            <th>2nd</th>
+                            <th>3rd+</th>
+                        </tr>
+                        <tr>
+                            <td>Shared secret</td>
+                            <td>Warning</td>
+                            <td>Suspend</td>
+                            <td>Revoke</td>
+                        </tr>
+                        <tr>
+                            <td>Shared data</td>
+                            <td>Warning</td>
+                            <td>Suspend</td>
+                            <td>Revoke</td>
+                        </tr>
+                        <tr>
+                            <td>Skipped review</td>
+                            <td>Warning</td>
+                            <td>Training</td>
+                            <td>Escalate</td>
+                        </tr>
+                        <tr>
+                            <td>No testing</td>
+                            <td>Reject</td>
+                            <td>Limited</td>
+                            <td>Suspend</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- GOOD PROMPT -->
+                <div class="section allowed">
+                    <h2>💬 Good Prompt</h2>
+                    <code style="display: block; padding: 4px; margin: 4px 0; font-size: 8px;">
+"Create React form with:
+- Email/password fields
+- Validation
+- Loading state
+- Error handling
+Use TypeScript
+No hardcoded values"
+                    </code>
+                </div>
+
+                <!-- BAD PROMPT -->
+                <div class="section forbidden">
+                    <h2>❌ Bad Prompt</h2>
+                    <code style="display: block; padding: 4px; margin: 4px 0; font-size: 8px;">
+"Create login component"
+(Too vague!)
+
+"Here's my .env file with
+API_KEY=sk_live_..."
+(Never share secrets!)
+                    </code>
+                </div>
+
+                <!-- CONTACTS -->
+                <div class="section">
+                    <h2>📞 Contacts</h2>
+                    <ul>
+                        <li><strong>Report Violations:</strong> security@company.com</li>
+                        <li><strong>Policy Questions:</strong> tech-lead@company.com</li>
+                        <li><strong>Leaked Secret:</strong> Tell security immediately!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Claude Code Policy Quick Reference v1.0</strong> | Print and keep at your desk | Full policy: See documentation</p>
+        </div>
+    </div>
+</body>
+</html>

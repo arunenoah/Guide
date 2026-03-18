@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulletproof Security Strategy - Claude Code & AI Agents</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1a1a1a;
+            background: #f5f5f5;
+            padding: 30px 20px;
+            line-height: 1.7;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        header {
+            background: #c41e3a;
+            color: white;
+            padding: 30px;
+            border-bottom: 3px solid #000;
+        }
+        header h1 { font-size: 2em; margin-bottom: 10px; font-weight: 700; }
+        .content { padding: 40px; }
+        h2 {
+            color: #c41e3a;
+            border-bottom: 3px solid #c41e3a;
+            padding-bottom: 10px;
+            margin: 40px 0 20px 0;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+        h3 {
+            color: #333;
+            margin: 25px 0 15px 0;
+            font-size: 1.2em;
+            font-weight: 700;
+            border-left: 4px solid #c41e3a;
+            padding-left: 12px;
+        }
+        .threat-box {
+            background: #ffe6e6;
+            border: 2px solid #c41e3a;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 3px;
+        }
+        .threat-box strong {
+            color: #c41e3a;
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        .defense-box {
+            background: #e6f2ff;
+            border: 2px solid #0066cc;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 3px;
+        }
+        .defense-box strong {
+            color: #0066cc;
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        .critical {
+            background: #fff3cd;
+            border: 2px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 3px;
+        }
+        .critical strong {
+            color: #ff6f00;
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        ul, ol {
+            margin: 15px 0;
+            margin-left: 25px;
+        }
+        li {
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background: #333;
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) { background: #f9f9f9; }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            color: #d32f2f;
+        }
+        .checklist {
+            list-style: none;
+            margin: 15px 0;
+        }
+        .checklist li {
+            padding: 10px 0 10px 30px;
+            position: relative;
+            margin: 8px 0;
+        }
+        .checklist li:before {
+            content: "▪";
+            position: absolute;
+            left: 8px;
+            color: #c41e3a;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .footer {
+            background: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+            border-top: 3px solid #c41e3a;
+        }
+        .scenario {
+            background: #f0f0f0;
+            border-left: 4px solid #c41e3a;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 3px;
+        }
+        .scenario h4 {
+            color: #c41e3a;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛡️ BULLETPROOF Security Strategy</h1>
+            <p>Practical, hardened defense against real threats - NOT compliance theater</p>
+        </header>
+
+        <div class="content">
+
+            <div class="critical">
+                <strong>⚠️ THIS IS NOT A COMPLIANCE DOCUMENT</strong>
+                <p>This strategy focuses on REAL security threats and PRACTICAL defenses. Compliance is secondary to actual security hardening.</p>
+            </div>
+
+            <h2>1. THREAT MODEL: Real Attacks Against Claude Code Usage</h2>
+
+            <h3>Attack Vector 1: Secret Leakage</h3>
+            <div class="threat-box">
+                <strong>🎯 THE THREAT:</strong>
+                <p>Developer accidentally shares API key with Claude. Key ends up in training data. Attacker finds key. Attacker uses key to access production systems, steal data, or create fraudulent charges.</p>
+                <p style="margin-top: 10px;"><strong>Real Impact:</strong> $50k-$500k in fraudulent charges, data breach, customer notification, legal liability</p>
+            </div>
+
+            <div class="defense-box">
+                <strong>🛡️ LAYERED DEFENSE (Defense in Depth):</strong>
+                <ul class="checklist">
+                    <li><strong>Layer 1 - Prevention:</strong> Developers NEVER type actual secrets. Use placeholder values (sk_test_xxx). .env files auto-excluded from git (.gitignore configured).</li>
+                    <li><strong>Layer 2 - Detection:</strong> GitHub secret scanning enabled. Pre-commit hooks scan for patterns (AWS_KEY=, API_KEY=, password=). Local scanning on every commit.</li>
+                    <li><strong>Layer 3 - Monitoring:</strong> Git history scanned monthly with truffleHog. Any credentials found trigger automatic alert + rotation.</li>
+                    <li><strong>Layer 4 - Rotation:</strong> All secrets rotated quarterly regardless. If leaked, rotated within 1 hour + API call audit trail reviewed.</li>
+                    <li><strong>Layer 5 - Vault Storage:</strong> Production secrets ONLY in AWS Secrets Manager or HashiCorp Vault. Never in code/config/env vars on filesystem.</li>
+                </ul>
+            </div>
+
+            <h3>Attack Vector 2: Production Data Exposure</h3>
+            <div class="threat-box">
+                <strong>🎯 THE THREAT:</strong>
+                <p>Developer shares production database dump with Claude to "optimize query". Contains 100k customer records. GDPR violation. Customer notification required. €20M fine.</p>
+                <p style="margin-top: 10px;"><strong>Real Impact:</strong> GDPR/CCPA fines, customer lawsuit, reputation damage, bank account freeze</p>
+            </div>
+
+            <div class="defense-box">
+                <strong>🛡️ LAYERED DEFENSE:</strong>
+                <ul class="checklist">
+                    <li><strong>Layer 1 - Policy:</strong> EXPLICIT: "Never ask Claude about production data, customer data, PII, or production database details."</li>
+                    <li><strong>Layer 2 - Testing Environment:</strong> Developers get READ-ONLY access to anonymized test database only. Production database access requires VPN + MFA + audit log + approval.</li>
+                    <li><strong>Layer 3 - Detection:</strong> DLP (Data Loss Prevention) scans detect PII patterns in Claude conversations. Triggers automatic: block sharing + alert security team.</li>
+                    <li><strong>Layer 4 - Review:</strong> Random sample of 10 Claude conversations per month reviewed by security team for data leakage.</li>
+                    <li><strong>Layer 5 - Anonymization:</strong> If testing data needed, use anonymized copies: hashed IDs, fake names, synthetic emails, date shifting.</li>
+                </ul>
+            </div>
+
+            <h3>Attack Vector 3: Code Vulnerabilities Introduced by Claude</h3>
+            <div class="threat-box">
+                <strong>🎯 THE THREAT:</strong>
+                <p>Claude generates authentication code missing password hashing. Developer trusts it. Code goes to production. Attacker dumps password database. All users compromised.</p>
+                <p style="margin-top: 10px;"><strong>Real Impact:</strong> User credential compromise, account takeover, identity theft, regulatory violation</p>
+            </div>
+
+            <div class="defense-box">
+                <strong>🛡️ LAYERED DEFENSE:</strong>
+                <ul class="checklist">
+                    <li><strong>Layer 1 - Code Review (MANDATORY):</strong> ALL code reviewed by senior developer. AI code reviewed with EXTRA scrutiny (assume bugs). Checklist: OWASP Top 10, SQL injection, XSS, auth bypass, hardcoded secrets.</li>
+                    <li><strong>Layer 2 - Automated Scanning:</strong> SAST (Static Application Security Testing) on every PR: Snyk, SonarQube, Semgrep. Blocks merge if critical issues found.</li>
+                    <li><strong>Layer 3 - Dynamic Testing:</strong> Security tests in CI pipeline: dependency scanning, secrets detection, license compliance.</li>
+                    <li><strong>Layer 4 - Manual Testing:</strong> QA team functional + security testing. Tests edge cases Claude might miss (error handling, race conditions, boundary conditions).</li>
+                    <li><strong>Layer 5 - Staging Verification:</strong> ALL code deployed to staging FIRST. Monitored for 48 hours minimum before production. Error rate must be 0.</li>
+                </ul>
+            </div>
+
+            <h3>Attack Vector 4: Rogue Agents With High Permissions</h3>
+            <div class="threat-box">
+                <strong>🎯 THE THREAT:</strong>
+                <p>Agent configured with database WRITE access to "optimize queries". Agent error corrupts 10,000 records. Incident response costs $100k. Data recovered from backup but 2-hour downtime.</p>
+                <p style="margin-top: 10px;"><strong>Real Impact:</strong> Data corruption, downtime, incident costs, customer SLA breach</p>
+            </div>
+
+            <div class="defense-box">
+                <strong>🛡️ LAYERED DEFENSE:</strong>
+                <ul class="checklist">
+                    <li><strong>Layer 1 - Zero-Write Policy:</strong> Agents NEVER have write permission to ANY system. Period. Read-only to test data ONLY.</li>
+                    <li><strong>Layer 2 - Test Environment Only:</strong> Agents can only touch dev/staging systems. Production completely isolated (different VPC, different credentials, different network).</li>
+                    <li><strong>Layer 3 - Data Restrictions:</strong> Agent can only see anonymized test data. No real customer data, no real emails, no real transactions.</li>
+                    <li><strong>Layer 4 - Audit Logging:</strong> EVERY agent action logged: user, timestamp, agent name, action taken, data accessed, result. Immutable log (cannot be deleted).</li>
+                    <li><strong>Layer 5 - Automated Kill Switch:</strong> Agent has hard timeout (15 minutes max). If exceeds, automatically killed. Monthly review of all agent actions for anomalies.</li>
+                </ul>
+            </div>
+
+            <h2>2. PRACTICAL SECURITY HARDENING</h2>
+
+            <h3>Secret Management: Bulletproof Implementation</h3>
+
+            <div class="scenario">
+                <h4>❌ INSECURE (Current State for Many Teams):</h4>
+                <ul style="margin-left: 20px;">
+                    <li>API keys in .env file in repository</li>
+                    <li>Production credentials in application config</li>
+                    <li>Hardcoded database passwords</li>
+                    <li>No rotation of credentials</li>
+                    <li>No audit of who accessed secrets</li>
+                </ul>
+            </div>
+
+            <div class="scenario">
+                <h4>✅ BULLETPROOF (Hardened Implementation):</h4>
+                <ul style="margin-left: 20px;">
+                    <li>ALL secrets in AWS Secrets Manager or HashiCorp Vault (NOT environment variables)</li>
+                    <li>Automatic rotation: 30 days for API keys, 90 days for database passwords</li>
+                    <li>Every secret access logged: who, when, what secret, IP address</li>
+                    <li>Staging secrets DIFFERENT from production (separate credentials)</li>
+                    <li>Developers can NEVER see actual production secrets (masked in logs)</li>
+                    <li>Git .gitignore includes: .env*, *.key, *.pem, secrets.*, config/database.yml</li>
+                    <li>Pre-commit hook: scans for credential patterns BEFORE commit allowed</li>
+                    <li>Monthly audit: GitHub secret scanning + custom script checking for leaked patterns</li>
+                </ul>
+            </div>
+
+            <h3>Code Review: Hardened Process</h3>
+
+            <table>
+                <tr>
+                    <th>Review Aspect</th>
+                    <th>Hardened Requirement</th>
+                    <th>Verification</th>
+                </tr>
+                <tr>
+                    <td><strong>Segregation of Duties</strong></td>
+                    <td>Author NEVER approves own code. Must be different person, ideally senior developer</td>
+                    <td>GitHub enforce: dismiss stale reviews on new commits, require latest approval</td>
+                </tr>
+                <tr>
+                    <td><strong>AI Code Disclosure</strong></td>
+                    <td>PR must flag if Claude generated code: "⚠️ Generated with Claude Code"</td>
+                    <td>Reviewer gives extra scrutiny (automated flag in review template)</td>
+                </tr>
+                <tr>
+                    <td><strong>Security Checklist</strong></td>
+                    <td>Reviewer MUST verify: no secrets, no hardcoded values, input validation, output encoding, auth check, OWASP top 10</td>
+                    <td>PR template enforces checkbox: "[ ] Security review completed - no OWASP violations found"</td>
+                </tr>
+                <tr>
+                    <td><strong>Test Coverage</strong></td>
+                    <td>Code coverage must be 80%+ for all new code. CI blocks merge if below threshold</td>
+                    <td>Codecov integration: blocks PR if coverage drops</td>
+                </tr>
+                <tr>
+                    <td><strong>Automated Testing</strong></td>
+                    <td>ALL tests must pass before review. PR blocked if tests fail or code doesn't compile</td>
+                    <td>GitHub branch protection rule: require status check to pass</td>
+                </tr>
+                <tr>
+                    <td><strong>SAST Scanning</strong></td>
+                    <td>SonarQube/Snyk must show no critical or high severity issues. Blocks merge if found</td>
+                    <td>GitHub required checks: Snyk security scan, SonarQube quality gates</td>
+                </tr>
+                <tr>
+                    <td><strong>Secrets Detection</strong></td>
+                    <td>Pre-commit + CI scanning prevents any secrets in code. Zero tolerance.</td>
+                    <td>GitHub secret scanning enabled. Additional: GitGuardian scanning</td>
+                </tr>
+                <tr>
+                    <td><strong>Documentation</strong></td>
+                    <td>Code review comments permanent in GitHub. NEVER use Slack for code review (no audit trail)</td>
+                    <td>All discussions must be in GitHub PR comments (audit trail)</td>
+                </tr>
+            </table>
+
+            <h3>Deployment: Zero-Risk Process</h3>
+
+            <div class="scenario">
+                <h4>DEPLOYMENT CHECKLIST (Non-Negotiable):</h4>
+                <ul style="margin-left: 20px;">
+                    <li>[ ] Code reviewed by 2+ senior developers</li>
+                    <li>[ ] ALL tests pass (100% success rate, 0% flake)</li>
+                    <li>[ ] SAST scan shows zero critical issues</li>
+                    <li>[ ] Secrets scan shows zero credentials in code</li>
+                    <li>[ ] Code coverage maintained (no regression)</li>
+                    <li>[ ] Staging deployment successful (48 hours monitored)</li>
+                    <li>[ ] Error rate in staging: 0.00% (no errors)</li>
+                    <li>[ ] Performance impact assessed (no degradation)</li>
+                    <li>[ ] Rollback plan documented and tested</li>
+                    <li>[ ] On-call engineer available 30 mins before and 2 hours after</li>
+                    <li>[ ] Blue-green deployment configured (can revert in seconds)</li>
+                    <li>[ ] Monitoring/alerting rules active (will alert on any anomaly)</li>
+                    <li>[ ] Deployment approval from Tech Lead + one other senior</li>
+                </ul>
+            </div>
+
+            <h3>Access Control: Least Privilege Enforcement</h3>
+
+            <table>
+                <tr>
+                    <th>Access Type</th>
+                    <th>Who Has It</th>
+                    <th>Requirements</th>
+                </tr>
+                <tr>
+                    <td><strong>Claude Code Access</strong></td>
+                    <td>Developers (all levels)</td>
+                    <td>Manager approval + pass 50Q security quiz + annual training renewal</td>
+                </tr>
+                <tr>
+                    <td><strong>Production Database Read</strong></td>
+                    <td>Senior developers only</td>
+                    <td>MFA + VPN + request approval + logged + limited to 1 hour + data masked</td>
+                </tr>
+                <tr>
+                    <td><strong>Production Database Write</strong></td>
+                    <td>DBA + Tech Lead only</td>
+                    <td>MFA + VPN + pair programming (2 people) + logged + approval + change order</td>
+                </tr>
+                <tr>
+                    <td><strong>Production Deployment</strong></td>
+                    <td>Tech Lead + DevOps</td>
+                    <td>MFA + VPN + 2 approvals + blue-green only + rollback tested + on-call ready</td>
+                </tr>
+                <tr>
+                    <td><strong>Secret Vault Access</strong></td>
+                    <td>Tech Lead + DevOps</td>
+                    <td>MFA + audit log forever + no rotation of vault credentials + quarterly audit</td>
+                </tr>
+                <tr>
+                    <td><strong>Access Revocation</strong></td>
+                    <td>Security team</td>
+                    <td>Immediate (within 15 minutes). All credentials rotated. All conversations archived.</td>
+                </tr>
+            </table>
+
+            <h2>3. CRITICAL RULES (Non-Negotiable)</h2>
+
+            <div class="critical">
+                <strong>RULE 1: NO SECRETS, EVER</strong>
+                <p>If you type an actual API key, password, or token → YOU violated policy → Access revoked immediately. No exceptions. No "I didn't know" defense.</p>
+            </div>
+
+            <div class="critical">
+                <strong>RULE 2: NO PRODUCTION DATA</strong>
+                <p>If you share customer data, PII, or production database info with Claude → Incident. Investigation. Potential termination. GDPR fine is the company's problem, not yours, but access will be revoked.</p>
+            </div>
+
+            <div class="critical">
+                <strong>RULE 3: CODE REVIEW IS MANDATORY</strong>
+                <p>All code must be reviewed by someone other than the author. If you commit without review → revert + mandatory meeting with tech lead. Second violation → access suspended.</p>
+            </div>
+
+            <div class="critical">
+                <strong>RULE 4: STAGING FIRST, ALWAYS</strong>
+                <p>Never deploy directly to production. Always stage first. If you do → access suspended for 2 weeks + mandatory incident postmortem + all future PRs require 2 senior reviews.</p>
+            </div>
+
+            <div class="critical">
+                <strong>RULE 5: AGENTS = READ-ONLY TEST DATA ONLY</strong>
+                <p>Agents never have write access. Agents never see production data. Agents never modify anything. Period. If you configure an agent with more permissions → access revoked + investigation.</p>
+            </div>
+
+            <h2>4. INCIDENT RESPONSE (When Things Go Wrong)</h2>
+
+            <h3>Scenario: Secret Leaked</h3>
+            <div class="scenario">
+                <h4>Timeline:</h4>
+                <ul style="margin-left: 20px;">
+                    <li><strong>T+0 minutes:</strong> Developer realizes secret shared. Immediately tells manager and security team (email or Slack #security-incidents).</li>
+                    <li><strong>T+5 minutes:</strong> Security team starts incident. Assigns incident commander.</li>
+                    <li><strong>T+15 minutes:</strong> Secret rotated (API key disabled, new key generated, old key deleted).</li>
+                    <li><strong>T+30 minutes:</strong> Audit log checked: was secret accessed after sharing? (Check AWS Cloudtrail, API logs, database connection logs).</li>
+                    <li><strong>T+60 minutes:</strong> Investigation complete. Document: what leaked, when, who could access, was it used, impact assessment.</li>
+                    <li><strong>T+24 hours:</strong> Post-mortem: how did it happen, what prevents it next time, developer retraining, access status decision.</li>
+                </ul>
+            </div>
+
+            <h3>Scenario: Vulnerable Code Deployed</h3>
+            <div class="scenario">
+                <h4>Timeline:</h4>
+                <ul style="margin-left: 20px;">
+                    <li><strong>T+0 minutes:</strong> Security monitoring detects unusual activity (failed logins, data access anomaly, error rates spike). Auto-alert.</li>
+                    <li><strong>T+5 minutes:</strong> On-call engineer notified. Incident commander initiated.</li>
+                    <li><strong>T+15 minutes:</strong> Rollback decision made. If vulnerability confirmed → immediate rollback to previous version (blue-green switch).</li>
+                    <li><strong>T+30 minutes:</strong> Rollback complete. System restored. Monitoring confirms normal operation.</li>
+                    <li><strong>T+60 minutes:</strong> Root cause analysis: what vulnerability was missed in review? Why did SAST not catch it?</li>
+                    <li><strong>T+24 hours:</strong> Post-mortem + code review process improvement. Stricter rules for AI code going forward.</li>
+                </ul>
+            </div>
+
+            <h2>5. CONTINUOUS SECURITY OPERATIONS</h2>
+
+            <h3>Daily</h3>
+            <ul class="checklist">
+                <li>Pre-commit hook scans for secrets (automated, blocks bad commits)</li>
+                <li>Error monitoring alerts on unusual patterns</li>
+                <li>Failed login attempts monitored (too many = incident)</li>
+            </ul>
+
+            <h3>Weekly</h3>
+            <ul class="checklist">
+                <li>Security team reviews access logs (who accessed what, when)</li>
+                <li>Failed deployments analyzed (if multiple failures = pause deployments + investigate)</li>
+                <li>Code review audit (spot check 5 recent PRs for thoroughness)</li>
+            </ul>
+
+            <h3>Monthly</h3>
+            <ul class="checklist">
+                <li>Git repository secret scan (truffleHog or GitGuardian)</li>
+                <li>Dependency vulnerability scan (Snyk, OWASP Dependency Check)</li>
+                <li>Random Claude conversation sample review (5-10 conversations)</li>
+                <li>Access log review (ensure least privilege maintained)</li>
+                <li>Credentials rotation (if not auto-rotated)</li>
+            </ul>
+
+            <h3>Quarterly</h3>
+            <ul class="checklist">
+                <li>Full security audit of Claude Code usage</li>
+                <li>Agent action logs reviewed for anomalies</li>
+                <li>Incident trends analyzed (any patterns?)</li>
+                <li>Team security training (refresher on threats and defenses)</li>
+                <li>Penetration testing scenario (simulate secret leak, test response)</li>
+            </ul>
+
+            <h2>6. RED TEAM SCENARIOS (Test Your Defenses)</h2>
+
+            <div class="scenario">
+                <h4>Scenario 1: What if developer shares AWS key by mistake?</h4>
+                <ul style="margin-left: 20px;">
+                    <li>Pre-commit hook should catch it (regex pattern for AWS keys)</li>
+                    <li>If bypassed, GitHub secret scanning should flag it</li>
+                    <li>If somehow missed, manual audit monthly would find it</li>
+                    <li>Even if leaked, key is auto-rotated quarterly</li>
+                    <li>Audit logs show if key was used (would be detected)</li>
+                </ul>
+            </div>
+
+            <div class="scenario">
+                <h4>Scenario 2: What if agent tries to write to production database?</h4>
+                <ul style="margin-left: 20px;">
+                    <li>Agent credentials don't have write permissions (database-level enforcement)</li>
+                    <li>Write attempt fails (permission denied error logged)</li>
+                    <li>Error triggers alert (write attempt to prod = suspicious)</li>
+                    <li>Incident investigation: why did agent try to write?</li>
+                    <li>Agent access suspended pending investigation</li>
+                </ul>
+            </div>
+
+            <div class="scenario">
+                <h4>Scenario 3: What if Claude-generated code bypasses auth check?</h4>
+                <ul style="margin-left: 20px;">
+                    <li>Code review should catch it (mandatory security checklist)</li>
+                    <li>If missed in review, SAST scanning (SonarQube) should flag it</li>
+                    <li>If somehow deployed, integration tests catch it (endpoint should return 401)</li>
+                    <li>Staging deployment reveals error (48-hour monitoring before prod)</li>
+                    <li>Incident postmortem: why was auth bypass not caught?</li>
+                </ul>
+            </div>
+
+            <h2>7. ACCOUNTABILITY & ENFORCEMENT</h2>
+
+            <table>
+                <tr>
+                    <th>Violation</th>
+                    <th>First Time</th>
+                    <th>Second Time</th>
+                    <th>Third+ Time</th>
+                </tr>
+                <tr>
+                    <td><strong>Shared secret with Claude</strong></td>
+                    <td>Access revoked 1 week + retraining</td>
+                    <td>Access revoked 1 month + incident postmortem</td>
+                    <td>Termination possible</td>
+                </tr>
+                <tr>
+                    <td><strong>Shared production data</strong></td>
+                    <td>Access revoked 1 month + investigation</td>
+                    <td>Access revoked 3 months + HR escalation</td>
+                    <td>Termination likely</td>
+                </tr>
+                <tr>
+                    <td><strong>Code deployed without review</strong></td>
+                    <td>PR reverted + 1 on 1 with tech lead</td>
+                    <td>All PRs require 2 senior reviews for 1 month</td>
+                    <td>Access suspended 1 week</td>
+                </tr>
+                <tr>
+                    <td><strong>Deployed to prod without staging</strong></td>
+                    <td>PR reverted + rollback incident + meeting</td>
+                    <td>Access suspended 2 weeks + tech lead supervision</td>
+                    <td>Access revoked 1 month + investigation</td>
+                </tr>
+                <tr>
+                    <td><strong>Agent with high permissions</strong></td>
+                    <td>Immediate permission revocation + retraining</td>
+                    <td>All agent configs reviewed + access suspended 2 weeks</td>
+                    <td>Agent access revoked indefinitely</td>
+                </tr>
+            </table>
+
+            <h2>8. SUMMARY: Bulletproof Principles</h2>
+
+            <div class="defense-box">
+                <strong>Defense in Depth:</strong> Multiple layers. One layer fails, others still protect.
+                <br><strong>Zero Trust:</strong> Never assume security. Always verify. Assume compromise.
+                <br><strong>Least Privilege:</strong> Every user has minimum needed. Nothing more.
+                <br><strong>Audit Everything:</strong> If it's not logged, it didn't happen.
+                <br><strong>Detect Anomalies:</strong> Normal operations baseline. Any deviation = alert.
+                <br><strong>Respond Fast:</strong> When something goes wrong, minutes matter. Have playbook ready.
+                <br><strong>Learn & Improve:</strong> Every incident = postmortem = process improvement.
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <p><strong>Bulletproof Security Strategy v1.0</strong></p>
+            <p>Practical hardening, not compliance theater. Real defenses against real threats.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Policy - Senior Developers</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1a1a1a;
+            background: #f5f5f5;
+            padding: 30px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        header {
+            background: linear-gradient(135deg, #0f3460 0%, #533483 100%);
+            color: white;
+            padding: 30px;
+            border-bottom: 3px solid #e94560;
+            text-align: center;
+        }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        .badge {
+            display: inline-block;
+            background: #e94560;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .content { padding: 40px; }
+        h2 {
+            color: #0f3460;
+            border-bottom: 3px solid #e94560;
+            padding-bottom: 10px;
+            margin: 35px 0 20px 0;
+            font-size: 1.5em;
+        }
+        h3 {
+            color: #533483;
+            margin: 20px 0 15px 0;
+            font-size: 1.1em;
+        }
+        .section {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            border-left: 4px solid #0f3460;
+        }
+        .responsibility {
+            background: #e7f3ff;
+            border-left: 4px solid #0066cc;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+        .critical {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+        .list-item {
+            padding: 10px 0 10px 30px;
+            position: relative;
+            border-bottom: 1px solid #eee;
+        }
+        .list-item:before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: #0f3460;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #0f3460;
+            color: white;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .footer {
+            background: #0f3460;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 30px;
+            border-top: 3px solid #e94560;
+        }
+        strong { color: #0f3460; }
+        .icon { font-size: 2em; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="icon">👨‍💼</div>
+            <h1>Claude Code Policy for Senior Developers</h1>
+            <p>Full Authority & Full Responsibility</p>
+            <span class="badge">LEADERSHIP & ACCOUNTABILITY</span>
+        </header>
+
+        <div class="content">
+            <h2>Your Role & Responsibilities</h2>
+            <p>As a senior developer, you have full access to Claude Code. With that access comes responsibility for code quality, security, and team mentorship.</p>
+
+            <!-- SECTION 1: YOUR AUTHORITY -->
+            <h2>✅ Your Full Authority</h2>
+
+            <div class="section">
+                <h3>You Can:</h3>
+                <div class="list-item">Use Claude Code for ANY development task (with policy compliance)</div>
+                <div class="list-item">Review and approve PRs from junior and mid-level developers</div>
+                <div class="list-item">Make architectural decisions about code structure</div>
+                <div class="list-item">Deploy code to staging environment</div>
+                <div class="list-item">Approve merge to main/develop branches (if Tech Lead approves)</div>
+                <div class="list-item">Review security-critical code</div>
+                <div class="list-item">Make decisions about which Claude patterns to use</div>
+                <div class="list-item">Mentor juniors on Claude Code best practices</div>
+            </div>
+
+            <!-- SECTION 2: YOUR CRITICAL RESPONSIBILITIES -->
+            <h2>⚖️ Your Critical Responsibilities</h2>
+
+            <div class="critical">
+                <h3>Responsibility 1: Code Quality Gate</h3>
+                <p>You are the last line of defense before code reaches production.</p>
+                <ul style="margin: 10px 0 0 20px; line-height: 2;">
+                    <li>You must review ALL code before approval (no rubber-stamping)</li>
+                    <li>You catch bugs, security issues, performance problems</li>
+                    <li>You verify AI-generated code is production-ready</li>
+                    <li>Your approval means: "I've verified this is safe to deploy"</li>
+                </ul>
+            </div>
+
+            <div class="critical">
+                <h3>Responsibility 2: Security Verification</h3>
+                <p>For security-critical code (auth, payment, data access):</p>
+                <ul style="margin: 10px 0 0 20px; line-height: 2;">
+                    <li>You MUST verify no secrets are in code</li>
+                    <li>You MUST check for OWASP vulnerabilities</li>
+                    <li>You MUST ensure proper authorization checks</li>
+                    <li>You MUST involve security team if needed</li>
+                </ul>
+            </div>
+
+            <div class="critical">
+                <h3>Responsibility 3: Mentor Team Members</h3>
+                <p>You are responsible for teaching safe Claude usage:</p>
+                <ul style="margin: 10px 0 0 20px; line-height: 2;">
+                    <li>Review juniors' Claude usage patterns</li>
+                    <li>Teach good prompt engineering</li>
+                    <li>Model secure coding practices</li>
+                    <li>Point out when Claude is misused or limitations are ignored</li>
+                    <li>Help juniors understand why certain decisions are made</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 3: DEEP CODE REVIEW CHECKLIST -->
+            <h2>🔍 Deep Code Review For AI-Generated Code</h2>
+
+            <div class="section">
+                <h3>When Reviewing Code From Claude:</h3>
+                <p>Extra scrutiny is required. Ask yourself:</p>
+
+                <table>
+                    <tr>
+                        <th>Category</th>
+                        <th>Check For</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Security</strong></td>
+                        <td>SQL injection, XSS, auth bypass, CSRF, insecure defaults, missing validation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Performance</strong></td>
+                        <td>N+1 queries, unnecessary loops, memory leaks, inefficient algorithms</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Edge Cases</strong></td>
+                        <td>Null/undefined handling, empty arrays, error conditions, timeouts</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Testing</strong></td>
+                        <td>Are edge cases tested? Error scenarios? Happy path only?</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Architecture</strong></td>
+                        <td>Does it fit our patterns? Is it maintainable? Over-engineered?</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Code Quality</strong></td>
+                        <td>Readability, naming, comments, DRY principle followed?</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dependencies</strong></td>
+                        <td>New packages introduced? Any known vulnerabilities?</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Secrets</strong></td>
+                        <td>Any hardcoded credentials? Env var usage correct?</td>
+                    </tr>
+                </table>
+
+                <p style="margin-top: 20px; font-style: italic; color: #666;">
+                    Claude often misses edge cases. Be skeptical. Ask "What could break this?"
+                </p>
+            </div>
+
+            <!-- SECTION 4: ADVANCED USAGE -->
+            <h2>🚀 Advanced Claude Usage Strategies</h2>
+
+            <div class="section">
+                <h3>1. Prompt Chaining For Complex Features</h3>
+                <p>Don't ask for everything at once. Chain prompts:</p>
+                <code style="display: block; padding: 10px; background: #f4f4f4; margin: 10px 0; border-radius: 3px;">
+Prompt 1: "Explain the architecture for a payment system"
+Prompt 2: "Generate Stripe integration code"
+Prompt 3: "Write comprehensive tests"
+Prompt 4: "Suggest security hardening"
+                </code>
+            </div>
+
+            <div class="section">
+                <h3>2. Use Claude For Code Review</h3>
+                <p>Ask Claude to review code:</p>
+                <code style="display: block; padding: 10px; background: #f4f4f4; margin: 10px 0; border-radius: 3px;">
+"Review this authentication code for:
+- Security vulnerabilities (OWASP Top 10)
+- Performance issues
+- Error handling completeness
+- Edge cases not covered
+Provide specific recommendations with code examples."
+                </code>
+            </div>
+
+            <div class="section">
+                <h3>3. Optimization & Refactoring</h3>
+                <p>Use Claude to improve existing code:</p>
+                <code style="display: block; padding: 10px; background: #f4f4f4; margin: 10px 0; border-radius: 3px;">
+"Optimize this database query for performance.
+Current tables have 1M+ rows.
+Show before/after with indexes."
+                </code>
+            </div>
+
+            <div class="section">
+                <h3>4. Design Pattern Documentation</h3>
+                <p>Ask Claude to document team patterns:</p>
+                <code style="display: block; padding: 10px; background: #f4f4f4; margin: 10px 0; border-radius: 3px;">
+"Document our React component pattern:
+- Functional components with hooks
+- Type safety with TypeScript
+- Error boundaries
+Show examples and anti-patterns to avoid."
+                </code>
+            </div>
+
+            <!-- SECTION 5: RED FLAGS IN AI CODE -->
+            <h2>🚩 Red Flags to Watch For</h2>
+
+            <div class="critical">
+                <h3>Red Flag 1: Missing Error Handling</h3>
+                <p>Claude often forgets try/catch blocks, error boundaries, or API error handling. Always check:</p>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li>Are API calls wrapped in try/catch?</li>
+                    <li>Are error responses handled?</li>
+                    <li>Are timeouts handled?</li>
+                    <li>Are promises properly chained?</li>
+                </ul>
+            </div>
+
+            <div class="critical">
+                <h3>Red Flag 2: N+1 Query Problems</h3>
+                <p>Claude frequently generates queries that cause N+1 problems:</p>
+                <p><strong>Bad pattern Claude generates:</strong></p>
+                <code style="display: block; padding: 10px; background: #f4f4f4; margin: 10px 0; border-radius: 3px;">
+users.forEach(user => {
+  const posts = db.query('SELECT * FROM posts WHERE user_id = ?', user.id);
+  // N+1 problem!
+});
+                </code>
+            </div>
+
+            <div class="critical">
+                <h3>Red Flag 3: Insecure Defaults</h3>
+                <p>Check for:</p>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li>Plaintext passwords (should be hashed)</li>
+                    <li>Missing CSRF tokens</li>
+                    <li>CORS set to "*" (wildcard)</li>
+                    <li>No rate limiting on auth endpoints</li>
+                    <li>Debug logging left on</li>
+                </ul>
+            </div>
+
+            <div class="critical">
+                <h3>Red Flag 4: Missing Input Validation</h3>
+                <p>Always verify:</p>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li>Server-side validation (not just client)</li>
+                    <li>Type checking</li>
+                    <li>Length/format validation</li>
+                    <li>Sanitization of user input</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 6: YOUR MENTORSHIP ROLE -->
+            <h2>🎓 Your Mentorship Role</h2>
+
+            <div class="responsibility">
+                <h3>When Reviewing Junior's Code</h3>
+                <p>Besides checking quality, you're teaching:</p>
+                <ul style="margin: 10px 0 0 20px; line-height: 2;">
+                    <li>Explain WHY something is wrong (not just "fix it")</li>
+                    <li>Point out how Claude missed this in the generated code</li>
+                    <li>Show better patterns or approaches</li>
+                    <li>Link to documentation or examples</li>
+                    <li>Praise good decisions and careful thinking</li>
+                </ul>
+            </div>
+
+            <div class="responsibility">
+                <h3>When Juniors Share Claude Conversations</h3>
+                <p>This is a teaching opportunity:</p>
+                <ul style="margin: 10px 0 0 20px; line-height: 2;">
+                    <li>"Good prompt! You were specific about requirements"</li>
+                    <li>"Be careful with this - Claude doesn't always catch N+1 queries"</li>
+                    <li>"Let me show you how to prompt for what you really need"</li>
+                    <li>"Nice - you asked Claude to explain the code. That's the right approach"</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 7: POLICIES STILL APPLY TO YOU -->
+            <h2>⚠️ Important: Policies Apply To You Too</h2>
+
+            <div class="critical">
+                <h3>You Must Follow These Policies (No Exceptions)</h3>
+                <ul style="margin: 10px 0 0 20px; line-height: 2;">
+                    <li><strong>NEVER share secrets</strong> with Claude (API keys, passwords, tokens)</li>
+                    <li><strong>NEVER share production data</strong> with Claude (customer info, payments)</li>
+                    <li><strong>ALL code must be reviewed</strong> (peer review still required)</li>
+                    <li><strong>Code must pass tests</strong> before deployment</li>
+                    <li><strong>Only Tech Lead deploys to production</strong> (not you directly)</li>
+                    <li><strong>Staging deployment required</strong> before production</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 3px;">
+                <strong>Remember:</strong> Just because you have more authority doesn't mean you skip safety steps. AI-generated code still needs testing, review, and careful validation.
+            </p>
+
+            <!-- SECTION 8: WHEN TO ESCALATE TO TECH LEAD -->
+            <h2>📞 When To Escalate</h2>
+
+            <p>Even as a senior, escalate to Tech Lead when:</p>
+            <div class="list-item">Architectural decisions that affect multiple teams</div>
+            <div class="list-item">Security vulnerabilities that could impact compliance</div>
+            <div class="list-item">Performance issues affecting SLAs</div>
+            <div class="list-item">Production incidents or outages</div>
+            <div class="list-item">Major refactoring of critical systems</div>
+            <div class="list-item">Policy violations by team members</div>
+            <div class="list-item">Any situation where you're not 100% certain</div>
+
+            <!-- SECTION 9: QUICK REFERENCE -->
+            <h2>⚡ Senior Developer Checklist</h2>
+
+            <div class="section">
+                <h3>When Approving AI-Generated Code:</h3>
+                <table>
+                    <tr>
+                        <td>☐ Reviewed every significant change</td>
+                        <td>☐ Tested locally or in staging</td>
+                    </tr>
+                    <tr>
+                        <td>☐ Verified security (no vulnerabilities)</td>
+                        <td>☐ Checked edge case handling</td>
+                    </tr>
+                    <tr>
+                        <td>☐ No hardcoded secrets</td>
+                        <td>☐ Tests are comprehensive</td>
+                    </tr>
+                    <tr>
+                        <td>☐ Performance impact acceptable</td>
+                        <td>☐ Follows team patterns</td>
+                    </tr>
+                    <tr>
+                        <td>☐ Code is maintainable</td>
+                        <td>☐ Documentation complete</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="section">
+                <h3>When Mentoring Juniors:</h3>
+                <table>
+                    <tr>
+                        <td>☐ Reviewed their Claude usage</td>
+                        <td>☐ Explained security concerns</td>
+                    </tr>
+                    <tr>
+                        <td>☐ Pointed out Claude limitations</td>
+                        <td>☐ Shared better prompting techniques</td>
+                    </tr>
+                    <tr>
+                        <td>☐ Required thorough testing</td>
+                        <td>☐ Explained the "why" not just "what"</td>
+                    </tr>
+                    <tr>
+                        <td>☐ Praised good decisions</td>
+                        <td>☐ Documented patterns for team</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="section">
+                <h3>Your Daily Responsibilities:</h3>
+                <ul class="list-item">Review PRs from juniors/mid-level developers</ul>
+                <ul class="list-item">Verify AI-generated code quality</ul>
+                <ul class="list-item">Catch security issues before deployment</ul>
+                <ul class="list-item">Mentor team on best practices</ul>
+                <ul class="list-item">Set example of responsible Claude usage</ul>
+                <ul class="list-item">Report policy violations</ul>
+                <ul class="list-item">Share learnings with team</ul>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <p><strong>Claude Code Policy for Senior Developers v1.0</strong></p>
+            <p>With Great Power Comes Great Responsibility</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Questions? Contact Tech Lead or Security Team</p>
+        </div>
+    </div>
+</body>
+</html>

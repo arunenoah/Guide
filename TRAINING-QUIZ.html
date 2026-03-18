@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Policy - Training Quiz</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1a1a1a;
+            background: #f5f5f5;
+            padding: 30px 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        header {
+            background: #0f3460;
+            color: white;
+            padding: 30px;
+            border-bottom: 3px solid #e94560;
+            text-align: center;
+        }
+        header h1 { font-size: 1.8em; margin-bottom: 10px; }
+        .content { padding: 40px; }
+        .quiz-info {
+            background: #e7f3ff;
+            border-left: 4px solid #0066cc;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 3px;
+        }
+        .question-block {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-left: 4px solid #0f3460;
+            border-radius: 3px;
+        }
+        .question-number {
+            color: #0f3460;
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        .question-text {
+            font-weight: 500;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+        .option {
+            display: flex;
+            align-items: flex-start;
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 3px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+        .option:hover {
+            border-color: #0f3460;
+        }
+        .option input[type="radio"] {
+            margin-right: 10px;
+            margin-top: 3px;
+            cursor: pointer;
+        }
+        .option-text {
+            flex: 1;
+        }
+        .correct {
+            background: #d4edda;
+            border: 2px solid #28a745;
+        }
+        .incorrect {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+        }
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 3px;
+            font-size: 0.95em;
+            display: none;
+        }
+        .feedback.show {
+            display: block;
+        }
+        .feedback-correct {
+            background: #d4edda;
+            color: #155724;
+        }
+        .feedback-incorrect {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .submit-button {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 30px 0;
+        }
+        .submit-button:hover {
+            background: #07253f;
+        }
+        .submit-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .results {
+            background: #e7f3ff;
+            border: 2px solid #0066cc;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 3px;
+            display: none;
+            text-align: center;
+        }
+        .results.show {
+            display: block;
+        }
+        .score {
+            font-size: 2em;
+            font-weight: 600;
+            color: #0f3460;
+            margin: 20px 0;
+        }
+        .pass {
+            color: #28a745;
+        }
+        .fail {
+            color: #dc3545;
+        }
+        .footer {
+            background: #0f3460;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 30px;
+            border-top: 3px solid #e94560;
+        }
+        .refresh-button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .refresh-button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✅ Claude Code Policy - Training Quiz</h1>
+            <p>Test your understanding before using Claude Code</p>
+        </header>
+
+        <div class="content">
+            <div class="quiz-info">
+                <p><strong>Passing Score:</strong> 80% (16 out of 20 questions)</p>
+                <p><strong>Time Limit:</strong> No time limit</p>
+                <p><strong>Attempts:</strong> Unlimited until you pass</p>
+                <p style="margin-top: 10px; font-style: italic;">This quiz covers the critical policy requirements. Review the policy document if you're unsure about answers.</p>
+            </div>
+
+            <form id="quizForm">
+                <!-- QUESTION 1 -->
+                <div class="question-block">
+                    <div class="question-number">Question 1</div>
+                    <div class="question-text">You're debugging a payment integration issue. What should you do?</div>
+                    <label class="option">
+                        <input type="radio" name="q1" value="a">
+                        <div class="option-text">
+                            <strong>A)</strong> Paste your .env file with real API keys to Claude so it can see the configuration
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="b">
+                        <div class="option-text">
+                            <strong>B)</strong> Share the code with placeholder values (sk_test_xxx) and describe the issue without credentials
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="c">
+                        <div class="option-text">
+                            <strong>C)</strong> Don't ask Claude - handle it yourself
+                        </div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B is the right approach. Never share actual secrets.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: The correct answer is B. Never share actual credentials.</div>
+                </div>
+
+                <!-- QUESTION 2 -->
+                <div class="question-block">
+                    <div class="question-number">Question 2</div>
+                    <div class="question-text">Claude generates authentication code. What must you do before merging to main?</div>
+                    <label class="option">
+                        <input type="radio" name="q2" value="a">
+                        <div class="option-text">
+                            <strong>A)</strong> Test locally and merge immediately (it works on my machine)
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="b">
+                        <div class="option-text">
+                            <strong>B)</strong> Understand the code, test thoroughly, request peer review, wait for approval before merging
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="c">
+                        <div class="option-text">
+                            <strong>C)</strong> Have Claude review its own code and approve
+                        </div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B is the process. Code review is mandatory.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Never skip code review or testing.</div>
+                </div>
+
+                <!-- QUESTION 3 -->
+                <div class="question-block">
+                    <div class="question-number">Question 3</div>
+                    <div class="question-text">What should you NEVER share with Claude Code?</div>
+                    <label class="option">
+                        <input type="radio" name="q3" value="a">
+                        <div class="option-text">
+                            <strong>A)</strong> Production database dumps with real customer data
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="b">
+                        <div class="option-text">
+                            <strong>B)</strong> API keys and secret tokens
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="c">
+                        <div class="option-text">
+                            <strong>C)</strong> Both A and B are things you should NEVER share
+                        </div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: C. Never share secrets OR production data.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: C is correct. Both are strictly prohibited.</div>
+                </div>
+
+                <!-- QUESTION 4 -->
+                <div class="question-block">
+                    <div class="question-number">Question 4</div>
+                    <div class="question-text">You accidentally share an API key with Claude. What do you do?</div>
+                    <label class="option">
+                        <input type="radio" name="q4" value="a">
+                        <div class="option-text">
+                            <strong>A)</strong> Don't tell anyone - just rotate the key quietly
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="b">
+                        <div class="option-text">
+                            <strong>B)</strong> Tell your manager and security team immediately, then rotate the key
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="c">
+                        <div class="option-text">
+                            <strong>C)</strong> Hope it doesn't matter since it's just one key
+                        </div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Self-reporting results in lighter consequences.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Self-report immediately to get lighter consequences.</div>
+                </div>
+
+                <!-- QUESTION 5 -->
+                <div class="question-block">
+                    <div class="question-number">Question 5</div>
+                    <div class="question-text">What's a red flag in code Claude generates that you should watch for?</div>
+                    <label class="option">
+                        <input type="radio" name="q5" value="a">
+                        <div class="option-text">
+                            <strong>A)</strong> Missing error handling for API calls
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="b">
+                        <div class="option-text">
+                            <strong>B)</strong> Database loops without eager loading (N+1 queries)
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="c">
+                        <div class="option-text">
+                            <strong>C)</strong> Both A and B are red flags to watch for
+                        </div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: C. Both are common Claude mistakes.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: C is correct. Watch for both patterns.</div>
+                </div>
+
+                <!-- QUESTION 6 -->
+                <div class="question-block">
+                    <div class="question-number">Question 6</div>
+                    <div class="question-text">As a junior developer, can you approve your own PRs?</div>
+                    <label class="option">
+                        <input type="radio" name="q6" value="a">
+                        <div class="option-text">
+                            <strong>A)</strong> Yes, if the tests pass
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="b">
+                        <div class="option-text">
+                            <strong>B)</strong> No, a senior developer must review and approve
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="c">
+                        <div class="option-text">
+                            <strong>C)</strong> Only if you wrote the code without Claude's help
+                        </div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Code review is mandatory for all juniors.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Never approve your own code.</div>
+                </div>
+
+                <!-- QUESTION 7 -->
+                <div class="question-block">
+                    <div class="question-number">Question 7</div>
+                    <div class="question-text">What must you do before asking Claude for help with code?</div>
+                    <label class="option">
+                        <input type="radio" name="q7" value="a">
+                        <div class="option-text">
+                            <strong>A)</strong> Just ask Claude directly - it knows everything
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="b">
+                        <div class="option-text">
+                            <strong>B)</strong> Provide clear requirements, context, and constraints without secrets
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="c">
+                        <div class="option-text">
+                            <strong>C)</strong> Never ask Claude - that's cheating
+                        </div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Good prompts get better results.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Specific prompts work best.</div>
+                </div>
+
+                <!-- QUESTION 8 -->
+                <div class="question-block">
+                    <div class="question-number">Question 8</div>
+                    <div class="question-text">Can you share a production database dump with Claude to "optimize a query"?</div>
+                    <label class="option">
+                        <input type="radio" name="q8" value="a">
+                        <div class="option-text">
+                            <strong>A)</strong> Yes, if you're just looking at the schema
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="b">
+                        <div class="option-text">
+                            <strong>B)</strong> No, never. It may contain customer data and violates privacy laws
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="c">
+                        <div class="option-text">
+                            <strong>C)</strong> Only with permission from the database owner
+                        </div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Never share production data.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Production data is strictly prohibited.</div>
+                </div>
+
+                <!-- QUESTION 9 -->
+                <div class="question-block">
+                    <div class="question-number">Question 9</div>
+                    <div class="question-text">What should be in your .gitignore file?</div>
+                    <label class="option">
+                        <input type="radio" name="q9" value="a">
+                        <div class="option-text">
+                            <strong>A)</strong> .env files with actual secrets/credentials
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="b">
+                        <div class="option-text">
+                            <strong>B)</strong> node_modules, build artifacts, temporary files
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="c">
+                        <div class="option-text">
+                            <strong>C)</strong> Both A and B
+                        </div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: C. Both should be in .gitignore.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: C is correct. Both should be excluded from git.</div>
+                </div>
+
+                <!-- QUESTION 10 -->
+                <div class="question-block">
+                    <div class="question-number">Question 10</div>
+                    <div class="question-text">You don't understand Claude's generated code. What should you do?</div>
+                    <label class="option">
+                        <input type="radio" name="q10" value="a">
+                        <div class="option-text">
+                            <strong>A)</strong> Commit it anyway - you'll learn as you go
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="b">
+                        <div class="option-text">
+                            <strong>B)</strong> Ask Claude to explain it, then ask your senior to review
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="c">
+                        <div class="option-text">
+                            <strong>C)</strong> Delete it and write it yourself
+                        </div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Always understand code before committing.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Understand first, then commit.</div>
+                </div>
+
+                <!-- QUESTION 11 -->
+                <div class="question-block">
+                    <div class="question-number">Question 11</div>
+                    <div class="question-text">What are you responsible for after Claude generates code?</div>
+                    <label class="option">
+                        <input type="radio" name="q11" value="a">
+                        <div class="option-text">
+                            <strong>A)</strong> Claude is responsible - you just copied it
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q11" value="b">
+                        <div class="option-text">
+                            <strong>B)</strong> You are responsible. Claude's code may have bugs, security issues, or performance problems
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q11" value="c">
+                        <div class="option-text">
+                            <strong>C)</strong> Your manager is responsible for reviewing
+                        </div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. You own the code you commit.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. You are accountable for all code.</div>
+                </div>
+
+                <!-- QUESTION 12 -->
+                <div class="question-block">
+                    <div class="question-number">Question 12</div>
+                    <div class="question-text">What's the proper workflow when using Claude Code?</div>
+                    <label class="option">
+                        <input type="radio" name="q12" value="a">
+                        <div class="option-text">
+                            <strong>A)</strong> Claude → Commit to main → Deploy
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q12" value="b">
+                        <div class="option-text">
+                            <strong>B)</strong> Claude → Local Test → Branch → PR → Review → CI → Staging → Deploy
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q12" value="c">
+                        <div class="option-text">
+                            <strong>C)</strong> Claude → Deploy directly to staging
+                        </div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. This ensures quality and safety.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. This is the proper process.</div>
+                </div>
+
+                <!-- QUESTION 13 -->
+                <div class="question-block">
+                    <div class="question-number">Question 13</div>
+                    <div class="question-text">What common security problem does Claude often miss?</div>
+                    <label class="option">
+                        <input type="radio" name="q13" value="a">
+                        <div class="option-text">
+                            <strong>A)</strong> Missing input validation on server-side
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q13" value="b">
+                        <div class="option-text">
+                            <strong>B)</strong> Missing authorization checks (auth ≠ authz)
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q13" value="c">
+                        <div class="option-text">
+                            <strong>C)</strong> Both A and B are commonly missed by Claude
+                        </div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: C. Always verify security features.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: C is correct. Check for both issues.</div>
+                </div>
+
+                <!-- QUESTION 14 -->
+                <div class="question-block">
+                    <div class="question-number">Question 14</div>
+                    <div class="question-text">Before making a PR with AI-generated code, you should:</div>
+                    <label class="option">
+                        <input type="radio" name="q14" value="a">
+                        <div class="option-text">
+                            <strong>A)</strong> Run linter, run tests, test manually, then request peer review
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q14" value="b">
+                        <div class="option-text">
+                            <strong>B)</strong> Just create the PR - reviewers will catch issues
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q14" value="c">
+                        <div class="option-text">
+                            <strong>C)</strong> Ask Claude if the code is good before PRing
+                        </div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: A. You must validate before PR.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: A is correct. Always validate locally first.</div>
+                </div>
+
+                <!-- QUESTION 15 -->
+                <div class="question-block">
+                    <div class="question-number">Question 15</div>
+                    <div class="question-text">What counts as "production data" you can't share?</div>
+                    <label class="option">
+                        <input type="radio" name="q15" value="a">
+                        <div class="option-text">
+                            <strong>A)</strong> Real customer emails, names, phone numbers
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q15" value="b">
+                        <div class="option-text">
+                            <strong>B)</strong> Payment card information, transaction details
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q15" value="c">
+                        <div class="option-text">
+                            <strong>C)</strong> Both A and B (and other PII)
+                        </div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: C. All PII is prohibited.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: C is correct. All personal data is prohibited.</div>
+                </div>
+
+                <!-- QUESTION 16 -->
+                <div class="question-block">
+                    <div class="question-number">Question 16</div>
+                    <div class="question-text">How should you handle .env files?</div>
+                    <label class="option">
+                        <input type="radio" name="q16" value="a">
+                        <div class="option-text">
+                            <strong>A)</strong> Commit .env with real values so everyone has the same config
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q16" value="b">
+                        <div class="option-text">
+                            <strong>B)</strong> Commit .env.example with placeholder values, .env in .gitignore with real values local
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q16" value="c">
+                        <div class="option-text">
+                            <strong>C)</strong> Never use .env files
+                        </div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. This protects secrets while enabling local development.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Use .env.example and .gitignore.</div>
+                </div>
+
+                <!-- QUESTION 17 -->
+                <div class="question-block">
+                    <div class="question-number">Question 17</div>
+                    <div class="question-text">Who is responsible for code quality in AI-generated code?</div>
+                    <label class="option">
+                        <input type="radio" name="q17" value="a">
+                        <div class="option-text">
+                            <strong>A)</strong> Claude - it should generate perfect code
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q17" value="b">
+                        <div class="option-text">
+                            <strong>B)</strong> The reviewer - they should catch all issues
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q17" value="c">
+                        <div class="option-text">
+                            <strong>C)</strong> You, the developer - you must validate and test before committing
+                        </div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: C. You are accountable.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: C is correct. Developers own their code.</div>
+                </div>
+
+                <!-- QUESTION 18 -->
+                <div class="question-block">
+                    <div class="question-number">Question 18</div>
+                    <div class="question-text">What should you do if you spot a policy violation by a team member?</div>
+                    <label class="option">
+                        <input type="radio" name="q18" value="a">
+                        <div class="option-text">
+                            <strong>A)</strong> Ignore it - not your problem
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q18" value="b">
+                        <div class="option-text">
+                            <strong>B)</strong> Report it to security team or your manager
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q18" value="c">
+                        <div class="option-text">
+                            <strong>C)</strong> Tell everyone on Slack to shame them
+                        </div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Report violations through proper channels.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Report to security or manager.</div>
+                </div>
+
+                <!-- QUESTION 19 -->
+                <div class="question-block">
+                    <div class="question-number">Question 19</div>
+                    <div class="question-text">Can you use Claude Code for personal projects on company time?</div>
+                    <label class="option">
+                        <input type="radio" name="q19" value="a">
+                        <div class="option-text">
+                            <strong>A)</strong> Yes, as long as you don't use company code
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q19" value="b">
+                        <div class="option-text">
+                            <strong>B)</strong> No, Claude Code access is for company work only
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q19" value="c">
+                        <div class="option-text">
+                            <strong>C)</strong> Yes, it doesn't matter as long as no secrets are shared
+                        </div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: B. Claude Code is for company work only.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: B is correct. Company tools = company work.</div>
+                </div>
+
+                <!-- QUESTION 20 -->
+                <div class="question-block">
+                    <div class="question-number">Question 20</div>
+                    <div class="question-text">What's the most important rule when using Claude Code?</div>
+                    <label class="option">
+                        <input type="radio" name="q20" value="a">
+                        <div class="option-text">
+                            <strong>A)</strong> Never share secrets or sensitive data with Claude
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q20" value="b">
+                        <div class="option-text">
+                            <strong>B)</strong> Always understand code before committing it
+                        </div>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q20" value="c">
+                        <div class="option-text">
+                            <strong>C)</strong> Both A and B are equally critical
+                        </div>
+                    </label>
+                    <div class="feedback feedback-correct">✓ Correct: C. Both are fundamental to safe usage.</div>
+                    <div class="feedback feedback-incorrect">✗ Incorrect: C is correct. Both are essential rules.</div>
+                </div>
+
+                <button type="button" class="submit-button" onclick="checkAnswers()">Submit Quiz</button>
+            </form>
+
+            <div class="results" id="results">
+                <h2>Quiz Results</h2>
+                <div class="score" id="scoreDisplay"></div>
+                <div id="statusMessage"></div>
+                <button class="refresh-button" onclick="location.reload()">Retake Quiz</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Claude Code Policy - Training Quiz v1.0</strong></p>
+            <p>You must pass this quiz before using Claude Code</p>
+        </div>
+    </div>
+
+    <script>
+        function checkAnswers() {
+            const correctAnswers = {
+                q1: 'b', q2: 'b', q3: 'c', q4: 'b', q5: 'c',
+                q6: 'b', q7: 'b', q8: 'b', q9: 'c', q10: 'b',
+                q11: 'b', q12: 'b', q13: 'c', q14: 'a', q15: 'c',
+                q16: 'b', q17: 'c', q18: 'b', q19: 'b', q20: 'c'
+            };
+
+            let score = 0;
+            let totalQuestions = Object.keys(correctAnswers).length;
+
+            // Check each answer and show feedback
+            for (let i = 1; i <= totalQuestions; i++) {
+                const questionName = 'q' + i;
+                const userAnswer = document.querySelector(`input[name="${questionName}"]:checked`);
+
+                if (!userAnswer) {
+                    alert('Please answer all questions before submitting.');
+                    return;
+                }
+
+                const isCorrect = userAnswer.value === correctAnswers[questionName];
+
+                if (isCorrect) {
+                    score++;
+                    userAnswer.closest('.option').classList.add('correct');
+                    userAnswer.closest('.question-block').querySelector('.feedback-correct').classList.add('show');
+                } else {
+                    userAnswer.closest('.option').classList.add('incorrect');
+                    userAnswer.closest('.question-block').querySelector('.feedback-incorrect').classList.add('show');
+                }
+            }
+
+            // Show results
+            const percentage = Math.round((score / totalQuestions) * 100);
+            const passed = percentage >= 80;
+
+            document.getElementById('scoreDisplay').textContent = `${score}/${totalQuestions} (${percentage}%)`;
+            document.getElementById('scoreDisplay').className = passed ? 'score pass' : 'score fail';
+
+            const statusMessage = document.getElementById('statusMessage');
+            if (passed) {
+                statusMessage.innerHTML = `
+                    <h3 style="color: #28a745;">✓ PASSED</h3>
+                    <p>You have passed the Claude Code policy training!</p>
+                    <p style="margin-top: 15px; font-weight: 600;">You can now use Claude Code with full access.</p>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #666;">Remember to always follow the policy guidelines.</p>
+                `;
+            } else {
+                statusMessage.innerHTML = `
+                    <h3 style="color: #dc3545;">✗ DID NOT PASS</h3>
+                    <p>You scored ${percentage}% but need 80% to pass.</p>
+                    <p style="margin-top: 15px;">Please review the policy document and try again.</p>
+                `;
+            }
+
+            document.getElementById('results').classList.add('show');
+            document.getElementById('quizForm').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>

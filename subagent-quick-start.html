@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Subagents Quick Start - Claude Code Developer Guidelines</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #0066cc;
+            --primary-dark: #0052a3;
+            --secondary-color: #f0f4f8;
+            --text-color: #1a202c;
+            --text-light: #4a5568;
+            --border-color: #e2e8f0;
+            --code-bg: #f7fafc;
+            --success-color: #22863a;
+            --warning-color: #cb2431;
+            --info-color: #0366d6;
+            --line-height-main: 1.6;
+            --line-height-heading: 1.2;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: var(--line-height-main);
+            color: var(--text-color);
+            background-color: #ffffff;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+            color: white;
+            padding: 3rem 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: white;
+            border-bottom: 1px solid var(--border-color);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            white-space: nowrap;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sidebar Layout */
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr 250px;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background-color: var(--secondary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 140px;
+        }
+
+        .toc h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            padding: 0.3rem 0;
+            border-left: 2px solid transparent;
+            padding-left: 0.8rem;
+            transition: all 0.2s ease;
+        }
+
+        .toc a:hover {
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+            padding-left: 1rem;
+        }
+
+        /* Content Sections */
+        section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 140px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            line-height: var(--line-height-heading);
+            color: var(--text-color);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 0.8rem;
+            line-height: var(--line-height-heading);
+            color: var(--text-color);
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            margin: 1rem 0 0.5rem;
+            line-height: var(--line-height-heading);
+            color: var(--text-color);
+        }
+
+        /* Paragraphs and Lists */
+        p {
+            margin-bottom: 1rem;
+            line-height: var(--line-height-main);
+        }
+
+        ul, ol {
+            margin: 1rem 0 1rem 2rem;
+            line-height: 1.8;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        ul li::marker {
+            color: var(--primary-color);
+        }
+
+        ol li::marker {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* Horizontal Rule */
+        hr {
+            border: none;
+            border-top: 2px solid var(--border-color);
+            margin: 2rem 0;
+        }
+
+        /* Code Blocks */
+        code {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            background-color: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+            color: #d73a49;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            line-height: 1.5;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: #1a202c;
+        }
+
+        /* Inline Formatting */
+        strong {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        em {
+            font-style: italic;
+            color: var(--text-light);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        thead {
+            background-color: var(--secondary-color);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tbody tr:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Blockquote / Callout */
+        .callout {
+            background-color: var(--secondary-color);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+        }
+
+        .callout.warning {
+            border-left-color: var(--warning-color);
+            background-color: #fff5f5;
+        }
+
+        .callout.success {
+            border-left-color: var(--success-color);
+            background-color: #f0f9f6;
+        }
+
+        .callout.info {
+            border-left-color: var(--info-color);
+            background-color: #f0f7ff;
+        }
+
+        .callout strong {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Cards/Boxes */
+        .card {
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.1);
+        }
+
+        .card h4 {
+            margin-top: 0;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        /* Button-like Links */
+        a.btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        a.btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-color);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .toc {
+                position: relative;
+                top: auto;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 2rem 1rem;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            main {
+                padding: 0 1rem;
+            }
+
+            .nav-container {
+                padding: 0.75rem 1rem;
+                gap: 1rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            pre {
+                font-size: 0.85rem;
+                padding: 1rem;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            th, td {
+                padding: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.2rem;
+            }
+
+            header p {
+                font-size: 0.9rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+
+            h3 {
+                font-size: 1rem;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            header, nav, .toc {
+                display: none;
+            }
+
+            body {
+                font-size: 11pt;
+                line-height: 1.5;
+            }
+
+            section {
+                page-break-inside: avoid;
+            }
+
+            h2, h3 {
+                page-break-after: avoid;
+            }
+
+            code {
+                background-color: white;
+                border: 1px solid #ddd;
+                padding: 0.1em 0.2em;
+            }
+
+            pre {
+                border: 1px solid #ddd;
+                background-color: #f5f5f5;
+            }
+
+            a {
+                color: #0066cc;
+                text-decoration: underline;
+            }
+
+            footer {
+                border-top: 1px solid #ddd;
+                margin-top: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Custom Subagents Quick Start</h1>
+            <p>Get started creating your first custom subagent in 5 minutes</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#overview">Overview</a>
+            <a href="#first-agent">Create Agent</a>
+            <a href="#templates">Templates</a>
+            <a href="#patterns">Patterns</a>
+            <a href="#naming">Naming</a>
+            <a href="#permissions">Permissions</a>
+            <a href="#testing">Testing</a>
+            <a href="#examples">Examples</a>
+            <a href="#workflows">Workflows</a>
+            <a href="#tips">Tips</a>
+            <a href="#issues">Issues</a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="layout">
+            <article>
+                <!-- 30-Second Overview -->
+                <section id="overview">
+                    <h2>30-Second Overview</h2>
+                    <p>A custom subagent is a specialized AI persona for specific tasks:</p>
+                    <ul>
+                        <li><strong>Read-only validators</strong> - Review code without changing it</li>
+                        <li><strong>Focused specialists</strong> - Optimize, audit, or analyze specific domains</li>
+                        <li><strong>Workflow agents</strong> - Handle multi-step processes with handoffs</li>
+                        <li><strong>Tool-restricted roles</strong> - Prevent accidental changes</li>
+                    </ul>
+                </section>
+
+                <hr>
+
+                <!-- Create Your First Subagent -->
+                <section id="first-agent">
+                    <h2>Create Your First Subagent (5 Minutes)</h2>
+
+                    <h3>Step 1: Create the File</h3>
+                    <p>Create <code>/Users/arunkumar/Documents/Application/expenseSettle/.claude/agents/my-validator.md</code>:</p>
+                    <pre><code>---
+name: my-validator
+description: Validates code for specific issues
+model: inherit
+color: blue
+tools:
+  allow:
+    - Read
+    - Grep
+    - Glob
+---
+
+name: my-validator
+description: |
+  Specialized validator for reviewing code and identifying issues.
+
+## Responsibilities
+- Review code for specific issues
+- Provide clear feedback
+- Never modify code (read-only)
+
+## How I Work
+1. You provide code or ask me to review files
+2. I analyze systematically
+3. I provide structured feedback with file references
+4. I explain issues and suggest solutions
+
+## Output Format
+I structure findings as:
+
+### Issues Found
+1. **Issue Name** - File:Line
+   - Problem: [Description]
+   - Solution: [How to fix]
+
+instructions: |
+  You are a specialized validator. When reviewing code, analyze systematically
+  and provide structured feedback with specific file locations and line numbers.
+  Be thorough but concise. Focus on actionable issues.</code></pre>
+
+                    <h3>Step 2: Invoke the Subagent</h3>
+                    <pre><code># List available agents
+/list-agents
+
+# Invoke your agent
+/invoke my-validator
+
+# Ask it to do something
+"Please review app/Models/User.php for security issues"</code></pre>
+
+                    <h3>Step 3: Iterate</h3>
+                    <p>Improve the agent by editing the description and instructions based on output.</p>
+                </section>
+
+                <hr>
+
+                <!-- Common Subagent Templates -->
+                <section id="templates">
+                    <h2>Common Subagent Templates</h2>
+
+                    <h3>Template 1: Read-Only Validator</h3>
+                    <pre><code>---
+name: code-validator
+description: Reviews code without making changes
+model: claude-haiku-4-5
+color: green
+tools:
+  allow:
+    - Read
+    - Grep
+    - Glob
+---</code></pre>
+                    <p><strong>Use for:</strong> Code review, security audits, quality checks</p>
+
+                    <h3>Template 2: Analyzer with Testing</h3>
+                    <pre><code>---
+name: performance-analyzer
+description: Analyzes performance bottlenecks
+model: claude-opus-4-6
+color: purple
+tools:
+  allow:
+    - Read
+    - Grep
+    - Glob
+    - Bash
+---</code></pre>
+                    <p><strong>Use for:</strong> Performance analysis, testing, investigation</p>
+
+                    <h3>Template 3: Full Implementation</h3>
+                    <pre><code>---
+name: documentation-writer
+description: Generates documentation from code
+model: inherit
+color: purple
+tools:
+  deny:
+    - WebSearch
+---</code></pre>
+                    <p><strong>Use for:</strong> Documentation generation, writing features</p>
+                </section>
+
+                <hr>
+
+                <!-- 10 Essential Agent Patterns -->
+                <section id="patterns">
+                    <h2>10 Essential Agent Patterns</h2>
+
+                    <div class="grid">
+                        <div class="card">
+                            <h4>1. Read-Only Reviewer</h4>
+                            <p>Focus: Quality gates, no changes</p>
+                            <pre><code>tools:
+  allow: [Read, Glob, Grep]</code></pre>
+                        </div>
+
+                        <div class="card">
+                            <h4>2. Fast Validator</h4>
+                            <p>Focus: Quick checks with light model</p>
+                            <pre><code>model: claude-haiku-4-5
+tools:
+  allow: [Read, Grep, Glob]</code></pre>
+                        </div>
+
+                        <div class="card">
+                            <h4>3. Complex Analyzer</h4>
+                            <p>Focus: Deep analysis with powerful model</p>
+                            <pre><code>model: claude-opus-4-6
+tools:
+  allow: [Read, Grep, Glob, Bash]</code></pre>
+                        </div>
+
+                        <div class="card">
+                            <h4>4. Implementation Agent</h4>
+                            <p>Focus: Full capability for development</p>
+                            <pre><code>model: inherit
+tools:
+  deny: [WebSearch]</code></pre>
+                        </div>
+
+                        <div class="card">
+                            <h4>5. Documentation Agent</h4>
+                            <p>Focus: Write technical docs efficiently</p>
+                            <pre><code>model: claude-haiku-4-5
+tools:
+  allow: [Read, Write, Edit, Glob, Grep]</code></pre>
+                        </div>
+
+                        <div class="card">
+                            <h4>6. Security Specialist</h4>
+                            <p>Focus: Security-focused analysis</p>
+                            <pre><code>model: claude-opus-4-6
+tools:
+  allow: [Read, Grep, Glob, Bash]</code></pre>
+                        </div>
+
+                        <div class="card">
+                            <h4>7. Test Coordinator</h4>
+                            <p>Focus: Testing and verification</p>
+                            <pre><code>model: inherit
+tools:
+  allow: [Read, Bash, Glob, Grep]</code></pre>
+                        </div>
+
+                        <div class="card">
+                            <h4>8. Database Optimizer</h4>
+                            <p>Focus: Query analysis without modifications</p>
+                            <pre><code>model: claude-haiku-4-5
+tools:
+  allow: [Read, Grep, Glob, Bash]</code></pre>
+                        </div>
+
+                        <div class="card">
+                            <h4>9. Error Investigator</h4>
+                            <p>Focus: Debug production issues</p>
+                            <pre><code>model: claude-opus-4-6
+tools:
+  allow: [Read, Glob, Grep, Bash]</code></pre>
+                        </div>
+
+                        <div class="card">
+                            <h4>10. Lead Oversight</h4>
+                            <p>Focus: Full access for strategic decisions</p>
+                            <pre><code>model: inherit
+# No tool restrictions</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <hr>
+
+                <!-- File Location & Naming -->
+                <section id="naming">
+                    <h2>File Location & Naming</h2>
+                    <pre><code>.claude/agents/
+├── code-reviewer.md          # Existing project agent
+├── security-auditor.md       # Existing project agent
+├── my-validator.md           # Your new agent
+├── database-optimizer.md     # Another new agent
+└── documentation-writer.md   # Another new agent</code></pre>
+
+                    <p><strong>Naming convention:</strong> <code>{role}-{specialty}.md</code></p>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Pattern</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>{role}.md</code></td>
+                                <td><code>reviewer.md</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>{role}-{specialty}.md</code></td>
+                                <td><code>code-reviewer.md</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>{domain}-{specialist}.md</code></td>
+                                <td><code>database-optimizer.md</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <hr>
+
+                <!-- Tool Permissions Quick Reference -->
+                <section id="permissions">
+                    <h2>Tool Permissions Quick Reference</h2>
+
+                    <h3>Read-Only Analysis (Validators/Reviewers)</h3>
+                    <pre><code>tools:
+  allow:
+    - Read
+    - Glob
+    - Grep</code></pre>
+
+                    <h3>Analysis + Testing</h3>
+                    <pre><code>tools:
+  allow:
+    - Read
+    - Glob
+    - Grep
+    - Bash</code></pre>
+
+                    <h3>Full Implementation</h3>
+                    <pre><code>tools:
+  deny:
+    - WebSearch  # Optional: keep focused on codebase</code></pre>
+
+                    <h3>No Restrictions</h3>
+                    <pre><code># Omit tools section entirely for full access</code></pre>
+                </section>
+
+                <hr>
+
+                <!-- Testing Your Subagent -->
+                <section id="testing">
+                    <h2>Testing Your Subagent</h2>
+                    <h3>Checklist</h3>
+                    <ul>
+                        <li>File is in <code>.claude/agents/</code> directory</li>
+                        <li>File ends with <code>.md</code> extension</li>
+                        <li>YAML frontmatter is valid (check syntax)</li>
+                        <li>Name and description fields are present</li>
+                        <li>Agent appears in <code>/list-agents</code></li>
+                        <li><code>/invoke agent-name</code> successfully loads agent</li>
+                        <li>Agent can read files (if Read tool included)</li>
+                        <li>Output matches expected format</li>
+                    </ul>
+
+                    <h3>Debug command</h3>
+                    <pre><code># Check if file is readable
+cat /Users/arunkumar/Documents/Application/expenseSettle/.claude/agents/my-agent.md | head -20
+
+# Verify YAML syntax
+grep "^---" /Users/arunkumar/Documents/Application/expenseSettle/.claude/agents/my-agent.md</code></pre>
+                </section>
+
+                <hr>
+
+                <!-- Real-World Examples -->
+                <section id="examples">
+                    <h2>Real-World Examples</h2>
+
+                    <h3>Example 1: Quick Code Validator</h3>
+                    <pre><code>---
+name: quick-validator
+description: Fast code validation for common issues
+model: claude-haiku-4-5
+color: green
+tools:
+  allow:
+    - Read
+    - Grep
+    - Glob
+---
+
+name: quick-validator
+description: |
+  Fast validator focusing on common code quality issues.
+
+## What I Check
+- Missing error handling
+- Unvalidated user input
+- Code duplication
+- Missing tests
+
+## My Approach
+1. Scan for patterns that indicate issues
+2. Find specific file locations
+3. Suggest concrete fixes
+
+instructions: |
+  You are a fast code validator. Focus on high-impact issues.
+  Report file:line with specific problems and solutions.</code></pre>
+
+                    <h3>Example 2: Performance Investigator</h3>
+                    <pre><code>---
+name: performance-investigator
+description: Investigates performance bottlenecks
+model: claude-opus-4-6
+color: purple
+tools:
+  allow:
+    - Read
+    - Grep
+    - Glob
+    - Bash
+---
+
+name: performance-investigator
+description: |
+  Investigates performance issues and bottlenecks.
+
+## Investigation Process
+1. Identify slow operations
+2. Analyze database queries
+3. Check for N+1 problems
+4. Suggest optimizations
+
+## Output Format
+- Issue: [What's slow]
+- Location: [File:Line]
+- Cause: [Why it's slow]
+- Solution: [How to fix]
+- Expected improvement: [Before/after metrics]
+
+instructions: |
+  You are a performance investigator. When analyzing performance issues,
+  provide specific metrics and improvements. Include before/after timing.</code></pre>
+
+                    <h3>Example 3: Security Checker</h3>
+                    <pre><code>---
+name: security-checker
+description: Checks code for security vulnerabilities
+model: claude-opus-4-6
+color: orange
+tools:
+  allow:
+    - Read
+    - Grep
+    - Glob
+---
+
+name: security-checker
+description: |
+  Security-focused code analysis.
+
+## What I Check
+- Input validation missing
+- SQL injection risks
+- Authorization checks
+- Hardcoded credentials
+- Insecure data handling
+
+## Severity Levels
+- Critical: Immediate risk
+- High: Important to fix
+- Medium: Should fix soon
+- Low: Nice to address
+
+instructions: |
+  You are a security checker. Identify vulnerabilities with severity levels.
+  Provide specific fixes with code examples.</code></pre>
+                </section>
+
+                <hr>
+
+                <!-- Workflow: Connecting Multiple Agents -->
+                <section id="workflows">
+                    <h2>Workflow: Connecting Multiple Agents</h2>
+                    <p>Create a multi-agent workflow for feature implementation:</p>
+                    <pre><code>User: "Implement user authentication"
+    ↓
+/invoke tech-lead
+"Design user authentication feature"
+    ↓
+/invoke code-reviewer
+"Review the implementation from tech-lead"
+    ↓
+/invoke security-checker
+"Check authentication code for security issues"
+    ↓
+/invoke qa-tester
+"Test the authentication feature"
+    ↓
+/invoke tech-writer
+"Create documentation for authentication feature"</code></pre>
+
+                    <p>Each agent:</p>
+                    <ul>
+                        <li>Receives output from previous agent</li>
+                        <li>Processes based on its specialty</li>
+                        <li>Hands off to next agent in chain</li>
+                    </ul>
+                </section>
+
+                <hr>
+
+                <!-- Tips & Tricks -->
+                <section id="tips">
+                    <h2>Tips & Tricks</h2>
+
+                    <h3>Tip 1: Use Fast Model for Read-Only Tasks</h3>
+                    <pre><code>model: claude-haiku-4-5    # Faster, cheaper
+tools:
+  allow:
+    - Read
+    - Grep
+    - Glob</code></pre>
+
+                    <h3>Tip 2: Use Powerful Model for Analysis</h3>
+                    <pre><code>model: claude-opus-4-6     # Slower, better reasoning
+tools:
+  allow:
+    - Read
+    - Grep
+    - Glob
+    - Bash</code></pre>
+
+                    <h3>Tip 3: Create Agent Memory for Patterns</h3>
+                    <p>In <code>.claude/memory/MEMORY.md</code>:</p>
+                    <pre><code># Common Issues Found
+- Missing Form Request validation
+- Forgotten eager loading in queries
+- No PHPDoc on public methods
+
+# Project Standards
+- Use UUIDs for primary keys
+- Service layer for business logic
+- Factories for testing</code></pre>
+
+                    <h3>Tip 4: Clear Tool Restrictions</h3>
+                    <p>Be explicit about what tools agent can/cannot use:</p>
+                    <pre><code># Good: Clear allowlist
+tools:
+  allow:
+    - Read
+    - Grep
+    - Glob
+
+# Also good: Clear denylist
+tools:
+  deny:
+    - Write
+    - Bash</code></pre>
+
+                    <h3>Tip 5: Specific Descriptions</h3>
+                    <p>Descriptions help Claude pick the right agent:</p>
+                    <pre><code># Bad
+description: Code helper agent
+
+# Good
+description: Expert Laravel code reviewer focusing on security and performance</code></pre>
+                </section>
+
+                <hr>
+
+                <!-- Common Issues & Solutions -->
+                <section id="issues">
+                    <h2>Common Issues & Solutions</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Problem</th>
+                                <th>Cause</th>
+                                <th>Solution</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Agent doesn't appear in list</td>
+                                <td>File not in <code>.claude/agents/</code></td>
+                                <td>Move file to correct directory</td>
+                            </tr>
+                            <tr>
+                                <td>YAML error</td>
+                                <td>Invalid syntax</td>
+                                <td>Check frontmatter closes with <code>---</code></td>
+                            </tr>
+                            <tr>
+                                <td>Can't read files</td>
+                                <td>Read tool not in allowlist</td>
+                                <td>Add Read to tools.allow</td>
+                            </tr>
+                            <tr>
+                                <td>Agent too slow</td>
+                                <td>Using powerful model unnecessarily</td>
+                                <td>Use <code>claude-haiku-4-5</code> for simple tasks</td>
+                            </tr>
+                            <tr>
+                                <td>Wrong tool access</td>
+                                <td>Tool not permitted</td>
+                                <td>Check tools.allow or tools.deny</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <hr>
+
+                <!-- Next Steps -->
+                <section>
+                    <h2>Next Steps</h2>
+                    <ol>
+                        <li><strong>Read full guide:</strong> Check CUSTOM_SUBAGENTS_GUIDE.md for comprehensive documentation</li>
+                        <li><strong>Create your first agent:</strong> Use one of the templates above</li>
+                        <li><strong>Test thoroughly:</strong> Use checklist from "Testing Your Subagent" section</li>
+                        <li><strong>Build workflows:</strong> Connect multiple agents for complex tasks</li>
+                        <li><strong>Iterate:</strong> Improve agents based on results</li>
+                    </ol>
+                </section>
+
+                <hr>
+
+                <!-- Resources -->
+                <section>
+                    <h2>Resources</h2>
+                    <ul>
+                        <li><strong>Full Guide:</strong> /Users/arunkumar/Documents/Application/expenseSettle/CUSTOM_SUBAGENTS_GUIDE.md</li>
+                        <li><strong>Existing Agents:</strong> /Users/arunkumar/Documents/Application/expenseSettle/.claude/agents/</li>
+                        <li><strong>Project Memory:</strong> /Users/arunkumar/Documents/Application/expenseSettle/.claude/memory/MEMORY.md</li>
+                        <li><strong>Agent README:</strong> /Users/arunkumar/Documents/Application/expenseSettle/.claude/README.md</li>
+                    </ul>
+                </section>
+
+                <hr>
+
+                <!-- Summary Cheat Sheet -->
+                <section>
+                    <h2>Summary Cheat Sheet</h2>
+                    <pre><code># Create Agent File
+Location: .claude/agents/{name}.md
+Content:
+  - YAML frontmatter (name, description, model, color, tools)
+  - Markdown description (role, responsibilities, approach)
+  - Instructions (how agent should behave)
+
+# Key Fields
+- name: agent-name (kebab-case)
+- description: One-line summary
+- model: inherit (or specific model)
+- color: blue (for UI)
+- tools.allow or tools.deny: [List of tools]
+
+# Common Tool Combinations
+- Read-only: [Read, Grep, Glob]
+- Analysis: [Read, Grep, Glob, Bash]
+- Implementation: All tools
+- Leading: All tools (no restrictions)
+
+# Test
+/list-agents          # See your agent
+/invoke agent-name    # Invoke it
+                      # Ask it to do something</code></pre>
+                </section>
+            </article>
+
+            <!-- Table of Contents Sidebar -->
+            <aside class="toc">
+                <h3>Contents</h3>
+                <ul>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#first-agent">Create Agent</a></li>
+                    <li><a href="#templates">Templates</a></li>
+                    <li><a href="#patterns">10 Patterns</a></li>
+                    <li><a href="#naming">File Naming</a></li>
+                    <li><a href="#permissions">Permissions</a></li>
+                    <li><a href="#testing">Testing</a></li>
+                    <li><a href="#examples">Examples</a></li>
+                    <li><a href="#workflows">Workflows</a></li>
+                    <li><a href="#tips">Tips & Tricks</a></li>
+                    <li><a href="#issues">Common Issues</a></li>
+                </ul>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p><strong>Custom Subagents Quick Start Guide</strong></p>
+            <p>Developer Guidelines for Claude Code</p>
+            <p>Version 1.0 | Last Updated: February 2025</p>
+            <p>For comprehensive documentation, see CUSTOM_SUBAGENTS_GUIDE.md</p>
+        </div>
+    </footer>
+</body>
+</html>

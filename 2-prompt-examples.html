@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100+ Prompt Examples - Claude Integration Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            color: #667eea;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .prompt-example {
+            background: #f9f9f9;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .prompt-example strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .prompt-text {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            overflow-x: auto;
+            margin-top: 8px;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            margin-right: 5px;
+            margin-bottom: 10px;
+        }
+
+        .toc {
+            background: #f0f4ff;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: #667eea;
+        }
+
+        .toc ul {
+            columns: 2;
+            margin-left: 20px;
+        }
+
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            flex: 1;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: #764ba2;
+        }
+
+        footer {
+            text-align: center;
+            color: #666;
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .pro-tip {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .subsection {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="ai-guide-index.html">Home</a> / Prompt Examples
+        </div>
+
+        <header>
+            <h1>💡 100+ Real-World Prompt Examples</h1>
+            <p>Copy-paste ready examples for your SaaS development - organized by tech stack and use case</p>
+        </header>
+
+        <div class="toc">
+            <h3>📑 Table of Contents</h3>
+            <ul>
+                <li><a href="#react">React/Angular Frontend</a></li>
+                <li><a href="#laravel">Laravel Backend</a></li>
+                <li><a href="#node">Node.js & AWS</a></li>
+                <li><a href="#mobile">Mobile Development</a></li>
+                <li><a href="#testing">Playwright Testing</a></li>
+                <li><a href="#bugfixes">Bug Fixes & Debugging</a></li>
+                <li><a href="#units">Unit & Integration Tests</a></li>
+                <li><a href="#features">Feature Development</a></li>
+                <li><a href="#optimization">Performance & Optimization</a></li>
+                <li><a href="#devops">DevOps & Deployment</a></li>
+            </ul>
+        </div>
+
+        <!-- REACT SECTION -->
+        <section id="react">
+            <h2>⚛️ React/Angular Frontend Examples (15+ Prompts)</h2>
+
+            <h3>1. Project Understanding</h3>
+            <div class="prompt-example">
+                <strong>Understand Component Structure</strong>
+                <div class="category-tag">Analysis</div>
+                <div class="prompt-text">Analyze the React component structure in src/components/. Create a visual map showing component hierarchy, props flow, and dependencies. Identify any deeply nested components that could be refactored.</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Review Redux Store Architecture</strong>
+                <div class="category-tag">Architecture</div>
+                <div class="prompt-text">Review the Redux store in src/store/. Analyze slices, selectors, and middleware. Identify any redundant state, unused reducers, and suggest normalization improvements.</div>
+            </div>
+
+            <h3>2. Building Components</h3>
+            <div class="prompt-example">
+                <strong>Create a Form Component with Validation</strong>
+                <div class="category-tag">Feature</div>
+                <div class="prompt-text">Create a React form component for user profile updates with:
+- First name, last name, email, phone fields
+- Real-time validation using React Hook Form
+- Error messages below each field
+- Loading state during submission
+- Success/error toast notifications
+- Follow our Tailwind CSS conventions
+- TypeScript with proper types</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Build a Data Table Component</strong>
+                <div class="category-tag">Component</div>
+                <div class="prompt-text">Build a reusable data table component with:
+- Sortable columns
+- Pagination (with page size options)
+- Search/filter functionality
+- Responsive design for mobile
+- Checkbox row selection
+- Inline row actions (edit, delete)
+- Loading skeleton
+- Empty state
+Export data to CSV button</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Create Authentication Context Provider</strong>
+                <div class="category-tag">Architecture</div>
+                <div class="prompt-text">Create an AuthContext provider that manages:
+- Login/logout operations
+- User state persistence
+- Token refresh logic
+- Loading and error states
+- Protected route wrapper
+- Session timeout handling
+Use TypeScript and integrate with our API service at src/api/auth.ts</div>
+            </div>
+
+            <h3>3. State Management</h3>
+            <div class="prompt-example">
+                <strong>Convert Local State to Zustand Store</strong>
+                <div class="category-tag">Refactor</div>
+                <div class="prompt-text">Convert the login/auth state in UserProfile component from useState to Zustand. Create a new store file with:
+- User info state
+- Auth token state
+- Loading/error states
+- Actions for login, logout, updateUser
+- Persist auth token to localStorage
+- Include devtools for debugging</div>
+            </div>
+
+            <h3>4. API Integration</h3>
+            <div class="prompt-example">
+                <strong>Create API Service Layer with Error Handling</strong>
+                <div class="category-tag">Integration</div>
+                <div class="prompt-text">Create an API service layer (src/api/client.ts) that:
+- Uses fetch or axios with interceptors
+- Handles authentication token injection
+- Implements exponential backoff for retries
+- Formats error responses consistently
+- Includes request/response logging (development only)
+- Handles 401 errors with token refresh
+- Provides TypeScript types for all endpoints</div>
+            </div>
+
+            <h3>5. Performance Optimization</h3>
+            <div class="prompt-example">
+                <strong>Optimize List Component Performance</strong>
+                <div class="category-tag">Optimization</div>
+                <div class="prompt-text">The UsersList component rendering 1000+ items is slow. Implement:
+- React.memo for list items
+- useCallback for event handlers
+- useMemo for filtered/sorted data
+- Virtual scrolling with react-window
+- Lazy loading pagination
+- Performance metrics before/after</div>
+            </div>
+
+            <h3>6. Testing Components</h3>
+            <div class="prompt-example">
+                <strong>Write Jest Tests for Form Component</strong>
+                <div class="category-tag">Testing</div>
+                <div class="prompt-text">Write Jest tests for the LoginForm component covering:
+- Form renders correctly
+- Validation error messages appear
+- Submit button calls onSubmit
+- Loading state disables button
+- Success and error toast display
+- Field value changes work
+- Use React Testing Library best practices</div>
+            </div>
+
+            <h3>7. Accessibility & UX</h3>
+            <div class="prompt-example">
+                <strong>Add Accessibility Features to Modal</strong>
+                <div class="category-tag">Accessibility</div>
+                <div class="prompt-text">Enhance the Modal component for accessibility:
+- Add proper ARIA labels and roles
+- Implement focus trap (focus stays within modal)
+- Support Escape key to close
+- Announce content changes to screen readers
+- Test with axe-core
+- Ensure keyboard navigation works</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Improve Mobile Responsiveness</strong>
+                <div class="category-tag">UX</div>
+                <div class="prompt-text">Review Dashboard component for mobile (320px-480px viewports):
+- Stack columns vertically below 768px
+- Increase touch targets to 44px minimum
+- Use mobile-friendly navigation (hamburger menu)
+- Optimize font sizes for mobile
+- Remove horizontal scrolling
+- Test on actual devices</div>
+            </div>
+
+        </section>
+
+        <!-- LARAVEL SECTION -->
+        <section id="laravel">
+            <h2>🔧 Laravel Backend Examples (15+ Prompts)</h2>
+
+            <h3>1. Building APIs</h3>
+            <div class="prompt-example">
+                <strong>Create REST API Endpoint with Validation</strong>
+                <div class="category-tag">Feature</div>
+                <div class="prompt-text">Create a Laravel API endpoint for user registration:
+- POST /api/v1/auth/register
+- Validate email (unique), password (min 8 chars, special chars)
+- Hash password with bcrypt
+- Create user and generate JWT token
+- Return user data + token
+- Use FormRequest for validation
+- Include proper HTTP status codes
+- Add comprehensive error messages</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Build Admin Dashboard API</strong>
+                <div class="category-tag">Feature</div>
+                <div class="prompt-text">Create CRUD API endpoints for admin dashboard:
+- GET /api/v1/admin/users (with pagination, filtering, sorting)
+- POST /api/v1/admin/users
+- PUT /api/v1/admin/users/{id}
+- DELETE /api/v1/admin/users/{id}
+- Include resource classes for consistent responses
+- Implement authorization checks
+- Add audit logging
+- Rate limiting per endpoint</div>
+            </div>
+
+            <h3>2. Database & Models</h3>
+            <div class="prompt-example">
+                <strong>Create Database Migration with Relationships</strong>
+                <div class="category-tag">Database</div>
+                <div class="prompt-text">Create migrations and models for:
+- Users table (id, email, name, password, created_at)
+- Posts table (id, user_id, title, content, published_at)
+- Comments table (id, post_id, user_id, text, created_at)
+- Indexes on foreign keys and commonly searched columns
+- Eloquent relationships (hasMany, belongsTo)
+- Timestamps and soft deletes where appropriate</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Optimize N+1 Query Problem</strong>
+                <div class="category-tag">Performance</div>
+                <div class="prompt-text">The UserController@index method has N+1 query problems. Fix by:
+- Eager loading relationships with eager
+- Using select() to reduce columns
+- Implementing pagination
+- Adding indexes to frequently queried columns
+- Use Laravel Debugbar to verify fix
+- Show before/after query counts</div>
+            </div>
+
+            <h3>3. Service & Repository Pattern</h3>
+            <div class="prompt-example">
+                <strong>Create Service Class for User Management</strong>
+                <div class="category-tag">Architecture</div>
+                <div class="prompt-text">Create UserService class that handles:
+- User registration with email verification
+- Password reset with token validation
+- User profile updates
+- Soft delete users
+- Query and filter users
+- Use dependency injection
+- Add comprehensive type hints
+- Include logging</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Build Repository Pattern Implementation</strong>
+                <div class="category-tag">Architecture</div>
+                <div class="prompt-text">Implement repository pattern for Post model:
+- UserRepository interface and implementation
+- Methods: find(), findById(), create(), update(), delete()
+- Eager load related data
+- Apply filters and sorting
+- Bind to service container
+- Use in controllers instead of direct model queries</div>
+            </div>
+
+            <h3>4. Authentication & Authorization</h3>
+            <div class="prompt-example">
+                <strong>Implement JWT Authentication</strong>
+                <div class="category-tag">Security</div>
+                <div class="prompt-text">Set up JWT authentication:
+- Create AuthController with login/logout
+- Generate JWT token on login
+- Validate token in middleware
+- Refresh token endpoint
+- Add to auth.php config
+- Handle token expiration
+- Blacklist tokens on logout</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Create Authorization Policies</strong>
+                <div class="category-tag">Security</div>
+                <div class="prompt-text">Create authorization policies for Post model:
+- PostPolicy class
+- Methods: view(), update(), delete()
+- Only owner can update/delete their posts
+- Admin can do anything
+- Use in controller (authorize method)
+- Test with different user roles</div>
+            </div>
+
+            <h3>5. Events & Jobs</h3>
+            <div class="prompt-example">
+                <strong>Create Event Listener for User Registration</strong>
+                <div class="category-tag">Events</div>
+                <div class="prompt-text">Implement user registration flow:
+- UserRegistered event
+- SendWelcomeEmailListener
+- CreateUserSettingsListener
+- Listeners run asynchronously
+- Include retry logic
+- Log all events
+- Handle failures gracefully</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Create Queued Job for Email Sending</strong>
+                <div class="category-tag">Background Jobs</div>
+                <div class="prompt-text">Create SendEmailJob that:
+- Queues email sending to background
+- Handles failures with exponential backoff
+- Logs email delivery status
+- Uses database queue driver
+- Includes max retry attempts
+- Sends to configured queue
+- Works with SendGrid/Mailgun</div>
+            </div>
+
+            <h3>6. Testing</h3>
+            <div class="prompt-example">
+                <strong>Write Feature Tests for API</strong>
+                <div class="category-tag">Testing</div>
+                <div class="prompt-text">Write feature tests for user registration endpoint:
+- Test successful registration
+- Validate required fields
+- Test email uniqueness
+- Test password requirements
+- Verify JWT token in response
+- Test error responses
+- Use database transactions for isolation</div>
+            </div>
+
+        </section>
+
+        <!-- NODE.JS & AWS SECTION -->
+        <section id="node">
+            <h2>⚙️ Node.js & AWS Microservices Examples (12+ Prompts)</h2>
+
+            <div class="prompt-example">
+                <strong>Create Express.js Microservice</strong>
+                <div class="category-tag">Microservice</div>
+                <div class="prompt-text">Create a Node.js/Express payment processing microservice:
+- POST /api/payments endpoint
+- Integrate with Stripe API
+- Implement error handling
+- Add request validation
+- Log all transactions
+- Return transaction ID and status
+- Handle webhook for payment confirmation
+- Use TypeScript</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Build AWS Lambda Function</strong>
+                <div class="category-tag">AWS</div>
+                <div class="prompt-text">Create Lambda function that:
+- Triggers on S3 image upload
+- Resizes images (thumbnail, medium, large)
+- Stores in optimized S3 buckets
+- Updates database with image URLs
+- Handles errors gracefully
+- Uses AWS SDK v3
+- Includes environment variable configuration</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Setup API Gateway with Lambda</strong>
+                <div class="category-tag">Infrastructure</div>
+                <div class="prompt-text">Setup API Gateway with Lambda integration:
+- Create REST API with resource structure
+- Setup Lambda integration
+- Configure CORS
+- Add request/response transformations
+- Implement request validation
+- Setup API keys for rate limiting
+- Deploy to dev/staging/prod stages</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Create RabbitMQ Message Queue</strong>
+                <div class="category-tag">Message Queue</div>
+                <div class="prompt-text">Setup message queue system:
+- Create RabbitMQ producer/consumer
+- Define message schema
+- Implement retry logic with dead letter queue
+- Add logging and monitoring
+- Handle connection failures
+- Support multiple queue types (orders, notifications, etc.)</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Implement Redis Caching</strong>
+                <div class="category-tag">Caching</div>
+                <div class="prompt-text">Add Redis caching to Node.js service:
+- Cache frequently accessed data
+- Set appropriate TTLs
+- Invalidate cache on updates
+- Implement cache warming
+- Add monitoring/metrics
+- Handle connection failures
+- Support local development</div>
+            </div>
+
+        </section>
+
+        <!-- MOBILE SECTION -->
+        <section id="mobile">
+            <h2>📱 Mobile Development Examples (8+ Prompts)</h2>
+
+            <div class="prompt-example">
+                <strong>Create React Native Login Screen</strong>
+                <div class="category-tag">Mobile</div>
+                <div class="prompt-text">Build a React Native login screen:
+- Email and password inputs
+- Form validation
+- Loading indicator during login
+- Error message display
+- Remember me checkbox
+- Forgot password link
+- Keyboard handling
+- Works on iOS and Android</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Build Offline-First Sync</strong>
+                <div class="category-tag">Mobile</div>
+                <div class="prompt-text">Implement offline-first data sync:
+- Store data locally with SQLite
+- Queue changes when offline
+- Sync when connection returns
+- Handle conflict resolution
+- Show sync status to user
+- Retry failed syncs
+- Use Redux Persist</div>
+            </div>
+
+        </section>
+
+        <!-- PLAYWRIGHT TESTING SECTION -->
+        <section id="testing">
+            <h2>🎭 Playwright Testing Examples (15+ Prompts)</h2>
+
+            <h3>1. Basic Automation</h3>
+            <div class="prompt-example">
+                <strong>Test User Registration Flow</strong>
+                <div class="category-tag">E2E Test</div>
+                <div class="prompt-text">Write Playwright test for user registration:
+- Navigate to signup page
+- Fill email and password fields
+- Submit form
+- Verify success message
+- Check user is logged in
+- Verify redirect to dashboard
+- Add test fixtures for API mocking</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Test Form Validation Messages</strong>
+                <div class="category-tag">E2E Test</div>
+                <div class="prompt-text">Create Playwright test for form validation:
+- Test empty field error messages
+- Test invalid email format
+- Test password requirements
+- Test field-level validation timing
+- Verify error messages disappear on fix
+- Test form submission with errors</div>
+            </div>
+
+            <h3>2. Complex Interactions</h3>
+            <div class="prompt-example">
+                <strong>Test Data Table Interactions</strong>
+                <div class="category-tag">E2E Test</div>
+                <div class="prompt-text">Test data table functionality:
+- Sort by column headers
+- Navigate between pages
+- Filter data
+- Search functionality
+- Select multiple rows
+- Perform bulk actions
+- Verify data consistency</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Test Modal Dialogs</strong>
+                <div class="category-tag">E2E Test</div>
+                <div class="prompt-text">Write tests for modal interactions:
+- Open modal
+- Fill form fields
+- Submit form
+- Verify modal closes
+- Test cancel button
+- Test clicking outside modal
+- Verify form data persistence</div>
+            </div>
+
+            <h3>3. API Mocking</h3>
+            <div class="prompt-example">
+                <strong>Mock API Responses</strong>
+                <div class="category-tag">E2E Test</div>
+                <div class="prompt-text">Setup API mocking with Playwright:
+- Mock GET endpoints for user data
+- Mock POST for form submission
+- Test success and error scenarios
+- Return different data for pagination
+- Include response delays for loading states
+- Verify correct API calls are made</div>
+            </div>
+
+            <h3>4. Advanced Testing</h3>
+            <div class="prompt-example">
+                <strong>Test Authentication Flow</strong>
+                <div class="category-tag">E2E Test</div>
+                <div class="prompt-text">Test complete auth flow:
+- Login with valid credentials
+- Verify token is stored
+- Test logout
+- Verify redirect to login
+- Test protected page access
+- Test token refresh on expiry
+- Test remember me functionality</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Performance Testing</strong>
+                <div class="category-tag">Performance</div>
+                <div class="prompt-text">Create Playwright performance tests:
+- Measure page load time
+- Track metrics: LCP, FID, CLS
+- Monitor network requests
+- Test with throttled connection
+- Verify images are optimized
+- Check for console errors</div>
+            </div>
+
+        </section>
+
+        <!-- BUG FIXES & DEBUGGING SECTION -->
+        <section id="bugfixes">
+            <h2>🐛 Bug Fixes & Debugging Examples (10+ Prompts)</h2>
+
+            <div class="prompt-example">
+                <strong>Debug Memory Leak in React</strong>
+                <div class="category-tag">Debugging</div>
+                <div class="prompt-text">Component appears to have memory leak:
+1. Share the component code and describe the issue
+2. I'll analyze for:
+   - Missing cleanup in useEffect
+   - Uncancelled API calls
+   - Event listener leaks
+   - Timer/interval leaks
+3. Provide fixed version with explanations</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Fix Infinite Loop Bug</strong>
+                <div class="category-tag">Debugging</div>
+                <div class="prompt-text">This effect hook causes infinite loop. Share:
+- The useEffect code
+- Dependencies array
+- Expected behavior
+I'll identify the issue and fix it with explanation</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Debug API Integration Issue</strong>
+                <div class="category-tag">Debugging</div>
+                <div class="prompt-text">API call is failing. Provide:
+- Frontend code making the request
+- Error message from browser console
+- Backend endpoint code
+- Network request/response details
+I'll debug and provide solution</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Fix Database Query Performance</strong>
+                <div class="category-tag">Performance</div>
+                <div class="prompt-text">This query is slow. Share:
+- The Eloquent query or raw SQL
+- Table structures
+- Expected data size
+- Current execution time
+I'll optimize with:
+- Index recommendations
+- Query restructuring
+- Eager loading fixes</div>
+            </div>
+
+        </section>
+
+        <!-- UNIT TESTING SECTION -->
+        <section id="units">
+            <h2>✅ Unit & Integration Tests (10+ Prompts)</h2>
+
+            <div class="prompt-example">
+                <strong>Write Jest Unit Tests</strong>
+                <div class="category-tag">Testing</div>
+                <div class="prompt-text">Write comprehensive Jest tests for utility function:
+- Test all code paths
+- Test edge cases and boundary conditions
+- Mock external dependencies
+- Use descriptive test names
+- Include setup/teardown
+- Aim for 100% code coverage
+- Add helper functions if needed</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Write PHPUnit Tests for Service</strong>
+                <div class="category-tag">Testing</div>
+                <div class="prompt-text">Write PHPUnit tests for UserService:
+- Test registration success
+- Test duplicate email validation
+- Test password hashing
+- Test email sending
+- Mock dependencies
+- Test exception handling
+- Include assertions for database changes</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Write Integration Tests</strong>
+                <div class="category-tag">Testing</div>
+                <div class="prompt-text">Write integration tests that:
+- Test component + Redux together
+- Test API service + mock backend
+- Test form submission end-to-end
+- Verify state changes propagate
+- Test error scenarios
+- Clean up after each test</div>
+            </div>
+
+        </section>
+
+        <!-- FEATURE DEVELOPMENT SECTION -->
+        <section id="features">
+            <h2>🎯 Feature Development Examples (15+ Prompts)</h2>
+
+            <div class="prompt-example">
+                <strong>Build Complete User Profile Feature</strong>
+                <div class="category-tag">Feature</div>
+                <div class="prompt-text">Build user profile feature end-to-end:
+1. Frontend: Profile page with edit form
+   - Display current user info
+   - Edit form with validation
+   - Photo upload
+   - Delete account option
+2. Backend: User update endpoints
+   - Validate and update user
+   - Handle photo storage
+   - Log profile changes
+   - Send notification email
+3. Tests for all functionality</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Implement Search Feature</strong>
+                <div class="category-tag">Feature</div>
+                <div class="prompt-text">Build search functionality:
+- Add search input field
+- Real-time search (with debounce)
+- Search backend endpoint
+- Pagination of results
+- Search history/suggestions
+- Highlight matching text
+- Mobile responsive</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Build Notification System</strong>
+                <div class="category-tag">Feature</div>
+                <div class="prompt-text">Create notification system:
+Frontend:
+- Notification bell icon
+- Dropdown with notification list
+- Mark as read/unread
+- Delete notifications
+Backend:
+- Create notification records
+- Track read status
+- API endpoints
+- Send push notifications
+- Clean up old notifications</div>
+            </div>
+
+        </section>
+
+        <!-- OPTIMIZATION SECTION -->
+        <section id="optimization">
+            <h2>⚡ Performance & Optimization Examples (8+ Prompts)</h2>
+
+            <div class="prompt-example">
+                <strong>Optimize React Bundle Size</strong>
+                <div class="category-tag">Optimization</div>
+                <div class="prompt-text">Reduce bundle size. Provide:
+- webpack bundle analysis
+- Current build size
+- Build configuration
+I'll recommend:
+- Code splitting strategies
+- Lazy loading routes
+- Remove unused dependencies
+- Tree shaking optimization</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Implement Image Optimization</strong>
+                <div class="category-tag">Optimization</div>
+                <div class="prompt-text">Optimize image delivery:
+- Serve next-gen formats (WebP)
+- Responsive images (srcset)
+- Lazy loading with Intersection Observer
+- Image compression pipeline
+- CDN setup recommendations
+- Lighthouse performance improvements</div>
+            </div>
+
+        </section>
+
+        <!-- DEVOPS SECTION -->
+        <section id="devops">
+            <h2>🚀 DevOps & Deployment Examples (8+ Prompts)</h2>
+
+            <div class="prompt-example">
+                <strong>Create Docker Configuration</strong>
+                <div class="category-tag">DevOps</div>
+                <div class="prompt-text">Create Docker setup for development:
+- Dockerfile for Node.js/PHP
+- docker-compose.yml with services:
+  - App container
+  - PostgreSQL
+  - Redis
+  - Mailhog for email testing
+- .dockerignore
+- Environment configuration</div>
+            </div>
+
+            <div class="prompt-example">
+                <strong>Setup GitHub Actions CI/CD</strong>
+                <div class="category-tag">DevOps</div>
+                <div class="prompt-text">Create GitHub Actions workflow that:
+- Runs on push to main
+- Lint code (ESLint, Prettier)
+- Run tests (Jest, PHPUnit)
+- Build Docker image
+- Run security scans
+- Deploy to staging
+- Create Slack notification</div>
+            </div>
+
+        </section>
+
+        <div class="pro-tip">
+            <strong>💡 Pro Tips for Using These Prompts:</strong>
+            <ul style="margin-left: 20px; line-height: 2;">
+                <li>Customize prompts to match your specific project structure</li>
+                <li>Include actual error messages and code when debugging</li>
+                <li>Provide context (framework versions, library versions)</li>
+                <li>Ask for step-by-step explanations if you need to learn</li>
+                <li>Request both code and tests together</li>
+                <li>Ask for before/after comparisons on performance improvements</li>
+            </ul>
+        </div>
+
+        <footer>
+            <p>These examples cover 100+ real-world scenarios. Adapt them to your specific needs.</p>
+        </footer>
+
+        <div class="nav-links">
+            <a href="1-getting-started.html">← Getting Started</a>
+            <a href="3-best-practices.html">Best Practices →</a>
+        </div>
+    </div>
+</body>
+</html>

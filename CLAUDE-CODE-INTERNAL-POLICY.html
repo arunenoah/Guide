@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Internal Policy - Development Team</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #ffffff;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid #cccccc;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background: #0f3460;
+            color: white;
+            padding: 40px;
+            border-bottom: 3px solid #e94560;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .header .meta {
+            font-size: 0.9em;
+            opacity: 0.95;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        .toc {
+            background: #f5f5f5;
+            padding: 30px;
+            border-bottom: 2px solid #ddd;
+            margin: 0;
+        }
+
+        .toc h2 {
+            color: #0f3460;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .toc ol {
+            margin-left: 20px;
+            column-count: 2;
+            column-gap: 40px;
+        }
+
+        .toc li {
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .toc a {
+            color: #0f3460;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+        }
+
+        .toc a:hover {
+            border-bottom: 1px solid #0f3460;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            page-break-inside: avoid;
+        }
+
+        .section h2 {
+            color: #0f3460;
+            font-size: 1.5em;
+            margin-bottom: 5px;
+            font-weight: 600;
+            border-bottom: 3px solid #e94560;
+            padding-bottom: 10px;
+        }
+
+        .section > p:first-of-type {
+            color: #555;
+            font-style: italic;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+
+        .subsection {
+            margin: 25px 0;
+        }
+
+        .subsection h3 {
+            color: #0f3460;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .rule-box {
+            background: #fff3cd;
+            border-left: 4px solid #ff6b6b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 3px;
+        }
+
+        .rule-box strong {
+            color: #7d2a1f;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        .allowed-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 3px;
+        }
+
+        .allowed-box strong {
+            color: #155724;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .restricted-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 3px;
+        }
+
+        .restricted-box strong {
+            color: #721c24;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .example-box {
+            background: #e7f3ff;
+            border-left: 4px solid #0066cc;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        .example-box strong {
+            color: #003d99;
+            display: block;
+            margin-bottom: 10px;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 1em;
+        }
+
+        .checklist {
+            list-style: none;
+            margin: 15px 0;
+        }
+
+        .checklist li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .checklist li:before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            color: #0f3460;
+            font-weight: bold;
+        }
+
+        .role-card {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+
+        .role-card h4 {
+            color: #0f3460;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #0f3460;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .workflow-step {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 3px;
+            border-left: 4px solid #0f3460;
+        }
+
+        .workflow-step strong {
+            color: #0f3460;
+        }
+
+        .footer {
+            background: #0f3460;
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+            font-size: 0.9em;
+            border-top: 3px solid #e94560;
+            margin-top: 50px;
+        }
+
+        .page-break {
+            page-break-after: always;
+            margin: 50px 0;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 50px;
+        }
+
+        .approval-section {
+            margin-top: 50px;
+            border: 2px solid #0f3460;
+            padding: 30px;
+            background: #f9f9f9;
+        }
+
+        .approval-section h3 {
+            color: #0f3460;
+            margin-bottom: 20px;
+        }
+
+        .signature-line {
+            margin: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+        }
+
+        .signature-field {
+            flex: 1;
+            border-bottom: 1px solid #333;
+            padding-right: 20px;
+            text-align: center;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        .inline-code {
+            background: #f4f4f4;
+            padding: 3px 6px;
+            border-radius: 2px;
+            font-family: 'Courier New', monospace;
+            color: #d32f2f;
+        }
+
+        ul, ol {
+            margin: 15px 0;
+            margin-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        strong {
+            color: #0f3460;
+            font-weight: 600;
+        }
+
+        @media print {
+            body { padding: 0; }
+            .container { border: none; box-shadow: none; }
+            .page-break { page-break-after: always; }
+        }
+
+        .warning {
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+        .success {
+            color: #28a745;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>Claude Code Internal Policy</h1>
+            <p style="margin: 15px 0; font-size: 1.05em;">Mandatory Development Guidelines & Security Requirements</p>
+            <div class="meta">
+                <p><strong>Document Version:</strong> 1.0 | <strong>Effective Date:</strong> March 2026 | <strong>Classification:</strong> Internal Use Only</p>
+                <p>This policy is enforceable. Violations will result in access revocation and disciplinary action.</p>
+            </div>
+        </div>
+
+        <!-- TABLE OF CONTENTS -->
+        <div class="toc">
+            <h2>TABLE OF CONTENTS</h2>
+            <ol>
+                <li><a href="#section1">Introduction & Purpose</a></li>
+                <li><a href="#section2">Security Policy (STRICT RULES)</a></li>
+                <li><a href="#section3">Allowed vs Restricted Usage</a></li>
+                <li><a href="#section4">Development Workflow</a></li>
+                <li><a href="#section5">Prompt Engineering Standards</a></li>
+                <li><a href="#section6">Code Quality & Review Standards</a></li>
+                <li><a href="#section7">Common Failure Scenarios</a></li>
+                <li><a href="#section8">Role-Based Responsibilities</a></li>
+                <li><a href="#section9">Enforcement & Consequences</a></li>
+                <li><a href="#section10">Appendix</a></li>
+            </ol>
+        </div>
+
+        <!-- CONTENT BEGINS -->
+        <div class="content">
+
+            <!-- SECTION 1 -->
+            <div class="section" id="section1">
+                <h2>1. Introduction & Purpose</h2>
+                <p>This document establishes mandatory policies for using Claude Code (and similar AI coding assistants) across the development organization.</p>
+
+                <div class="subsection">
+                    <h3>1.1 Purpose of Using AI in Development</h3>
+                    <p>Claude Code is approved for use to:</p>
+                    <ul>
+                        <li><strong>Accelerate development</strong> - Faster feature implementation with proper review</li>
+                        <li><strong>Improve code quality</strong> - Better patterns, architecture, and practices</li>
+                        <li><strong>Reduce manual work</strong> - Testing, documentation, refactoring</li>
+                        <li><strong>Knowledge transfer</strong> - Explaining patterns and best practices</li>
+                        <li><strong>Problem solving</strong> - Debugging and optimization</li>
+                    </ul>
+                    <p style="margin-top: 20px; font-weight: 600; color: #d32f2f;">Claude Code is NOT a replacement for human judgment, security review, or testing.</p>
+                </div>
+
+                <div class="subsection">
+                    <h3>1.2 Risks & Responsibilities</h3>
+                    <p>Using AI in development carries specific risks that YOU must mitigate:</p>
+                    <ul>
+                        <li><strong>Security Leaks:</strong> Accidentally sharing secrets, API keys, credentials</li>
+                        <li><strong>Code Quality:</strong> AI-generated code may contain bugs, performance issues, security vulnerabilities</li>
+                        <li><strong>Blind Trust:</strong> Accepting code without understanding or testing it</li>
+                        <li><strong>Production Impact:</strong> Bad code reaching production and causing incidents</li>
+                        <li><strong>Intellectual Property:</strong> Training data privacy and model limitations</li>
+                        <li><strong>Compliance:</strong> Regulatory violations (PCI-DSS, HIPAA, GDPR)</li>
+                    </ul>
+                </div>
+
+                <div class="rule-box">
+                    <strong>⚠️ CRITICAL: You are legally and professionally responsible for code you commit, regardless of whether Claude generated it.</strong>
+                    <p>AI-assisted development does NOT reduce your code review obligations. If Claude generates vulnerable code and you commit it without testing, YOU are accountable.</p>
+                </div>
+
+                <div class="subsection">
+                    <h3>1.3 Who Can Use Claude Code?</h3>
+                    <table>
+                        <tr>
+                            <th>Role</th>
+                            <th>Allowed</th>
+                            <th>Restrictions</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Senior Developer</strong></td>
+                            <td>✓ Yes, unrestricted</td>
+                            <td>Must follow this policy</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mid-level Developer</strong></td>
+                            <td>✓ Yes, full access</td>
+                            <td>Must follow this policy</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Junior Developer</strong></td>
+                            <td>✓ Yes, with restrictions</td>
+                            <td>See Section 8.1 for limitations</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DevOps/Infrastructure</strong></td>
+                            <td>✓ Yes, for infrastructure code</td>
+                            <td>Must review ALL security rules</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Data/Analytics</strong></td>
+                            <td>✓ Yes, restricted</td>
+                            <td>Cannot share production data</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PAGE BREAK -->
+            <div class="page-break"></div>
+
+            <!-- SECTION 2 -->
+            <div class="section" id="section2">
+                <h2>2. Security Policy (STRICT RULES)</h2>
+                <p>This is the most critical section. Violations will result in immediate access revocation and disciplinary action.</p>
+
+                <div class="subsection">
+                    <h3>2.1 Strictly Prohibited: Secrets & Credentials</h3>
+
+                    <div class="rule-box">
+                        <strong>🛑 NEVER share with Claude Code:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>API keys or tokens (Auth0, Stripe, AWS, etc.)</li>
+                            <li>Database connection strings with passwords</li>
+                            <li>OAuth client secrets</li>
+                            <li>JWT signing keys or refresh tokens</li>
+                            <li>SSH keys or private keys</li>
+                            <li>AWS credentials or access keys</li>
+                            <li>Certificate private keys</li>
+                            <li>Encryption keys or salt values</li>
+                            <li>Third-party service passwords</li>
+                            <li>Slack/GitHub tokens or personal access tokens</li>
+                        </ul>
+                    </div>
+
+                    <h4 style="margin-top: 25px; color: #d32f2f;">Examples of VIOLATIONS:</h4>
+
+                    <div class="example-box">
+                        <strong>❌ BAD - VIOLATION:</strong>
+                        <p style="margin-top: 10px;">"Claude, here's my .env file. Why is my API not working?"</p>
+                        <pre>STRIPE_API_KEY=sk_live_4eC39HqLyjWDarhtT657pxB
+DATABASE_URL=postgresql://admin:P@ssw0rd123@prod-db.rds.amazonaws.com:5432/myapp
+AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</pre>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>❌ BAD - VIOLATION:</strong>
+                        <p style="margin-top: 10px;">"Can you review my OAuth implementation? Here's the client secret:"</p>
+                        <pre>client_id: auth0_abc123xyz
+client_secret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_PRODUCTION</pre>
+                    </div>
+
+                    <div class="allowed-box">
+                        <strong>✅ CORRECT - SAFE:</strong>
+                        <p style="margin-top: 10px;">"Why is my API not working? Here's my code (with secrets removed):"</p>
+                        <pre>// .env.example (SAFE - no actual values)
+STRIPE_API_KEY=sk_test_XXXXXXXXXXXXX
+DATABASE_URL=postgresql://user:XXXXX@localhost:5432/myapp
+AWS_SECRET_ACCESS_KEY=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+// Code reference:
+const stripe = require('stripe')(process.env.STRIPE_API_KEY);</pre>
+                    </div>
+
+                    <div class="allowed-box">
+                        <strong>✅ CORRECT - SAFE:</strong>
+                        <p style="margin-top: 10px;">"I'm having issues with OAuth. Here's the flow (without secrets):"</p>
+                        <pre>// Implementation pattern (no actual secrets)
+const auth0 = new Auth0Client({
+  domain: 'YOUR_DOMAIN.auth0.com',
+  client_id: 'YOUR_CLIENT_ID',
+  // Do NOT share client_secret with Claude
+});
+
+// Ask Claude for help with flow, not secrets</pre>
+                    </div>
+
+                    <h4 style="margin-top: 25px; color: #0f3460;">What To Do Instead:</h4>
+                    <ul>
+                        <li><strong>Remove secrets before sharing:</strong> Use <code class="inline-code">.example</code> files or placeholder values</li>
+                        <li><strong>Ask about the pattern, not the secret:</strong> "How do I securely store API keys?" (general question)</li>
+                        <li><strong>Ask locally:</strong> Describe the problem without sharing actual credentials</li>
+                        <li><strong>Use dummy values:</strong> "Here's my setup using dummy values: sk_test_xxxxx"</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>2.2 Strictly Prohibited: Production Data</h3>
+
+                    <div class="rule-box">
+                        <strong>🛑 NEVER share with Claude Code:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Real customer data, names, emails, phone numbers</li>
+                            <li>Real payment card information or financial data</li>
+                            <li>Database backups or production database dumps</li>
+                            <li>User PII (Personally Identifiable Information)</li>
+                            <li>Health information, medical records, or sensitive personal data</li>
+                            <li>Real error logs with sensitive information</li>
+                            <li>Production credentials, IPs, or infrastructure details</li>
+                            <li>Real transaction IDs or user IDs that identify individuals</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>❌ BAD - VIOLATION (Privacy/Compliance):</strong>
+                        <p style="margin-top: 10px;">"Debug this user query. Here's the actual data:"</p>
+                        <pre>SELECT * FROM users WHERE id = 45328;
+Results:
+- Name: John Smith
+- Email: john.smith@gmail.com
+- Phone: +1-555-0123
+- SSN: 123-45-6789
+- Credit Card: 4532-1234-5678-9010</pre>
+                    </div>
+
+                    <div class="allowed-box">
+                        <strong>✅ CORRECT - SAFE:</strong>
+                        <p style="margin-top: 10px;">"How do I optimize this user query?"</p>
+                        <pre>SELECT * FROM users WHERE id = ?;
+Results: 1 row with fields: id, name, email, created_at
+
+Question: The query takes 2 seconds for 100k rows.
+How can I optimize it with proper indexing?</pre>
+                    </div>
+
+                    <h4 style="margin-top: 25px; color: #0f3460;">Compliance Regulations:</h4>
+                    <ul>
+                        <li><strong>GDPR:</strong> Cannot share EU customer data with external AI (includes names, emails)</li>
+                        <li><strong>HIPAA:</strong> Cannot share health information with any external service</li>
+                        <li><strong>PCI-DSS:</strong> Cannot share payment card information</li>
+                        <li><strong>SOC 2:</strong> May restrict sharing of internal infrastructure details</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>2.3 Handling Secrets in Code</h3>
+
+                    <h4>Rule: NEVER commit secrets to ANY branch</h4>
+
+                    <div class="rule-box">
+                        <strong>Configuration Management:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li><strong>Local Development:</strong> Use <code class="inline-code">.env</code> files (in .gitignore)</li>
+                            <li><strong>Staging/Production:</strong> Use AWS Secrets Manager or environment variables</li>
+                            <li><strong>Version Control:</strong> Only commit <code class="inline-code">.env.example</code> with placeholders</li>
+                            <li><strong>Code Review:</strong> PR reviewers must verify no secrets are present</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>✅ CORRECT - Safe Setup:</strong>
+                        <pre>// .env (never committed - in .gitignore)
+DATABASE_URL=postgresql://user:pass@localhost:5432/myapp
+API_KEY=sk_live_xxxxxx
+
+// .env.example (safe - committed to repo)
+DATABASE_URL=postgresql://user:PASSWORD@localhost:5432/myapp
+API_KEY=sk_live_xxxxx
+
+// Code loads from environment
+const dbUrl = process.env.DATABASE_URL; // Loaded from .env</pre>
+                    </div>
+
+                    <h4 style="margin-top: 25px; color: #0f3460;">If You Accidentally Share a Secret:</h4>
+                    <ol>
+                        <li><strong>Stop immediately</strong> - Do not continue the conversation</li>
+                        <li><strong>Notify Security Team</strong> - Email: security@company.com within 1 hour</li>
+                        <li><strong>Rotate the secret</strong> - Change API key, password, token immediately</li>
+                        <li><strong>Check git history</strong> - Verify it's not in any git commits</li>
+                        <li><strong>Update CLAUDE.md</strong> - Document what happened for transparency</li>
+                    </ol>
+                </div>
+
+                <div class="subsection">
+                    <h3>2.4 Real-World Security Risk Scenarios</h3>
+
+                    <h4>Scenario 1: The "Just One Secret" Mistake</h4>
+                    <div class="example-box">
+                        <strong>What Happened:</strong>
+                        <p>Junior developer shares production Stripe key with Claude to "debug payment issue". Claude generates code using that key. Key gets stored in training data. Attacker finds it and steals $50k in fraudulent charges.</p>
+                        <p style="margin-top: 10px;"><strong>Consequences:</strong> Developer loses access. Company pays refunds. PCI audit fails.</p>
+                    </div>
+
+                    <h4>Scenario 2: The .env File Paste</h4>
+                    <div class="example-box">
+                        <strong>What Happened:</strong>
+                        <p>Developer asks Claude: "Why is database connection failing?" and pastes entire .env file. AWS secret key, database password, encryption keys all exposed. Attacker gains database access.</p>
+                        <p style="margin-top: 10px;"><strong>Consequences:</strong> Data breach. Customer notification required. Legal liability.</p>
+                    </div>
+
+                    <h4>Scenario 3: The "Test Data" Leak</h4>
+                    <div class="example-box">
+                        <strong>What Happened:</strong>
+                        <p>Developer shares "test database dump" with Claude to "optimize query". It's actually production data with 10k customer emails and payment info. GDPR violation detected.</p>
+                        <p style="margin-top: 10px;"><strong>Consequences:</strong> €20M GDPR fine. Company reputation damage.</p>
+                    </div>
+
+                    <h4>Scenario 4: The GitHub Token Mistake</h4>
+                    <div class="example-box">
+                        <strong>What Happened:</strong>
+                        <p>Developer shares error log with Claude. Error log contains GITHUB_TOKEN from CI/CD pipeline. Attacker uses token to push malicious code to repositories.</p>
+                        <p style="margin-top: 10px;"><strong>Consequences:</strong> Supply chain compromise. Malware in production.</p>
+                    </div>
+
+                    <h4 style="margin-top: 30px; color: #0f3460;">How to Prevent These Scenarios:</h4>
+                    <ul>
+                        <li>✓ Create .env files with placeholder values BEFORE using Claude</li>
+                        <li>✓ Use a script to redact sensitive data from logs/errors</li>
+                        <li>✓ Keep production credentials in secure vaults (AWS Secrets Manager, HashiCorp Vault)</li>
+                        <li>✓ Use separate credentials for development vs production</li>
+                        <li>✓ Enable secret scanning in GitHub to catch leaked credentials</li>
+                        <li>✓ Audit Claude conversations for accidental leaks (monthly)</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- PAGE BREAK -->
+            <div class="page-break"></div>
+
+            <!-- SECTION 3 -->
+            <div class="section" id="section3">
+                <h2>3. Allowed vs Restricted Usage</h2>
+                <p>Clear guidelines on what you CAN and CANNOT do with Claude Code.</p>
+
+                <div class="subsection">
+                    <h3>3.1 ALLOWED: What You Can Do</h3>
+
+                    <table>
+                        <tr>
+                            <th>Use Case</th>
+                            <th>Details</th>
+                            <th>Requirements</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Feature Development</strong></td>
+                            <td>Write new features from scratch</td>
+                            <td>✓ Must review ALL code ✓ Must test ✓ Must follow code standards</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bug Fixes</strong></td>
+                            <td>Debug and fix reported issues</td>
+                            <td>✓ Must understand root cause ✓ Must test the fix ✓ Must add test case</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Testing</strong></td>
+                            <td>Write unit, integration, E2E tests</td>
+                            <td>✓ Must verify tests pass ✓ Must cover edge cases ✓ Must review for quality</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Refactoring</strong></td>
+                            <td>Improve existing code structure</td>
+                            <td>✓ Tests must pass ✓ Must maintain behavior ✓ Peer review required</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Documentation</strong></td>
+                            <td>Write docs, comments, README</td>
+                            <td>✓ Must review for accuracy ✓ No sensitive data ✓ Human approval</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Code Review</strong></td>
+                            <td>Get Claude to review your code</td>
+                            <td>✓ Share code only (no secrets) ✓ Ask specific questions ✓ Verify suggestions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Learning & Training</strong></td>
+                            <td>Learn patterns, frameworks, approaches</td>
+                            <td>✓ No company code ✓ General questions only ✓ Knowledge transfer</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DevOps/Infrastructure</strong></td>
+                            <td>Docker, Kubernetes, CI/CD, IaC</td>
+                            <td>✓ No production creds ✓ Test in dev first ✓ Security review</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>3.2 RESTRICTED: What NOT To Do</h3>
+
+                    <table>
+                        <tr>
+                            <th>Prohibited Activity</th>
+                            <th>Why</th>
+                            <th>Consequence</th>
+                        </tr>
+                        <tr>
+                            <td><span class="warning">Share secrets/credentials</span></td>
+                            <td>Security breach risk</td>
+                            <td>⚠️ Immediate access revocation</td>
+                        </tr>
+                        <tr>
+                            <td><span class="warning">Share production data</span></td>
+                            <td>Privacy/compliance violation</td>
+                            <td>⚠️ Compliance fine + access revocation</td>
+                        </tr>
+                        <tr>
+                            <td><span class="warning">Use Claude for sensitive decisions</span></td>
+                            <td>Architectural decisions need human judgment</td>
+                            <td>⚠️ Code review failure</td>
+                        </tr>
+                        <tr>
+                            <td><span class="warning">Deploy without testing</span></td>
+                            <td>AI code may have bugs</td>
+                            <td>⚠️ Production incident + disciplinary action</td>
+                        </tr>
+                        <tr>
+                            <td><span class="warning">Skip code review</span></td>
+                            <td>Blind trust is dangerous</td>
+                            <td>⚠️ PR rejection + mandatory review</td>
+                        </tr>
+                        <tr>
+                            <td><span class="warning">Commit without understanding</span></td>
+                            <td>You're responsible for all code</td>
+                            <td>⚠️ Disciplinary action</td>
+                        </tr>
+                        <tr>
+                            <td><span class="warning">Share proprietary algorithms</span></td>
+                            <td>IP protection</td>
+                            <td>⚠️ Legal action possible</td>
+                        </tr>
+                        <tr>
+                            <td><span class="warning">Use for non-work purposes</span></td>
+                            <td>Policy compliance</td>
+                            <td>⚠️ Access suspension</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>3.3 Dangerous Patterns (DO NOT DO)</h3>
+
+                    <div class="restricted-box">
+                        <strong>❌ Pattern 1: Blind Copy-Paste</strong>
+                        <pre>Claude: "Here's the authentication code"
+You: *copies code directly to production without reading it*
+
+DANGER: Code may have security holes, performance issues,
+or bugs that don't match your architecture.</pre>
+                    </div>
+
+                    <div class="restricted-box">
+                        <strong>❌ Pattern 2: "Works for Me" Deployment</strong>
+                        <pre>You: "Claude generated this feature and it works on my laptop"
+*Commits directly to main without proper testing/review*
+
+DANGER: Doesn't test error cases, edge cases, or under load.
+Production breaks. Incident response time = 1am.</pre>
+                    </div>
+
+                    <div class="restricted-box">
+                        <strong>❌ Pattern 3: The Database Query</strong>
+                        <pre>Claude: "Here's a query that gets what you want"
+You: *Uses query without understanding it*
+
+DANGER: Query may be inefficient, cause N+1 problems,
+lock tables, or expose data to wrong users.</pre>
+                    </div>
+
+                    <div class="restricted-box">
+                        <strong>❌ Pattern 4: The "Just This Once" Secret</strong>
+                        <pre>You: "I'll just share this API key once to debug"
+*Shares production Stripe key*
+
+DANGER: Key is now in AI training data. Attackers
+find it. $100k in fraudulent charges. Your fault.</pre>
+                    </div>
+
+                    <div class="restricted-box">
+                        <strong>❌ Pattern 5: Ignoring Claude's Limitations</strong>
+                        <pre>Claude: "I'm not sure if this is secure, but here's code"
+You: *Deploys anyway without security review*
+
+DANGER: Claude may generate vulnerable code.
+Your responsibility to verify it's secure.</pre>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- PAGE BREAK -->
+            <div class="page-break"></div>
+
+            <!-- SECTION 4 -->
+            <div class="section" id="section4">
+                <h2>4. Development Workflow</h2>
+                <p>The mandatory process for using Claude Code in your development lifecycle.</p>
+
+                <div class="subsection">
+                    <h3>4.1 The Process: Claude → Local → Branch → PR → Review → CI → Deploy</h3>
+
+                    <div class="workflow-step">
+                        <strong>Step 1: Use Claude Code (Local Environment Only)</strong>
+                        <p>✓ Always use Claude Code locally, never in production environment</p>
+                        <p>✓ No sensitive credentials in your prompts</p>
+                        <p>✓ Test all code locally before committing</p>
+                    </div>
+
+                    <div class="workflow-step">
+                        <strong>Step 2: Create Feature Branch</strong>
+                        <p>✓ Branch name: <code class="inline-code">feature/descriptive-name</code> or <code class="inline-code">bugfix/issue-number</code></p>
+                        <p>✓ Never commit to main or develop directly</p>
+                        <p>✓ Branch should be short-lived (max 1 week)</p>
+                    </div>
+
+                    <div class="workflow-step">
+                        <strong>Step 3: Verify Code Locally</strong>
+                        <p>✓ Run all linting: <code class="inline-code">npm run lint</code></p>
+                        <p>✓ Run all tests: <code class="inline-code">npm test</code></p>
+                        <p>✓ Build successfully: <code class="inline-code">npm run build</code></p>
+                        <p>✓ Test manually (feature works correctly)</p>
+                        <p>✓ Check for security issues (see Section 6)</p>
+                    </div>
+
+                    <div class="workflow-step">
+                        <strong>Step 4: Create Commit with Claude</strong>
+                        <p>✓ Use <code class="inline-code">/commit</code> skill to generate commit message</p>
+                        <p>✓ Or write meaningful commit message manually</p>
+                        <p>✓ Reference issue number: "Closes #123" or "Fixes #456"</p>
+                    </div>
+
+                    <div class="workflow-step">
+                        <strong>Step 5: Push to Remote Branch</strong>
+                        <p>✓ <code class="inline-code">git push origin feature/your-branch</code></p>
+                        <p>✓ Never force push to shared branches</p>
+                        <p>✓ Verify GitHub shows your branch</p>
+                    </div>
+
+                    <div class="workflow-step">
+                        <strong>Step 6: Create Pull Request</strong>
+                        <p>✓ Provide clear description of changes</p>
+                        <p>✓ Link to related issue/ticket</p>
+                        <p>✓ Request code review from peers (minimum 1 reviewer)</p>
+                        <p>✓ For security changes: Request security team review</p>
+                    </div>
+
+                    <div class="workflow-step">
+                        <strong>Step 7: Code Review (Reviewer Responsibility)</strong>
+                        <p>✓ Reviewer must check: See Section 6 for mandatory checklist</p>
+                        <p>✓ Reviewer approves or requests changes</p>
+                        <p>✓ If AI-generated code: Extra scrutiny required</p>
+                    </div>
+
+                    <div class="workflow-step">
+                        <strong>Step 8: Automated CI Pipeline</strong>
+                        <p>✓ GitHub Actions runs all tests</p>
+                        <p>✓ Security scanning (SAST, dependency check)</p>
+                        <p>✓ Code coverage check (must maintain threshold)</p>
+                        <p>✓ Build verification</p>
+                    </div>
+
+                    <div class="workflow-step">
+                        <strong>Step 9: Merge (Only After CI Passes)</strong>
+                        <p>✓ Use "Squash and merge" for feature branches</p>
+                        <p>✓ Only merge to main/develop with approval</p>
+                        <p>✓ Delete branch after merging</p>
+                    </div>
+
+                    <div class="workflow-step">
+                        <strong>Step 10: Deploy to Staging First</strong>
+                        <p>✓ NEVER deploy directly to production</p>
+                        <p>✓ Test feature in staging environment</p>
+                        <p>✓ Verify with product/QA team</p>
+                        <p>✓ Monitor for errors in staging</p>
+                    </div>
+
+                    <div class="workflow-step">
+                        <strong>Step 11: Deploy to Production</strong>
+                        <p>✓ Only authorized personnel can deploy (Tech Lead, DevOps)</p>
+                        <p>✓ Use blue-green deployment or feature flags</p>
+                        <p>✓ Monitor metrics for 30 minutes post-deploy</p>
+                        <p>✓ Have rollback plan ready</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>4.2 Commits: Rules & Standards</h3>
+
+                    <div class="rule-box">
+                        <strong>Commit Message Format (Required):</strong>
+                        <pre>type(scope): subject (max 50 chars)
+
+Body (optional, max 72 chars per line):
+- Explain WHAT and WHY, not HOW
+- Reference issue: Closes #123
+- Add breaking changes note if applicable
+
+Example:
+feat(auth): add two-factor authentication
+
+Add TOTP-based 2FA for user accounts.
+- Users can enable 2FA in settings
+- Backup codes generated on setup
+- Login requires 6-digit code
+
+Closes #456</pre>
+                    </div>
+
+                    <h4>Types (required):</h4>
+                    <ul>
+                        <li><code class="inline-code">feat</code> - New feature</li>
+                        <li><code class="inline-code">fix</code> - Bug fix</li>
+                        <li><code class="inline-code">docs</code> - Documentation only</li>
+                        <li><code class="inline-code">style</code> - Code style (formatting, missing semicolons)</li>
+                        <li><code class="inline-code">refactor</code> - Code refactoring</li>
+                        <li><code class="inline-code">perf</code> - Performance improvement</li>
+                        <li><code class="inline-code">test</code> - Adding or updating tests</li>
+                        <li><code class="inline-code">chore</code> - Build, dependencies, tooling</li>
+                        <li><code class="inline-code">security</code> - Security fix</li>
+                    </ul>
+
+                    <div class="example-box">
+                        <strong>✅ GOOD Commit Message:</strong>
+                        <pre>fix(payment): prevent duplicate charges on retry
+
+When payment API times out, retry logic was creating
+duplicate charges. Now use idempotency key to prevent
+duplicate processing.
+
+Closes #789</pre>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>❌ BAD Commit Message:</strong>
+                        <pre>Fixed bug
+Updated code
+Changed stuff
+WIP</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>4.3 Pull Request Requirements</h3>
+
+                    <div class="checklist">
+                        <li>PR title is descriptive and matches commit type</li>
+                        <li>PR description explains WHAT and WHY</li>
+                        <li>Links to related GitHub issue</li>
+                        <li>All tests pass (CI pipeline green)</li>
+                        <li>Code coverage maintained or improved</li>
+                        <li>No secrets or sensitive data in code/history</li>
+                        <li>Documentation updated if applicable</li>
+                        <li>Minimum 1 reviewer approval (2 for prod-critical code)</li>
+                        <li>For security changes: Security team approval</li>
+                        <li>For infra changes: DevOps lead approval</li>
+                    </div>
+
+                    <h4 style="margin-top: 20px; color: #d32f2f;">PR Created By Claude Code?</h4>
+                    <p>If significant code was generated by Claude, include this in PR description:</p>
+                    <pre>⚠️ NOTE: Code generated with AI assistance (Claude Code)
+Reviewer should pay extra attention to:
+- [ ] Security vulnerabilities
+- [ ] Performance implications
+- [ ] Edge cases handling
+- [ ] Error handling</pre>
+                </div>
+            </div>
+
+            <!-- PAGE BREAK -->
+            <div class="page-break"></div>
+
+            <!-- SECTION 5 -->
+            <div class="section" id="section5">
+                <h2>5. Prompt Engineering Standards</h2>
+                <p>How to effectively and safely ask Claude Code for help.</p>
+
+                <div class="subsection">
+                    <h3>5.1 Good vs Bad Prompts</h3>
+
+                    <div class="restricted-box">
+                        <strong>❌ BAD Prompt 1: Too Vague</strong>
+                        <pre>"Create a login feature"
+
+PROBLEMS:
+- No requirements specified
+- No security context
+- No error handling requirements
+- Claude guesses what you need
+- May generate insecure code</pre>
+                    </div>
+
+                    <div class="allowed-box">
+                        <strong>✅ GOOD Prompt 1: Specific & Secure</strong>
+                        <pre>"Create a React login form component with:
+- Email and password fields
+- Real-time validation (email format, min 8 char password)
+- Form submission to POST /api/auth/login
+- Loading state during submission
+- Error message display (no details leaked)
+- Accessible (ARIA labels, keyboard navigation)
+- No storing password in state (only in form)
+- TypeScript with proper types
+- Use React Hook Form for form management
+
+Do NOT include actual API keys or credentials in code.
+Reference our .env.example for config structure."</pre>
+                    </div>
+
+                    <div class="restricted-box">
+                        <strong>❌ BAD Prompt 2: Asks for Secrets</strong>
+                        <pre>"Why isn't my Stripe integration working?
+Here's my setup:
+
+STRIPE_SECRET_KEY=sk_live_abc123...
+STRIPE_PUBLIC_KEY=pk_live_xyz..."</pre>
+                    </div>
+
+                    <div class="allowed-box">
+                        <strong>✅ GOOD Prompt 2: Safe Alternative</strong>
+                        <pre>"Why isn't my Stripe integration working?
+Here's my setup (with keys redacted):
+
+Server-side code:
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+Client-side code:
+const stripe = Stripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+
+Error I'm seeing: 'Invalid API Key'
+
+(I've confirmed my keys are correctly set in .env and
+the app loads STRIPE_PUBLIC_KEY from environment)"</pre>
+                    </div>
+
+                    <div class="restricted-box">
+                        <strong>❌ BAD Prompt 3: Vague Security</strong>
+                        <pre>"Create an authentication system"
+
+PROBLEMS:
+- No security requirements
+- No threat model
+- No compliance requirements
+- May generate vulnerable code</pre>
+                    </div>
+
+                    <div class="allowed-box">
+                        <strong>✅ GOOD Prompt 3: Security-Aware</strong>
+                        <pre>"Create a user authentication system with:
+
+REQUIREMENTS:
+- Email/password based login
+- JWT tokens (not sessions)
+- Tokens expire in 1 hour
+- Refresh tokens (expire in 30 days, stored in httpOnly cookie)
+- Password must be hashed with bcrypt (rounds: 12)
+- Rate limit: max 5 failed logins per IP per 15 mins
+- Secure password reset with expiring token
+- Audit log all login attempts
+- No sensitive data in JWT payload
+
+SECURITY:
+- Protect against brute force attacks
+- Prevent timing attacks
+- Validate all inputs
+- CSRF protection if using sessions
+- No hardcoded secrets (use env variables)
+
+FRAMEWORK: Laravel 10, PHP 8.2"</pre>
+                    </div>
+
+                    <div class="restricted-box">
+                        <strong>❌ BAD Prompt 4: Skips Testing</strong>
+                        <pre>"Write a database migration for users table"
+(No mention of testing, validation, rollback strategy)</pre>
+                    </div>
+
+                    <div class="allowed-box">
+                        <strong>✅ GOOD Prompt 4: Testing Included</strong>
+                        <pre>"Write a database migration for users table with:
+
+FIELDS:
+- id (primary key, uuid)
+- email (unique, not null)
+- password (hashed, not null)
+- first_name, last_name
+- created_at, updated_at timestamps
+
+ALSO PROVIDE:
+- Unit tests for migration (test up and down)
+- Validation for email uniqueness
+- Proper indexes for email (frequently queried)
+- Rollback strategy (down method)
+- Description comments explaining each field
+
+Don't include actual user data in migration."</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>5.2 Prompt Template (Use This)</h3>
+
+                    <div class="example-box">
+                        <strong>Copy-Paste Template:</strong>
+                        <pre>[TASK]
+What I need: [Clear description]
+
+[CONTEXT]
+- Framework: [e.g., React 18, Laravel 10]
+- Language: [e.g., TypeScript, PHP]
+- Architecture: [e.g., MVC, microservices]
+- Team conventions: [Link to CLAUDE.md or describe]
+
+[REQUIREMENTS]
+- Functional requirement 1
+- Functional requirement 2
+- Non-functional requirements (performance, security)
+
+[SECURITY NOTES]
+- No secrets in code (use environment variables)
+- Protect against [specific threats]
+- Follow OWASP guidelines
+
+[TESTING]
+- Unit tests required
+- Cover happy path and error cases
+
+[CONSTRAINTS]
+- Must be compatible with [version]
+- Cannot use [library]
+- Must maintain [compatibility]
+
+[DO NOT]
+- Share secrets or credentials
+- Include production data
+- Hardcode configuration</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>5.3 Questions to Ask Claude (Safe Topics)</h3>
+
+                    <table>
+                        <tr>
+                            <th>Type of Question</th>
+                            <th>Safe to Ask</th>
+                            <th>Example</th>
+                        </tr>
+                        <tr>
+                            <td>Architecture & Design</td>
+                            <td>✓ Yes</td>
+                            <td>"What's the best way to structure a microservice?"</td>
+                        </tr>
+                        <tr>
+                            <td>Code Generation</td>
+                            <td>✓ Yes (verify after)</td>
+                            <td>"Write a React component for..."</td>
+                        </tr>
+                        <tr>
+                            <td>Bug Debugging</td>
+                            <td>✓ Yes (no secrets)</td>
+                            <td>"Why is my query N+1?" (with code, no data)</td>
+                        </tr>
+                        <tr>
+                            <td>Performance</td>
+                            <td>✓ Yes</td>
+                            <td>"How do I optimize this database query?"</td>
+                        </tr>
+                        <tr>
+                            <td>Testing</td>
+                            <td>✓ Yes</td>
+                            <td>"Write comprehensive tests for..."</td>
+                        </tr>
+                        <tr>
+                            <td>Code Review</td>
+                            <td>✓ Yes (code only)</td>
+                            <td>"Review this code for security issues"</td>
+                        </tr>
+                        <tr>
+                            <td>Learning & Patterns</td>
+                            <td>✓ Yes</td>
+                            <td>"Explain async/await with examples"</td>
+                        </tr>
+                        <tr>
+                            <td>DevOps/Infrastructure</td>
+                            <td>✓ Yes (no prod creds)</td>
+                            <td>"Create a Dockerfile for Node.js app"</td>
+                        </tr>
+                        <tr>
+                            <td>Your Secrets</td>
+                            <td>✗ NO</td>
+                            <td>Never share API keys, passwords, tokens</td>
+                        </tr>
+                        <tr>
+                            <td>Production Data</td>
+                            <td>✗ NO</td>
+                            <td>Never share real customer/payment data</td>
+                        </tr>
+                        <tr>
+                            <td>Proprietary Code</td>
+                            <td>? Maybe</td>
+                            <td>Ask Security before sharing proprietary algorithms</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+
+            <!-- PAGE BREAK -->
+            <div class="page-break"></div>
+
+            <!-- SECTION 6 -->
+            <div class="section" id="section6">
+                <h2>6. Code Quality & Review Standards</h2>
+                <p>How to validate AI-generated code before it goes to production.</p>
+
+                <div class="subsection">
+                    <h3>6.1 Mandatory Code Review Checklist</h3>
+
+                    <h4>For ALL code (AI-generated or not):</h4>
+                    <ul class="checklist">
+                        <li>Code passes linter without errors (<code class="inline-code">npm run lint</code>)</li>
+                        <li>Code is formatted correctly (<code class="inline-code">npm run format</code>)</li>
+                        <li>All tests pass locally (<code class="inline-code">npm test</code>)</li>
+                        <li>No hardcoded credentials or secrets</li>
+                        <li>Follows team naming conventions and patterns</li>
+                        <li>Functions/components have clear purpose (name + comments)</li>
+                        <li>Error handling is comprehensive (try/catch, error boundaries)</li>
+                        <li>Performance: No obvious inefficiencies (N+1 queries, unnecessary renders)</li>
+                        <li>Security: Input validation, output encoding, auth checks</li>
+                        <li>Backward compatibility maintained (or breaking change documented)</li>
+                        <li>Documentation updated (README, comments, ADR if applicable)</li>
+                    </ul>
+
+                    <h4 style="margin-top: 30px;">EXTRA checks for AI-generated code:</h4>
+                    <ul class="checklist">
+                        <li>Reviewer read and understood every line of code</li>
+                        <li>Edge cases are handled (null, undefined, empty arrays, errors)</li>
+                        <li>Error messages are helpful (not generic "Error occurred")</li>
+                        <li>Logging is appropriate (no sensitive data logged)</li>
+                        <li>Type safety verified (if using TypeScript)</li>
+                        <li>Database queries analyzed for performance (EXPLAIN plan check)</li>
+                        <li>Security review completed (OWASP Top 10 check)</li>
+                        <li>Code matches our code standards (not just "works")</li>
+                        <li>Claude's limitations acknowledged (AI isn't perfect)</li>
+                        <li>At least one manual test performed (not just automated tests)</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>6.2 Security Review Checklist</h3>
+
+                    <h4>OWASP Top 10 Quick Check:</h4>
+                    <ul class="checklist">
+                        <li>No SQL injection: Use parameterized queries, never string concatenation</li>
+                        <li>No broken authentication: Proper password hashing, token validation</li>
+                        <li>No sensitive data exposure: Encrypt at rest, HTTPS in transit, no logging secrets</li>
+                        <li>No XML external entities (XXE): If parsing XML, disable external entities</li>
+                        <li>No broken access control: Authorization checks on all endpoints</li>
+                        <li>No security misconfiguration: Proper security headers, CORS, CSRF tokens</li>
+                        <li>No XSS: Output encoding, CSP headers, sanitize user input</li>
+                        <li>No insecure deserialization: Don't deserialize untrusted data</li>
+                        <li>No using components with known vulnerabilities: Update dependencies</li>
+                        <li>No insufficient logging/monitoring: Log security events</li>
+                    </ul>
+
+                    <h4 style="margin-top: 30px;">Specific Code Review Questions:</h4>
+                    <ul class="checklist">
+                        <li>Is user input validated on both client AND server?</li>
+                        <li>Are all database queries using parameterized queries?</li>
+                        <li>Are passwords hashed (not stored in plain text)?</li>
+                        <li>Are API endpoints protected with authentication/authorization?</li>
+                        <li>Is sensitive data encrypted in transit (HTTPS)?</li>
+                        <li>Are error messages generic (not leaking implementation details)?</li>
+                        <li>Are rate limits in place to prevent brute force attacks?</li>
+                        <li>Are CORS headers properly configured?</li>
+                        <li>Is CSRF protection enabled for state-changing operations?</li>
+                        <li>Are dependencies up to date (no known vulnerabilities)?</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>6.3 What Reviewers Should Look For (AI Code Specific)</h3>
+
+                    <div class="example-box">
+                        <strong>Red Flag 1: Missing Error Handling</strong>
+                        <pre>// Claude generated code without error handling
+const response = await fetch('/api/users');
+const data = await response.json();
+// What if API returns 500? What if network fails?
+// Claude often omits error handling!</pre>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Red Flag 2: N+1 Query Problem</strong>
+                        <pre>// Bad: Loops through users, queries database for each
+users.forEach(user => {
+  const posts = db.query('SELECT * FROM posts WHERE user_id = ?', user.id);
+  // Now you have N+1 queries!
+});
+
+// Better: Load all data at once
+const users = db.query('SELECT u.*, p.* FROM users u
+                        LEFT JOIN posts p ON u.id = p.user_id');</pre>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Red Flag 3: Insecure Password Handling</strong>
+                        <pre>// BAD - Password stored in plain text
+const password = req.body.password;
+db.save({ email, password }); // NEVER do this!
+
+// GOOD - Password hashed
+const bcrypt = require('bcrypt');
+const hashedPassword = await bcrypt.hash(password, 12);
+db.save({ email, password: hashedPassword });</pre>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Red Flag 4: Missing Input Validation</strong>
+                        <pre>// BAD - No validation
+app.post('/users', (req, res) => {
+  db.insert(req.body); // What if email is invalid?
+});
+
+// GOOD - Validation before insert
+app.post('/users', (req, res) => {
+  const schema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(8).required()
+  });
+
+  const { error, value } = schema.validate(req.body);
+  if (error) return res.status(400).json({ error });
+
+  db.insert(value);
+});</pre>
+                    </div>
+
+                    <div class="example-box">
+                        <strong>Red Flag 5: Missing Authorization Check</strong>
+                        <pre>// BAD - No authorization
+app.delete('/users/:id', (req, res) => {
+  db.delete('users', req.params.id); // Any user can delete any user!
+});
+
+// GOOD - Check authorization
+app.delete('/users/:id', (req, res) => {
+  const user = db.find('users', req.params.id);
+  if (user.id !== req.user.id && req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Unauthorized' });
+  }
+  db.delete('users', req.params.id);
+});</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>6.4 Performance Review Checklist</h3>
+
+                    <ul class="checklist">
+                        <li>Database queries use indexes on frequently searched columns</li>
+                        <li>No N+1 queries (use eager loading/joins)</li>
+                        <li>API responses are paginated for large datasets</li>
+                        <li>Caching used appropriately (Redis, HTTP cache headers)</li>
+                        <li>Frontend: No unnecessary re-renders (React.memo, useMemo)</li>
+                        <li>Frontend: No blocking operations on main thread</li>
+                        <li>No inefficient loops or nested loops</li>
+                        <li>Memory leaks prevented (cleanup in useEffect, event listener removal)</li>
+                        <li>Large objects/arrays split into chunks/streams if needed</li>
+                        <li>Build optimization verified (tree shaking, code splitting, minification)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- PAGE BREAK -->
+            <div class="page-break"></div>
+
+            <!-- SECTION 7 -->
+            <div class="section" id="section7">
+                <h2>7. Common Failure Scenarios</h2>
+                <p>Real situations where teams have failed by misusing AI assistance.</p>
+
+                <div class="subsection">
+                    <h3>7.1 Blind Trust in AI</h3>
+
+                    <div class="example-box">
+                        <strong>What Happened:</strong>
+                        <pre>Developer asked Claude for authentication code.
+Claude generated JWT-based auth.
+Developer copied code directly without reviewing.
+Later discovered: JWT tokens never expired!
+Users could login once and stay logged in forever.
+
+Impact: Security vulnerability. Session hijacking risk.</pre>
+                    </div>
+
+                    <h4>Lesson:</h4>
+                    <ul>
+                        <li>Claude makes mistakes. Always review code carefully.</li>
+                        <li>For security-critical code: Have security team review</li>
+                        <li>Test edge cases that Claude might miss</li>
+                        <li>Understand what the code does before deploying</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>7.2 Security Leaks via Secrets</h3>
+
+                    <div class="example-box">
+                        <strong>What Happened:</strong>
+                        <pre>Developer debugging payment issue.
+Asked Claude: "Here's my Stripe integration"
+Accidentally pasted .env with STRIPE_SECRET_KEY
+Key is now in Claude's training data.
+Attacker finds the key online.
+$50,000 in fraudulent charges occur.
+
+Impact: Financial loss. Incident response. Customer notification.</pre>
+                    </div>
+
+                    <h4>Lesson:</h4>
+                    <ul>
+                        <li>Never paste actual credentials</li>
+                        <li>Use .env.example with placeholder values</li>
+                        <li>If you slip up, rotate credentials immediately</li>
+                        <li>Audit Claude conversations periodically</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>7.3 Poor Prompt Usage</h3>
+
+                    <div class="example-box">
+                        <strong>What Happened:</strong>
+                        <pre>Developer: "Create database schema"
+(No requirements specified)
+
+Claude generated schema without:
+- Proper indexes
+- Foreign key constraints
+- Data validation
+- Audit fields (created_at, updated_at)
+
+Result: Performance problems, data integrity issues in production.</pre>
+                    </div>
+
+                    <h4>Lesson:</h4>
+                    <ul>
+                        <li>Be specific in your prompts</li>
+                        <li>Include requirements and constraints</li>
+                        <li>Specify security/performance needs</li>
+                        <li>Ask Claude to explain assumptions</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>7.4 Over-Reliance on AI</h3>
+
+                    <div class="example-box">
+                        <strong>What Happened:</strong>
+                        <pre>Team started using Claude for EVERY feature.
+Developers stopped thinking critically.
+Code quality decreased because:
+- No one understood the code
+- Testing became superficial
+- Architecture decisions were random
+- Knowledge transfer broke down
+
+Impact: Technical debt. Team velocity decreased. Morale fell.</pre>
+                    </div>
+
+                    <h4>Lesson:</h4>
+                    <ul>
+                        <li>Use Claude as a tool, not a replacement for thinking</li>
+                        <li>Developers should understand the code they write</li>
+                        <li>Use Claude for 70% of work, 30% is critical thinking</li>
+                        <li>Build knowledge as a team, don't rely on Claude entirely</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>7.5 Production Deployment Without Testing</h3>
+
+                    <div class="example-box">
+                        <strong>What Happened:</strong>
+                        <pre>Developer asked Claude for feature.
+Generated code quickly.
+Tests passed locally.
+Deployed directly to production.
+
+In production:
+- Code crashes under load (not tested with realistic data)
+- Database queries timeout (N+1 queries)
+- Users locked out (auth logic bug)
+- Rollback required, 30 minute outage
+
+Impact: Customer complaints. SLA breach. Reputation damage.</pre>
+                    </div>
+
+                    <h4>Lesson:</h4>
+                    <ul>
+                        <li>Always deploy to staging first</li>
+                        <li>Test with realistic data volumes</li>
+                        <li>Load test if applicable</li>
+                        <li>Have rollback strategy ready</li>
+                        <li>Monitor metrics post-deployment</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>7.6 Skipped Code Review</h3>
+
+                    <div class="example-box">
+                        <strong>What Happened:</strong>
+                        <pre>Developer: "Claude generated this feature, it works locally"
+Merged to main without peer review.
+Later discovered: SQL injection vulnerability in query.
+
+Attack: Attacker extracted 100k customer emails and phone numbers.</pre>
+                    </div>
+
+                    <h4>Lesson:</h4>
+                    <ul>
+                        <li>Code review is MANDATORY for all code</li>
+                        <li>AI-generated code needs EXTRA scrutiny</li>
+                        <li>Reviewers must understand every line</li>
+                        <li>Security team reviews security-critical code</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- PAGE BREAK -->
+            <div class="page-break"></div>
+
+            <!-- SECTION 8 -->
+            <div class="section" id="section8">
+                <h2>8. Role-Based Responsibilities</h2>
+                <p>Different roles have different responsibilities when using Claude Code.</p>
+
+                <div class="subsection">
+                    <h3>8.1 Junior Developer</h3>
+
+                    <div class="role-card">
+                        <h4>Allowed:</h4>
+                        <ul>
+                            <li>✓ Write features with Claude assistance</li>
+                            <li>✓ Get Claude to explain code patterns</li>
+                            <li>✓ Write tests with Claude help</li>
+                            <li>✓ Fix bugs with guidance</li>
+                            <li>✓ Refactor code using Claude suggestions</li>
+                        </ul>
+                    </div>
+
+                    <div class="role-card">
+                        <h4>Restricted:</h4>
+                        <ul>
+                            <li>✗ Cannot review complex code from others</li>
+                            <li>✗ Cannot approve PRs (need senior review)</li>
+                            <li>✗ Cannot deploy to production (Tech Lead/DevOps only)</li>
+                            <li>✗ Cannot change security-critical code</li>
+                            <li>✗ Cannot modify infrastructure/DevOps code</li>
+                        </ul>
+                    </div>
+
+                    <div class="role-card">
+                        <h4>Responsibilities:</h4>
+                        <ul>
+                            <li>✓ Understand every line of code you write</li>
+                            <li>✓ Test code thoroughly before PR</li>
+                            <li>✓ Ask questions if Claude code doesn't make sense</li>
+                            <li>✓ Follow security guidelines strictly</li>
+                            <li>✓ Request senior review before merging</li>
+                            <li>✓ Document any Claude limitations discovered</li>
+                        </ul>
+                    </div>
+
+                    <div class="rule-box">
+                        <strong>⚠️ Junior Developers: You are learning. Don't blindly trust Claude.</strong>
+                        <p>Your job is to understand patterns and become independent. Use Claude as a learning tool, not a shortcut. Always ask "Why does this work?" and verify with seniors.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>8.2 Mid-Level / Senior Developer</h3>
+
+                    <div class="role-card">
+                        <h4>Allowed:</h4>
+                        <ul>
+                            <li>✓ All usage allowed (with policy compliance)</li>
+                            <li>✓ Review and approve PRs</li>
+                            <li>✓ Make architecture decisions</li>
+                            <li>✓ Review security-critical code</li>
+                            <li>✓ Deploy to staging/production</li>
+                            <li>✓ Make DevOps changes</li>
+                        </ul>
+                    </div>
+
+                    <div class="role-card">
+                        <h4>Responsibilities:</h4>
+                        <ul>
+                            <li>✓ Deep review of AI-generated code</li>
+                            <li>✓ Mentor juniors on Claude usage</li>
+                            <li>✓ Verify security of critical code</li>
+                            <li>✓ Catch Claude's mistakes before deployment</li>
+                            <li>✓ Make architectural decisions (not just coding)</li>
+                            <li>✓ Document patterns and best practices</li>
+                        </ul>
+                    </div>
+
+                    <div class="rule-box">
+                        <strong>⚠️ Senior Developers: You are responsible for code quality.</strong>
+                        <p>When reviewing code (AI or human), you must catch bugs, security issues, and performance problems. Your approval means you verified the code is safe to deploy.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>8.3 Tech Lead / Engineering Manager</h3>
+
+                    <div class="role-card">
+                        <h4>Responsibilities:</h4>
+                        <ul>
+                            <li>✓ Establish coding standards for team</li>
+                            <li>✓ Approve PR merges to main</li>
+                            <li>✓ Deploy to production (or delegate to DevOps)</li>
+                            <li>✓ Review security-critical changes</li>
+                            <li>✓ Mentor team on Claude usage patterns</li>
+                            <li>✓ Monitor for policy violations</li>
+                            <li>✓ Make architectural decisions</li>
+                            <li>✓ Set example for responsible Claude usage</li>
+                        </ul>
+                    </div>
+
+                    <div class="rule-box">
+                        <strong>⚠️ Tech Leads: You are accountable for team's code quality.</strong>
+                        <p>If a security breach occurs because team misused Claude, that's your responsibility. Set standards, enforce them, and mentor the team.</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>8.4 Security Team</h3>
+
+                    <div class="role-card">
+                        <h4>Responsibilities:</h4>
+                        <ul>
+                            <li>✓ Review security-critical code (auth, payment, data access)</li>
+                            <li>✓ Audit Claude conversations (quarterly) for secret leaks</li>
+                            <li>✓ Enforce security policy compliance</li>
+                            <li>✓ Review OWASP violations in code</li>
+                            <li>✓ Incident response if secret leaked</li>
+                            <li>✓ Security training for team</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>8.5 DevOps / Infrastructure</h3>
+
+                    <div class="role-card">
+                        <h4>Responsibilities:</h4>
+                        <ul>
+                            <li>✓ Review infrastructure code from Claude</li>
+                            <li>✓ Deploy application code to production</li>
+                            <li>✓ Monitor deployments for errors</li>
+                            <li>✓ Control access to production credentials</li>
+                            <li>✓ Setup secret management (AWS Secrets Manager, Vault)</li>
+                            <li>✓ Audit infrastructure changes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE BREAK -->
+            <div class="page-break"></div>
+
+            <!-- SECTION 9 -->
+            <div class="section" id="section9">
+                <h2>9. Enforcement & Consequences</h2>
+                <p>Violations of this policy will be handled with escalating consequences.</p>
+
+                <div class="subsection">
+                    <h3>9.1 Policy Violations & Consequences</h3>
+
+                    <table>
+                        <tr>
+                            <th>Violation Type</th>
+                            <th>Severity</th>
+                            <th>First Occurrence</th>
+                            <th>Second Occurrence</th>
+                            <th>Third+ Occurrence</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Shared API key/secret</strong></td>
+                            <td><span class="warning">CRITICAL</span></td>
+                            <td>Immediate 1-1 with manager, rotate secret, written warning</td>
+                            <td>Claude access suspended 2 weeks, security review required</td>
+                            <td>Claude access revoked, possible termination</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Shared production data</strong></td>
+                            <td><span class="warning">CRITICAL</span></td>
+                            <td>Immediate security audit, written warning, training</td>
+                            <td>Claude access suspended, may impact employment</td>
+                            <td>Claude access revoked</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Skipped code review</strong></td>
+                            <td>HIGH</td>
+                            <td>PR rejected, re-review required, verbal warning</td>
+                            <td>Written warning, mandatory code review training</td>
+                            <td>Escalation to manager</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Deployed without testing</strong></td>
+                            <td>HIGH</td>
+                            <td>PR rejected, mandatory testing before merge</td>
+                            <td>Claude access limited to non-critical code</td>
+                            <td>Claude access suspended</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Merged without approval</strong></td>
+                            <td>HIGH</td>
+                            <td>Revert PR, verbal warning</td>
+                            <td>Written warning, mandatory policy review</td>
+                            <td>Escalation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Blind trust (no code review)</strong></td>
+                            <td>MEDIUM</td>
+                            <td>PR discussion, code review training</td>
+                            <td>Mandatory senior developer review on all PRs</td>
+                            <td>Claude access limited</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Non-work usage</strong></td>
+                            <td>MEDIUM</td>
+                            <td>Verbal warning, policy reminder</td>
+                            <td>Written warning</td>
+                            <td>Access suspension</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>9.2 Access Control Rules</h3>
+
+                    <h4>Who Has Claude Code Access:</h4>
+                    <ul>
+                        <li><strong>Granted To:</strong> All developers, DevOps, architects with company approval</li>
+                        <li><strong>Revoked For:</strong> Security policy violations, non-work usage, unauthorized access attempts</li>
+                        <li><strong>Suspended For:</strong> Multiple violations, investigation in progress</li>
+                        <li><strong>Temporary Limited:</strong> Single violations, behavior improvement period</li>
+                    </ul>
+
+                    <h4 style="margin-top: 20px;">Access Request Process:</h4>
+                    <ol>
+                        <li>Developer completes Claude Code training (30 mins)</li>
+                        <li>Manager approves access request</li>
+                        <li>Developer signs this policy (digital signature)</li>
+                        <li>Security team provisions account</li>
+                        <li>Onboarding: Use only on non-critical code for first month</li>
+                    </ol>
+
+                    <h4 style="margin-top: 20px;">Access Revocation Process:</h4>
+                    <ol>
+                        <li>Violation detected</li>
+                        <li>Manager + Security Team investigation</li>
+                        <li>Developer notified of violation</li>
+                        <li>Access suspended during investigation</li>
+                        <li>If violation confirmed: access revoked (temporary or permanent)</li>
+                    </ol>
+                </div>
+
+                <div class="subsection">
+                    <h3>9.3 Audit & Monitoring</h3>
+
+                    <h4>Security team will monitor:</h4>
+                    <ul>
+                        <li>✓ Git commits for secrets (scanning .git history)</li>
+                        <li>✓ PR descriptions for sensitive information</li>
+                        <li>✓ Suspicious Claude usage patterns</li>
+                        <li>✓ Employee self-reporting of violations</li>
+                        <li>✓ Security incidents related to AI usage</li>
+                    </ul>
+
+                    <h4 style="margin-top: 20px;">Reporting a Violation:</h4>
+                    <div class="rule-box">
+                        <strong>If you discover a violation:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>Self-report to security@company.com within 24 hours (lighter consequences)</li>
+                            <li>Or report anonymously: security report form</li>
+                            <li>Or tell your manager immediately</li>
+                        </ul>
+                        <p style="margin-top: 15px;"><strong>Benefits of self-reporting:</strong> Lighter consequences, trust shown, faster remediation, no investigation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE BREAK -->
+            <div class="page-break"></div>
+
+            <!-- SECTION 10 -->
+            <div class="section" id="section10">
+                <h2>10. Appendix</h2>
+
+                <div class="subsection">
+                    <h3>10.1 Real Prompt Examples for Your Tech Stack</h3>
+
+                    <h4>React + TypeScript Feature Development:</h4>
+                    <div class="example-box">
+                        <strong>✅ GOOD PROMPT:</strong>
+                        <pre>"Create a React component for a product search with:
+
+REQUIREMENTS:
+- Input field with debounced search (300ms)
+- Results displayed below input
+- Shows 'Loading...' while searching
+- Shows 'No results' if nothing found
+- Clicking result navigates to product page
+- Mobile responsive
+
+TECHNICAL:
+- TypeScript with proper types
+- Use React Hook Form for input
+- Use SWR for data fetching
+- Handle API errors gracefully
+- No hardcoded URLs (use environment variable)
+- Accessible: ARIA labels, keyboard navigation
+
+SECURITY:
+- Sanitize search input (no XSS)
+- Validate API responses
+- Don't log user searches
+
+FILES:
+- ProductSearch.tsx (component)
+- ProductSearch.test.tsx (tests)"</pre>
+                    </div>
+
+                    <h4>Laravel Backend API:</h4>
+                    <div class="example-box">
+                        <strong>✅ GOOD PROMPT:</strong>
+                        <pre>"Create Laravel API endpoint for user profile update:
+
+ENDPOINT: PUT /api/v1/users/{id}
+
+FIELDS TO UPDATE:
+- first_name (string, max 50)
+- last_name (string, max 50)
+- email (email, unique, not current user's email)
+- phone (optional, valid format)
+
+REQUIREMENTS:
+- Authenticate with JWT token
+- Authorize: user can only update own profile
+- Validate all inputs
+- Return updated user (without password)
+- Return 404 if user not found
+- Return 422 if validation fails
+- Return 403 if not authorized
+
+TECHNICAL:
+- Use FormRequest for validation
+- Use Policy for authorization
+- Log update for audit trail
+- Return JSON:API format
+- Include pagination for related data if needed
+
+TESTING:
+- Test happy path
+- Test validation errors
+- Test authorization (can't update other user)
+- Test authentication failure"</pre>
+                    </div>
+
+                    <h4>Playwright E2E Testing:</h4>
+                    <div class="example-box">
+                        <strong>✅ GOOD PROMPT:</strong>
+                        <pre>"Create Playwright test for user login flow:
+
+TEST FLOW:
+1. Navigate to login page
+2. Enter valid email and password
+3. Submit form
+4. Verify success message
+5. Verify redirect to dashboard
+6. Verify user name displayed in header
+7. Logout and verify redirect to login
+
+ALSO TEST:
+- Empty email error
+- Invalid email format error
+- Wrong password error
+- Network timeout handling
+- Rate limit (too many attempts)
+
+SETUP:
+- Use test fixtures for mock API
+- Create separate test user account
+- Clean up after test
+- Run on Chrome, Firefox, Safari
+- Viewport sizes: desktop and mobile
+
+DO NOT:
+- Use hardcoded delays (wait for elements instead)
+- Share real credentials
+- Make requests to production
+- Commit credentials in test code"</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>10.2 Secure Coding Checklist</h3>
+
+                    <h4>Before You Deploy, Check:</h4>
+                    <ul class="checklist">
+                        <li>No secrets in code, comments, or git history</li>
+                        <li>All user inputs validated (client AND server)</li>
+                        <li>Database queries use parameterized statements (no string concat)</li>
+                        <li>Output encoded to prevent XSS</li>
+                        <li>Authentication required for protected endpoints</li>
+                        <li>Authorization checked (user has permission)</li>
+                        <li>HTTPS only (no HTTP)</li>
+                        <li>CORS configured correctly (not * wildcard)</li>
+                        <li>CSRF tokens on state-changing operations</li>
+                        <li>Passwords hashed (bcrypt, scrypt, argon2)</li>
+                        <li>Sensitive data encrypted (TLS in transit, encryption at rest)</li>
+                        <li>Error messages don't leak implementation details</li>
+                        <li>Rate limiting on authentication endpoints</li>
+                        <li>Logging doesn't include sensitive data</li>
+                        <li>Dependencies checked for vulnerabilities (npm audit, composer audit)</li>
+                        <li>Security headers set (CSP, X-Frame-Options, etc.)</li>
+                        <li>API versioning in place (/api/v1/...)</li>
+                        <li>Documentation updated with security notes</li>
+                        <li>Security review completed</li>
+                        <li>Tests include security test cases</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>10.3 AI Usage Checklist</h3>
+
+                    <h4>Before Asking Claude Code:</h4>
+                    <ul class="checklist">
+                        <li>I have NO secrets in my prompt</li>
+                        <li>I have NO production data in my prompt</li>
+                        <li>I'm NOT asking for company proprietary code</li>
+                        <li>I've described the problem clearly and specifically</li>
+                        <li>I've included context: framework, language, architecture</li>
+                        <li>I've mentioned security and performance requirements</li>
+                        <li>I'm NOT expecting Claude to make architectural decisions alone</li>
+                        <li>I'll review all code before using it</li>
+                        <li>I'll test generated code thoroughly</li>
+                        <li>I'll have code reviewed by senior peer</li>
+                    </ul>
+
+                    <h4 style="margin-top: 30px;">After Claude Generates Code:</h4>
+                    <ul class="checklist">
+                        <li>I read and understood every line</li>
+                        <li>I verified it works locally</li>
+                        <li>I ran linter and formatter</li>
+                        <li>I ran all tests</li>
+                        <li>I added tests if missing</li>
+                        <li>I checked for security vulnerabilities</li>
+                        <li>I reviewed for performance issues</li>
+                        <li>I verified it follows team standards</li>
+                        <li>I added documentation/comments</li>
+                        <li>I created a PR with clear description</li>
+                        <li>I requested peer review</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h3>10.4 Training & Resources</h3>
+
+                    <h4>Required Training (Before Using Claude Code):</h4>
+                    <ul>
+                        <li>✓ Security awareness training (1 hour)</li>
+                        <li>✓ Claude Code usage policy review (30 mins)</li>
+                        <li>✓ OWASP Top 10 overview (1 hour)</li>
+                        <li>✓ Code review best practices (1 hour)</li>
+                    </ul>
+
+                    <h4 style="margin-top: 20px;">Optional Deepdives:</h4>
+                    <ul>
+                        <li>Prompt engineering best practices</li>
+                        <li>Security code review techniques</li>
+                        <li>Performance optimization patterns</li>
+                        <li>Testing strategies for AI-generated code</li>
+                    </ul>
+
+                    <h4 style="margin-top: 20px;">Documentation:</h4>
+                    <ul>
+                        <li><code class="inline-code">/CLAUDE.md</code> - Your project's Claude guidelines</li>
+                        <li>GitHub wiki - Team patterns and examples</li>
+                        <li>Security best practices doc</li>
+                        <li>Code review guidelines</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- APPROVAL SECTION -->
+        <div style="padding: 0 40px;">
+            <div class="approval-section">
+                <h3>DOCUMENT APPROVAL & ACKNOWLEDGMENT</h3>
+                <p>This policy is effective March 1, 2026 and mandatory for all developers using Claude Code.</p>
+
+                <p style="margin-top: 20px;"><strong>By using Claude Code, you acknowledge:</strong></p>
+                <ol>
+                    <li>I have read and understood this policy</li>
+                    <li>I will follow all rules and guidelines</li>
+                    <li>I understand the risks of using AI in development</li>
+                    <li>I am responsible for all code I commit</li>
+                    <li>I will not share secrets or sensitive data with Claude</li>
+                    <li>I will test and review all generated code</li>
+                    <li>I understand violations can result in access revocation</li>
+                </ol>
+
+                <div style="margin-top: 40px; text-align: center; color: #999;">
+                    <p>Digital acknowledgment required in HRIS system before access granted</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p><strong>Document Version:</strong> 1.0 | <strong>Last Updated:</strong> March 2026</p>
+            <p><strong>Next Review:</strong> September 2026 | <strong>Classification:</strong> Internal Use Only</p>
+            <p>For questions or violations: security@company.com | For clarifications: tech-lead@company.com</p>
+            <p style="margin-top: 20px; font-size: 0.85em;">This policy supersedes all previous guidance on AI usage. Violation of this policy may result in disciplinary action up to and including termination of employment.</p>
+        </div>
+
+    </div>
+</body>
+</html>

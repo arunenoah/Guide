@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started - Claude Integration Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            color: #667eea;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+
+        .step {
+            background: #f9f9f9;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .step strong {
+            color: #667eea;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            flex: 1;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: #764ba2;
+        }
+
+        .nav-links a.prev {
+            margin-right: 10px;
+        }
+
+        footer {
+            text-align: center;
+            color: #666;
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .success-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="ai-guide-index.html">Home</a> / Getting Started
+        </div>
+
+        <header>
+            <h1>🚀 Getting Started with Claude</h1>
+            <p>Setup, configuration, and integration with your development workflow</p>
+        </header>
+
+        <section>
+            <h2>1. Claude Code Installation & Setup</h2>
+
+            <h3>Install Claude Code CLI</h3>
+            <div class="step">
+                <strong>For macOS:</strong>
+                <pre>brew install anthropics/claude/claude-code</pre>
+            </div>
+
+            <div class="step">
+                <strong>For Linux/Windows WSL:</strong>
+                <pre>curl -fsSL https://install.claudecode.com | bash</pre>
+            </div>
+
+            <h3>Authenticate</h3>
+            <div class="step">
+                <strong>Initialize Claude Code:</strong>
+                <pre>claude-code</pre>
+                This will prompt you to authenticate with your Anthropic API key.
+            </div>
+
+            <div class="info-box">
+                <strong>ℹ️ API Key Setup:</strong> Get your API key from <code>https://console.anthropic.com</code>. Store it securely as an environment variable.
+            </div>
+
+            <h3>Verify Installation</h3>
+            <pre>claude-code --version
+claude-code --help</pre>
+
+        </section>
+
+        <section>
+            <h2>2. Basic Workflow</h2>
+
+            <table>
+                <tr>
+                    <th>Step</th>
+                    <th>Command</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>1. Start in project directory</td>
+                    <td><code>cd /path/to/project</code></td>
+                    <td>Navigate to your codebase</td>
+                </tr>
+                <tr>
+                    <td>2. Launch Claude Code</td>
+                    <td><code>claude-code</code></td>
+                    <td>Start interactive session</td>
+                </tr>
+                <tr>
+                    <td>3. Ask questions</td>
+                    <td>Type naturally</td>
+                    <td>Describe what you need help with</td>
+                </tr>
+                <tr>
+                    <td>4. Claude makes changes</td>
+                    <td>Review in editor</td>
+                    <td>Approve/reject changes via UI</td>
+                </tr>
+                <tr>
+                    <td>5. Commit changes</td>
+                    <td><code>git commit</code></td>
+                    <td>Use <code>/commit</code> skill or manual git</td>
+                </tr>
+            </table>
+
+        </section>
+
+        <section>
+            <h2>3. Essential Commands & Skills</h2>
+
+            <h3>Slash Commands in Claude Code</h3>
+            <table>
+                <tr>
+                    <th>Command</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td><code>/help</code></td>
+                    <td>Get help about Claude Code features</td>
+                </tr>
+                <tr>
+                    <td><code>/commit</code></td>
+                    <td>Generate and create a git commit with your changes</td>
+                </tr>
+                <tr>
+                    <td><code>/review-pr</code></td>
+                    <td>Review a GitHub pull request</td>
+                </tr>
+                <tr>
+                    <td><code>/fast</code></td>
+                    <td>Toggle fast mode for quicker responses</td>
+                </tr>
+                <tr>
+                    <td><code>/file [path]</code></td>
+                    <td>Focus Claude's context on a specific file</td>
+                </tr>
+                <tr>
+                    <td><code>/clear</code></td>
+                    <td>Clear conversation history</td>
+                </tr>
+            </table>
+
+            <div class="success-box">
+                <strong>✓ Pro Tip:</strong> Use <code>/commit</code> to automatically generate well-formatted commit messages following your project conventions.
+            </div>
+
+        </section>
+
+        <section>
+            <h2>4. Project Configuration File</h2>
+
+            <h3>Create CLAUDE.md in your project root</h3>
+            <pre>{
+"projectName": "Your SaaS App",
+"description": "React + Laravel + Node microservices",
+"techStack": {
+  "frontend": ["React", "TypeScript", "Tailwind CSS"],
+  "backend": ["Laravel", "PHP"],
+  "services": ["Node.js", "AWS Lambda"],
+  "database": ["PostgreSQL", "Redis"],
+  "testing": ["Jest", "Playwright", "PHPUnit"]
+},
+"conventions": {
+  "commits": "Use conventional commits (feat:, fix:, docs:)",
+  "branches": "feature/*, bugfix/*, hotfix/*",
+  "testing": "Write tests for all new features",
+  "codeStyle": "Follow ESLint + Laravel PSR-12"
+},
+"importantFiles": [
+  "src/components/",
+  "app/Http/Controllers/",
+  "tests/",
+  ".github/workflows/"
+]
+}</pre>
+
+            <div class="info-box">
+                <strong>ℹ️ Note:</strong> This file helps Claude understand your project structure and conventions automatically.
+            </div>
+
+        </section>
+
+        <section>
+            <h2>5. Setting Up Your Development Environment</h2>
+
+            <h3>Recommended VS Code Extensions</h3>
+            <ul style="margin-left: 20px; line-height: 2;">
+                <li><strong>GitHub Copilot</strong> - Real-time code suggestions</li>
+                <li><strong>Prettier</strong> - Code formatting</li>
+                <li><strong>ESLint</strong> - JavaScript linting</li>
+                <li><strong>Laravel Extension Pack</strong> - Laravel development tools</li>
+                <li><strong>Playwright Test for VSCode</strong> - Run Playwright tests</li>
+                <li><strong>Thunder Client</strong> - API testing</li>
+            </ul>
+
+            <h3>Environment Variables Setup</h3>
+            <pre># .env.example
+ANTHROPIC_API_KEY=your_api_key_here
+CLAUDE_MODEL=claude-opus-4-6  # Latest recommended model
+GITHUB_TOKEN=your_github_token  # For GitHub integration</pre>
+
+        </section>
+
+        <section>
+            <h2>6. Integration Points for Your SaaS</h2>
+
+            <table>
+                <tr>
+                    <th>Integration</th>
+                    <th>Setup</th>
+                    <th>Use Cases</th>
+                </tr>
+                <tr>
+                    <td><strong>GitHub</strong></td>
+                    <td>Add <code>GITHUB_TOKEN</code> to env</td>
+                    <td>PR reviews, commit generation, issue analysis</td>
+                </tr>
+                <tr>
+                    <td><strong>Git</strong></td>
+                    <td>Configure in project</td>
+                    <td>Track changes, versioning, rollback</td>
+                </tr>
+                <tr>
+                    <td><strong>Playwright</strong></td>
+                    <td>Install: <code>npm install @playwright/test</code></td>
+                    <td>E2E testing, automation, UI testing</td>
+                </tr>
+                <tr>
+                    <td><strong>Docker</strong></td>
+                    <td>Dockerfile + docker-compose.yml</td>
+                    <td>Containerized testing, local dev</td>
+                </tr>
+                <tr>
+                    <td><strong>MCP Servers</strong></td>
+                    <td>Configure in Claude settings</td>
+                    <td>Extended capabilities, custom tools</td>
+                </tr>
+            </table>
+
+        </section>
+
+        <section>
+            <h2>7. First Steps - Practical Example</h2>
+
+            <div class="step">
+                <strong>Step 1: Understand your codebase</strong>
+                <p>Prompt: "Analyze this React project structure and explain the main components, their purposes, and how they interact."</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 2: Build a small feature</strong>
+                <p>Prompt: "Create a user authentication form in React with email/password, validation, and error handling. Follow our project conventions."</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 3: Write tests</strong>
+                <p>Prompt: "Write comprehensive Jest tests for the authentication form including positive cases, validation failures, and API error handling."</p>
+            </div>
+
+            <div class="step">
+                <strong>Step 4: Create a commit</strong>
+                <p>Use: <code>/commit</code> to generate a well-formatted commit message</p>
+            </div>
+
+        </section>
+
+        <section>
+            <h2>8. Keyboard Shortcuts (VS Code)</h2>
+
+            <table>
+                <tr>
+                    <th>Shortcut</th>
+                    <th>Action</th>
+                </tr>
+                <tr>
+                    <td><code>Ctrl/Cmd + K</code></td>
+                    <td>Open Claude Code</td>
+                </tr>
+                <tr>
+                    <td><code>Ctrl/Cmd + Enter</code></td>
+                    <td>Submit prompt</td>
+                </tr>
+                <tr>
+                    <td><code>Ctrl/Cmd + Shift + I</code></td>
+                    <td>Inline edit (optional)</td>
+                </tr>
+            </table>
+
+            <div class="info-box">
+                <strong>ℹ️ Customization:</strong> Use <code>/keybindings-help</code> to customize keyboard shortcuts for your workflow.
+            </div>
+
+        </section>
+
+        <section>
+            <h2>9. Common Issues & Troubleshooting</h2>
+
+            <h3>API Key Not Recognized</h3>
+            <pre>
+# Solution: Re-authenticate
+claude-code --logout
+claude-code  # Log in again
+            </pre>
+
+            <h3>Model Issues</h3>
+            <pre>
+# Use the latest model
+CLAUDE_MODEL=claude-opus-4-6 claude-code
+            </pre>
+
+            <h3>Git Integration Not Working</h3>
+            <pre>
+# Ensure you're in a git repository
+git init
+git config user.name "Your Name"
+git config user.email "your@email.com"
+            </pre>
+
+        </section>
+
+        <footer>
+            <p>Ready to move forward? Check out the <a href="2-prompt-examples.html">100+ Prompt Examples</a> →</p>
+        </footer>
+
+        <div class="nav-links">
+            <a href="ai-guide-index.html" class="prev">← Home</a>
+            <a href="2-prompt-examples.html">Next: Prompt Examples →</a>
+        </div>
+    </div>
+</body>
+</html>

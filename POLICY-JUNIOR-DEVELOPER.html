@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Policy - Junior Developers</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1a1a1a;
+            background: #f5f5f5;
+            padding: 30px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-bottom: 3px solid #ffd700;
+            text-align: center;
+        }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        .badge {
+            display: inline-block;
+            background: #ffd700;
+            color: #333;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .content { padding: 40px; }
+        h2 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin: 35px 0 20px 0;
+            font-size: 1.5em;
+        }
+        h3 {
+            color: #764ba2;
+            margin: 20px 0 15px 0;
+            font-size: 1.1em;
+        }
+        .section {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+        .allowed {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+        .restricted {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+        .checklist {
+            list-style: none;
+            margin: 15px 0;
+        }
+        .checklist li {
+            padding: 10px 0 10px 30px;
+            position: relative;
+            border-bottom: 1px solid #eee;
+        }
+        .checklist li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #667eea;
+            color: white;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .footer {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 30px;
+            border-top: 3px solid #ffd700;
+        }
+        strong { color: #667eea; }
+        .icon { font-size: 2em; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="icon">👨‍💻</div>
+            <h1>Claude Code Policy for Junior Developers</h1>
+            <p>Your Quick Reference Guide</p>
+            <span class="badge">LEARNING & DEVELOPMENT</span>
+        </header>
+
+        <div class="content">
+            <h2>Welcome to the Team!</h2>
+            <p>This simplified guide explains how to use Claude Code as a junior developer. For the complete policy, see the full Internal Policy document.</p>
+
+            <!-- SECTION 1: WHAT YOU CAN DO -->
+            <h2>✅ What You CAN Do</h2>
+
+            <div class="allowed">
+                <h3>1. Write Features With Claude Help</h3>
+                <p>You can ask Claude to help you build features:</p>
+                <ul class="checklist">
+                    <li>Ask Claude for code structure/architecture</li>
+                    <li>Ask Claude to generate code based on requirements</li>
+                    <li>Ask Claude to explain how features work</li>
+                    <li>Ask Claude to help with specific patterns you're learning</li>
+                </ul>
+            </div>
+
+            <div class="allowed">
+                <h3>2. Debug And Fix Problems</h3>
+                <ul class="checklist">
+                    <li>Share error messages and ask for help</li>
+                    <li>Share code snippets (without secrets)</li>
+                    <li>Ask Claude to explain why something isn't working</li>
+                    <li>Ask for refactoring suggestions</li>
+                </ul>
+            </div>
+
+            <div class="allowed">
+                <h3>3. Write Tests</h3>
+                <ul class="checklist">
+                    <li>Ask Claude to generate test cases</li>
+                    <li>Ask for testing patterns and best practices</li>
+                    <li>Ask how to test edge cases</li>
+                </ul>
+            </div>
+
+            <div class="allowed">
+                <h3>4. Learn Programming Concepts</h3>
+                <ul class="checklist">
+                    <li>Ask Claude to explain React hooks, async/await, etc.</li>
+                    <li>Ask for examples of design patterns</li>
+                    <li>Ask how to structure code following best practices</li>
+                </ul>
+            </div>
+
+            <!-- SECTION 2: RESTRICTIONS FOR JUNIORS -->
+            <h2>⛔ Restrictions For Junior Developers</h2>
+
+            <table>
+                <tr>
+                    <th>Activity</th>
+                    <th>Your Limitation</th>
+                    <th>Why</th>
+                </tr>
+                <tr>
+                    <td><strong>Code Review</strong></td>
+                    <td>Cannot review complex code from seniors</td>
+                    <td>You're still learning the codebase</td>
+                </tr>
+                <tr>
+                    <td><strong>PR Approval</strong></td>
+                    <td>Cannot approve PRs to merge</td>
+                    <td>That's a senior's responsibility</td>
+                </tr>
+                <tr>
+                    <td><strong>Deploy Code</strong></td>
+                    <td>Cannot deploy to production</td>
+                    <td>Only Tech Leads and DevOps can deploy</td>
+                </tr>
+                <tr>
+                    <td><strong>Security Code</strong></td>
+                    <td>Cannot write auth/payment code alone</td>
+                    <td>Requires security review first</td>
+                </tr>
+                <tr>
+                    <td><strong>DevOps Changes</strong></td>
+                    <td>Cannot modify infrastructure/databases</td>
+                    <td>That's DevOps team responsibility</td>
+                </tr>
+                <tr>
+                    <td><strong>Direct to Main</strong></td>
+                    <td>Cannot commit directly to main/develop</td>
+                    <td>Must use feature branches and PR review</td>
+                </tr>
+            </table>
+
+            <!-- SECTION 3: THE GOLDEN RULES -->
+            <h2>🏆 The Golden Rules (NEVER Break These)</h2>
+
+            <div class="warning">
+                <h3>Rule 1: NEVER Share Secrets</h3>
+                <p><strong>Secrets = </strong> API keys, passwords, tokens, private keys</p>
+                <p><strong>What NOT to do:</strong></p>
+                <code style="display: block; margin: 10px 0;">❌ "Here's my .env file: STRIPE_KEY=sk_live_xyz"</code>
+                <p><strong>What TO do:</strong></p>
+                <code style="display: block; margin: 10px 0;">✅ "Why isn't my Stripe integration working?" (describe problem, not the secret)</code>
+                <p style="margin-top: 10px; color: #d32f2f;"><strong>If you accidentally share a secret:</strong></p>
+                <ol style="margin-left: 20px;">
+                    <li>Tell your manager immediately</li>
+                    <li>Tell the security team</li>
+                    <li>Rotate the secret right away</li>
+                </ol>
+            </div>
+
+            <div class="warning">
+                <h3>Rule 2: NEVER Share Production Data</h3>
+                <p><strong>Don't share:</strong> Real customer emails, payment info, database dumps</p>
+                <code style="display: block; margin: 10px 0;">❌ SELECT * FROM users WHERE id=45328;
+Results: John Smith, john@gmail.com, credit card 4532-1234...</code>
+                <code style="display: block; margin: 10px 0;">✅ "How do I optimize this query?" (describe structure, not actual data)</code>
+            </div>
+
+            <div class="warning">
+                <h3>Rule 3: NEVER Commit Code You Don't Understand</h3>
+                <p>If Claude generates code and you don't understand it:</p>
+                <ol style="margin-left: 20px;">
+                    <li>Ask Claude to explain each part</li>
+                    <li>Ask your senior to review it first</li>
+                    <li>Don't commit until you understand it completely</li>
+                </ol>
+                <p><strong>Remember:</strong> YOU are responsible for code you commit, even if Claude generated it.</p>
+            </div>
+
+            <div class="warning">
+                <h3>Rule 4: NEVER Skip Testing</h3>
+                <p>Before you make a PR:</p>
+                <ul style="margin-left: 20px;">
+                    <li>✓ Run linter: <code>npm run lint</code></li>
+                    <li>✓ Run tests: <code>npm test</code></li>
+                    <li>✓ Test manually: Does the feature actually work?</li>
+                    <li>✓ Ask: "Did I test the error cases?"</li>
+                </ul>
+            </div>
+
+            <div class="warning">
+                <h3>Rule 5: NEVER Merge Your Own Code</h3>
+                <p>Always ask a senior to review before merging:</p>
+                <ol style="margin-left: 20px;">
+                    <li>Create PR with clear description</li>
+                    <li>Request review from senior developer</li>
+                    <li>Wait for approval</li>
+                    <li>Senior merges (not you)</li>
+                </ol>
+            </div>
+
+            <!-- SECTION 4: YOUR WORKFLOW -->
+            <h2>📋 Your Workflow (Step By Step)</h2>
+
+            <div class="section">
+                <h3>Step 1: Before You Ask Claude</h3>
+                <ul class="checklist">
+                    <li>Read the feature requirements carefully</li>
+                    <li>Check if similar code already exists in our codebase</li>
+                    <li>Ask your mentor/senior if you're not sure</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>Step 2: Ask Claude (Safely)</h3>
+                <p><strong>Good prompt:</strong></p>
+                <code style="display: block; padding: 10px; background: #f4f4f4; margin: 10px 0; border-radius: 3px;">
+"Create a React component for user login with:
+- Email and password fields
+- Validation (email format, min 8 char password)
+- Submit to POST /api/auth/login
+- Show loading state
+- Handle errors gracefully
+- No storing password in state
+- Use TypeScript"
+                </code>
+                <p><strong>Bad prompt:</strong></p>
+                <code style="display: block; padding: 10px; background: #f4f4f4; margin: 10px 0; border-radius: 3px;">
+"Create login component" ← Too vague!
+                </code>
+            </div>
+
+            <div class="section">
+                <h3>Step 3: Review Code Locally</h3>
+                <ul class="checklist">
+                    <li>Read every line of generated code</li>
+                    <li>Ask Claude to explain anything you don't understand</li>
+                    <li>Check if it matches team conventions</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>Step 4: Test Everything</h3>
+                <ul class="checklist">
+                    <li><code>npm run lint</code> - Check for style issues</li>
+                    <li><code>npm test</code> - Run tests</li>
+                    <li><code>npm run build</code> - Verify it builds</li>
+                    <li>Manual test - Does the feature actually work?</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>Step 5: Ask Senior to Review Before PR</h3>
+                <p>For AI-generated code, have a senior review locally first (not in PR).</p>
+                <p>Ask: "Does this code look good? Any security issues?"</p>
+            </div>
+
+            <div class="section">
+                <h3>Step 6: Create PR & Request Review</h3>
+                <ul class="checklist">
+                    <li>Describe what the code does</li>
+                    <li>Link to the GitHub issue/ticket</li>
+                    <li>Note if code was AI-assisted: "⚠️ Generated with Claude Code"</li>
+                    <li>Request review from senior developer</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>Step 7: Respond To Review Comments</h3>
+                <ul class="checklist">
+                    <li>Read every comment carefully</li>
+                    <li>Ask questions if you don't understand</li>
+                    <li>Make changes requested</li>
+                    <li>Push updates and request re-review</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>Step 8: Senior Merges</h3>
+                <p>Once approved, your senior merges the PR. You don't merge your own code.</p>
+            </div>
+
+            <!-- SECTION 5: COMMON MISTAKES (DON'T DO THESE) -->
+            <h2>❌ Common Mistakes (Learn From Others)</h2>
+
+            <div class="restricted">
+                <h3>Mistake 1: Blind Trust</h3>
+                <p><strong>What happened:</strong> Junior asked Claude for auth code, copied it directly without understanding, code had security bug.</p>
+                <p><strong>What TO do:</strong> Always understand code before using it. If you don't understand, ask questions.</p>
+            </div>
+
+            <div class="restricted">
+                <h3>Mistake 2: Sharing Secrets</h3>
+                <p><strong>What happened:</strong> Junior pasted .env file with API keys to Claude. Keys were compromised.</p>
+                <p><strong>What TO do:</strong> Never paste actual secrets. Use placeholder values instead.</p>
+            </div>
+
+            <div class="restricted">
+                <h3>Mistake 3: No Testing</h3>
+                <p><strong>What happened:</strong> Junior skipped tests, deployed code, feature broke in production.</p>
+                <p><strong>What TO do:</strong> Always run tests before PR. Always test manually.</p>
+            </div>
+
+            <div class="restricted">
+                <h3>Mistake 4: Merging Own Code</h3>
+                <p><strong>What happened:</strong> Junior approved their own PR and merged without review. Bug went to production.</p>
+                <p><strong>What TO do:</strong> Never approve your own code. Always request senior review.</p>
+            </div>
+
+            <!-- SECTION 6: WHEN TO ASK FOR HELP -->
+            <h2>🤝 When To Ask For Help (It's OK!)</h2>
+
+            <p>You should ask a senior developer when:</p>
+            <ul class="checklist">
+                <li>You don't understand Claude's code</li>
+                <li>You're not sure if code is correct</li>
+                <li>You don't know how to test something</li>
+                <li>You're making security-related code</li>
+                <li>You need to debug a complex issue</li>
+                <li>You're learning a new pattern/concept</li>
+                <li>Anything where you feel unsure</li>
+            </ul>
+
+            <p style="margin-top: 20px; padding: 15px; background: #d4edda; border-radius: 3px;">
+                <strong>Remember:</strong> Asking for help is a sign of a good developer, not weakness. We want you to learn and grow!
+            </p>
+
+            <!-- SECTION 7: YOUR GROWTH PATH -->
+            <h2>📈 Your Growth Path</h2>
+
+            <table>
+                <tr>
+                    <th>Experience Level</th>
+                    <th>More Freedom With Claude</th>
+                </tr>
+                <tr>
+                    <td><strong>Junior (0-6 months)</strong></td>
+                    <td>Feature building with review, learning assistance</td>
+                </tr>
+                <tr>
+                    <td><strong>Junior+ (6-12 months)</strong></td>
+                    <td>More complex features, some security work, review simpler PRs</td>
+                </tr>
+                <tr>
+                    <td><strong>Mid-level (1-2 years)</strong></td>
+                    <td>Full feature ownership, code review, PR approvals</td>
+                </tr>
+                <tr>
+                    <td><strong>Senior (2+ years)</strong></td>
+                    <td>All features, architecture decisions, deployments</td>
+                </tr>
+            </table>
+
+            <!-- SECTION 8: TRAINING REQUIREMENTS -->
+            <h2>🎓 Your Training Requirements</h2>
+
+            <p style="margin: 20px 0;"><strong>Before you can use Claude Code, you must complete:</strong></p>
+            <ul class="checklist">
+                <li>Claude Code Policy training (30 minutes) ✓</li>
+                <li>Security awareness training (1 hour)</li>
+                <li>Code review practices (1 hour)</li>
+                <li>OWASP Top 10 overview (1 hour)</li>
+            </ul>
+
+            <p style="margin-top: 20px;"><strong>Sign off below to confirm:</strong></p>
+            <div style="margin: 20px 0; padding: 15px; background: #f9f9f9; border-radius: 3px;">
+                <p>☐ I have read and understood the Claude Code policy for junior developers</p>
+                <p>☐ I understand the restrictions and will follow them</p>
+                <p>☐ I understand that I must not share secrets or sensitive data</p>
+                <p>☐ I understand that code I commit is my responsibility</p>
+                <p>☐ I will always ask for help when unsure</p>
+                <p>☐ I will test all code before making a PR</p>
+                <p style="margin-top: 15px;">
+                    <strong>Name:</strong> __________________ <strong>Date:</strong> __________________
+                </p>
+            </div>
+
+            <!-- SECTION 9: QUICK REFERENCE -->
+            <h2>⚡ Quick Reference</h2>
+
+            <div class="section">
+                <h3>When Asking Claude:</h3>
+                <ul class="checklist">
+                    <li>✓ Describe what you want to build</li>
+                    <li>✓ Include requirements and constraints</li>
+                    <li>✓ Ask for explanation if you don't understand</li>
+                    <li>✗ Don't share secrets</li>
+                    <li>✗ Don't share real customer data</li>
+                    <li>✗ Don't ask to skip important steps</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>Before Making a PR:</h3>
+                <ul class="checklist">
+                    <li>✓ Read the code and understand it</li>
+                    <li>✓ Run linter: <code>npm run lint</code></li>
+                    <li>✓ Run tests: <code>npm test</code></li>
+                    <li>✓ Test manually</li>
+                    <li>✓ Ask senior for local review</li>
+                    <li>✗ Don't merge your own code</li>
+                    <li>✗ Don't commit code you don't understand</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>If Something Goes Wrong:</h3>
+                <ul class="checklist">
+                    <li>✓ Tell your manager/senior immediately</li>
+                    <li>✓ Provide details (what happened, when, impact)</li>
+                    <li>✓ If secret leaked, also tell security team</li>
+                    <li>✓ Work on fixing it with help</li>
+                    <li>✗ Don't hide mistakes</li>
+                    <li>✗ Don't blame Claude</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <p><strong>Claude Code Policy for Junior Developers v1.0</strong></p>
+            <p>Questions? Ask your mentor or manager</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Welcome to the team! You've got this. 🚀</p>
+        </div>
+    </div>
+</body>
+</html>

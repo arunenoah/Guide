@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Reference Cards - Claude Integration Guide</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6; color: #333; background: #f5f7fa;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 30px 20px; border-radius: 8px; margin-bottom: 40px;
+        }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        .breadcrumb { margin-bottom: 20px; color: #666; }
+        .breadcrumb a { color: #667eea; text-decoration: none; }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: white; padding: 20px; border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 4px solid #667eea;
+        }
+        .card h3 {
+            color: #667eea; margin-bottom: 15px; margin-top: 0;
+        }
+        .card code {
+            display: block; background: #f5f5f5; padding: 10px;
+            border-radius: 4px; margin: 10px 0; font-size: 0.9em;
+            overflow-x: auto;
+        }
+        .card p { margin: 10px 0; color: #666; }
+        .card ul { margin-left: 20px; line-height: 1.8; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; color: #d63384; }
+        pre {
+            background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 6px;
+            overflow-x: auto; font-size: 0.9em; margin: 15px 0;
+        }
+        section {
+            background: white; padding: 30px; border-radius: 8px;
+            margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        h2 {
+            color: #667eea; margin-top: 0; margin-bottom: 20px;
+            border-bottom: 2px solid #667eea; padding-bottom: 10px;
+        }
+        .nav-links {
+            display: flex; justify-content: space-between; margin-top: 40px; gap: 10px;
+        }
+        .nav-links a {
+            flex: 1; padding: 12px; background: #667eea; color: white;
+            text-decoration: none; border-radius: 6px; text-align: center; transition: background 0.3s;
+        }
+        .nav-links a:hover { background: #764ba2; }
+        footer { text-align: center; color: #666; margin-top: 40px; padding: 20px; border-top: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="ai-guide-index.html">Home</a> / Quick Reference
+        </div>
+
+        <header>
+            <h1>⚡ Quick Reference Cards</h1>
+            <p>Copy-paste cheat sheets for common tasks and patterns</p>
+        </header>
+
+        <section>
+            <h2>Claude Code Commands</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>🚀 Getting Started</h3>
+                    <code>claude-code</code>
+                    <p>Start Claude Code in current directory</p>
+                </div>
+                <div class="card">
+                    <h3>💾 Create Commit</h3>
+                    <code>/commit</code>
+                    <p>Auto-generate commit message with changes</p>
+                </div>
+                <div class="card">
+                    <h3>🔍 Review PR</h3>
+                    <code>/review-pr [PR_NUMBER]</code>
+                    <p>Review GitHub pull request</p>
+                </div>
+                <div class="card">
+                    <h3>⚡ Fast Mode</h3>
+                    <code>/fast</code>
+                    <p>Toggle fast mode (quicker responses)</p>
+                </div>
+                <div class="card">
+                    <h3>📄 Focus File</h3>
+                    <code>/file path/to/file.js</code>
+                    <p>Focus Claude's context on specific file</p>
+                </div>
+                <div class="card">
+                    <h3>🧹 Clear History</h3>
+                    <code>/clear</code>
+                    <p>Reset conversation history</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>React Common Patterns</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>📦 useState Hook</h3>
+                    <code>const [state, setState] = useState(initialValue)</code>
+                    <p>Manage component state in functional components</p>
+                </div>
+                <div class="card">
+                    <h3>🔄 useEffect Hook</h3>
+                    <code>useEffect(() => { /* effect */ }, [dependencies])</code>
+                    <p>Handle side effects (API calls, subscriptions)</p>
+                </div>
+                <div class="card">
+                    <h3>🎣 useCallback Hook</h3>
+                    <code>const memoized = useCallback(() => {}, [deps])</code>
+                    <p>Memoize function to prevent unnecessary re-renders</p>
+                </div>
+                <div class="card">
+                    <h3>💾 useContext Hook</h3>
+                    <code>const value = useContext(MyContext)</code>
+                    <p>Access context value in component</p>
+                </div>
+                <div class="card">
+                    <h3>🎯 useReducer Hook</h3>
+                    <code>const [state, dispatch] = useReducer(reducer, init)</code>
+                    <p>Complex state management in components</p>
+                </div>
+                <div class="card">
+                    <h3>🎭 Conditional Render</h3>
+                    <code>{condition ? &lt;ComponentA /&gt; : &lt;ComponentB /&gt;}</code>
+                    <p>Render different components based on condition</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Laravel Common Patterns</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>📝 Create Model</h3>
+                    <pre>php artisan make:model Post -mrc</pre>
+                    <p>Create Model with migration, controller, and resource</p>
+                </div>
+                <div class="card">
+                    <h3>🔗 Eloquent Relationships</h3>
+                    <pre>// One-to-Many
+public function posts() {
+    return $this->hasMany(Post::class);
+}</pre>
+                    <p>Define relationships between models</p>
+                </div>
+                <div class="card">
+                    <h3>✅ Form Validation</h3>
+                    <pre>$request->validate([
+    'email' => 'required|email|unique:users'
+]);</pre>
+                    <p>Validate incoming request data</p>
+                </div>
+                <div class="card">
+                    <h3>🔐 Authorization</h3>
+                    <pre>$this->authorize('update', $post);
+// or Gate::authorize('name')</pre>
+                    <p>Check user permissions</p>
+                </div>
+                <div class="card">
+                    <h3>📊 Query Builder</h3>
+                    <pre>User::where('active', 1)
+    ->orderBy('created_at', 'desc')
+    ->paginate(15)</pre>
+                    <p>Build complex queries</p>
+                </div>
+                <div class="card">
+                    <h3>🔍 Eager Loading</h3>
+                    <pre>$users = User::with('posts', 'comments')->get();</pre>
+                    <p>Prevent N+1 query problems</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Testing Quick Commands</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>🧪 Run Jest Tests</h3>
+                    <code>npm test</code>
+                    <p>Run all Jest test suites</p>
+                </div>
+                <div class="card">
+                    <h3>🎯 Run Specific Test</h3>
+                    <code>npm test Button.test.js</code>
+                    <p>Run single test file</p>
+                </div>
+                <div class="card">
+                    <h3>📊 Coverage Report</h3>
+                    <code>npm test -- --coverage</code>
+                    <p>Generate code coverage report</p>
+                </div>
+                <div class="card">
+                    <h3>▶️ Run PHPUnit</h3>
+                    <code>php artisan test</code>
+                    <p>Run Laravel tests</p>
+                </div>
+                <div class="card">
+                    <h3>🎭 Playwright Tests</h3>
+                    <code>npx playwright test</code>
+                    <p>Run all Playwright E2E tests</p>
+                </div>
+                <div class="card">
+                    <h3>🐛 Debug Test</h3>
+                    <code>npx playwright test --debug</code>
+                    <p>Run tests in debug mode</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Git Commands Cheat Sheet</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>📌 Create Branch</h3>
+                    <code>git checkout -b feature/name</code>
+                    <p>Create and switch to new branch</p>
+                </div>
+                <div class="card">
+                    <h3>📝 Stage Changes</h3>
+                    <code>git add filename.js</code>
+                    <p>Stage specific file for commit</p>
+                </div>
+                <div class="card">
+                    <h3>✅ Commit</h3>
+                    <code>git commit -m "feat: description"</code>
+                    <p>Create commit with message</p>
+                </div>
+                <div class="card">
+                    <h3>🚀 Push to Remote</h3>
+                    <code>git push origin feature/name</code>
+                    <p>Push branch to remote repository</p>
+                </div>
+                <div class="card">
+                    <h3>🔄 Pull Latest</h3>
+                    <code>git pull origin main</code>
+                    <p>Get latest changes from main branch</p>
+                </div>
+                <div class="card">
+                    <h3>📊 View Status</h3>
+                    <code>git status</code>
+                    <p>Check working tree status</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>npm / Yarn Quick Commands</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>📦 Install Dependencies</h3>
+                    <code>npm install</code>
+                    <p>Install packages from package.json</p>
+                </div>
+                <div class="card">
+                    <h3>➕ Add Package</h3>
+                    <code>npm install react-query</code>
+                    <p>Add new package to project</p>
+                </div>
+                <div class="card">
+                    <h3>🏃 Run Script</h3>
+                    <code>npm run dev</code>
+                    <p>Run npm script from package.json</p>
+                </div>
+                <div class="card">
+                    <h3>🧹 Lint Code</h3>
+                    <code>npm run lint</code>
+                    <p>Run ESLint to check code quality</p>
+                </div>
+                <div class="card">
+                    <h3>💅 Format Code</h3>
+                    <code>npm run format</code>
+                    <p>Format code with Prettier</p>
+                </div>
+                <div class="card">
+                    <h3>🏗️ Build Project</h3>
+                    <code>npm run build</code>
+                    <p>Build for production</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Docker Quick Commands</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>🐳 Start Containers</h3>
+                    <code>docker-compose up -d</code>
+                    <p>Start services in background</p>
+                </div>
+                <div class="card">
+                    <h3>🛑 Stop Containers</h3>
+                    <code>docker-compose down</code>
+                    <p>Stop and remove containers</p>
+                </div>
+                <div class="card">
+                    <h3>📊 View Logs</h3>
+                    <code>docker-compose logs -f app</code>
+                    <p>View container logs (follow)</p>
+                </div>
+                <div class="card">
+                    <h3>🔧 Build Image</h3>
+                    <code>docker build -t myapp:1.0 .</code>
+                    <p>Build Docker image</p>
+                </div>
+                <div class="card">
+                    <h3>🚀 Run Container</h3>
+                    <code>docker run -p 3000:3000 myapp:1.0</code>
+                    <p>Run container with port mapping</p>
+                </div>
+                <div class="card">
+                    <h3>📋 List Images</h3>
+                    <code>docker images</code>
+                    <p>View all local Docker images</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Useful Prompt Prefixes</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>🔍 Analyze</h3>
+                    <code>"Analyze this code for..."</code>
+                    <p>Review code for issues, patterns, or improvements</p>
+                </div>
+                <div class="card">
+                    <h3>🛠️ Fix</h3>
+                    <code>"Fix this bug: [error]"</code>
+                    <p>Identify and resolve issues</p>
+                </div>
+                <div class="card">
+                    <h3>📚 Explain</h3>
+                    <code>"Explain how this code works..."</code>
+                    <p>Get detailed explanation of code logic</p>
+                </div>
+                <div class="card">
+                    <h3>🚀 Create</h3>
+                    <code>"Create a [component/function] that..."</code>
+                    <p>Generate new code from scratch</p>
+                </div>
+                <div class="card">
+                    <h3>♻️ Refactor</h3>
+                    <code>"Refactor this code to..."</code>
+                    <p>Improve code quality and structure</p>
+                </div>
+                <div class="card">
+                    <h3>✅ Test</h3>
+                    <code>"Write tests for this function..."</code>
+                    <p>Generate test cases and suites</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Effective Prompt Modifiers</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Step by Step</h3>
+                    <code>"...step by step"</code>
+                    <p>Get detailed explanations for each step</p>
+                </div>
+                <div class="card">
+                    <h3>With Examples</h3>
+                    <code>"...with examples"</code>
+                    <p>Include practical examples in response</p>
+                </div>
+                <div class="card">
+                    <h3>Using Pattern</h3>
+                    <code>"...using [pattern/library]"</code>
+                    <p>Follow specific patterns or use libraries</p>
+                </div>
+                <div class="card">
+                    <h3>Include Tests</h3>
+                    <code>"...including tests"</code>
+                    <p>Generate tests along with code</p>
+                </div>
+                <div class="card">
+                    <h3>With Comments</h3>
+                    <code>"...with inline comments"</code>
+                    <p>Add explanatory comments to code</p>
+                </div>
+                <div class="card">
+                    <h3>For Beginners</h3>
+                    <code>"...for someone learning [language]"</code>
+                    <p>Explain like you're teaching</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="nav-links">
+            <a href="3-best-practices.html">← Best Practices</a>
+            <a href="5-integrations.html">Integrations →</a>
+        </div>
+
+        <footer>
+            <p>Keep these cheat sheets handy for rapid development and quick reference.</p>
+        </footer>
+    </div>
+</body>
+</html>

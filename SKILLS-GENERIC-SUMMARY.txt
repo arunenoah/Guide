@@ -1,0 +1,331 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║        SKILLS UPDATE SUMMARY - MAKE GENERIC FOR ANY PROJECT/API            ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ISSUE IDENTIFIED:
+
+Current skills are written with project-specific examples:
+  ❌ FLKitOver API (specific service)
+  ❌ PetApplication (specific model)
+  ❌ password-reset (specific feature)
+  ❌ tenant_name, pet_type (specific fields)
+
+This limits reusability - skills should work with ANY project and ANY API.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SOLUTION:
+
+Replace specific examples with generic patterns:
+  ✅ [Third-Party API] or [External Service]
+  ✅ [Feature] or [Resource]
+  ✅ [FeatureName] or [feature-name]
+  ✅ [relevant_field_1], [field_name]
+  ✅ [Email Service], [Storage Service], [SMS Service]
+
+Result: Same skill works for:
+  • Stripe payment integration
+  • SendGrid email service
+  • Twilio SMS service
+  • Slack webhook integration
+  • Salesforce CRM integration
+  • ANY third-party service
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SKILLS TO UPDATE:
+
+1. tech-lead-gates-skill/SKILL.md
+   • Replace FLKitOver with [Third-Party API]
+   • Remove project-specific gate examples
+   • Update red flags to be generic
+
+2. tech-writer-spec-skill/SKILL.md
+   • Remove "FLKitOver Integration" section
+   • Replace with generic "Third-Party API Integration" template
+   • Remove AWS-specific (S3, SES, Twilio)
+   • Replace with "[Storage Service], [Email Service], [SMS Service]"
+
+3. senior-engineer-laravel-skill/SKILL.md
+   • Remove PetApplicationService example
+   • Replace with generic [FeatureName]Service
+   • Update FLKService → ThirdPartyApiService
+   • Update model names to generic [FeatureName]
+
+4. code-reviewer-quality-skill/SKILL.md
+   • Remove FLKitOver integration section
+   • Replace with "Third-Party API Integration Security"
+   • Update credential examples to be API-agnostic
+   • Generic webhook verification patterns
+
+5. qa-testing-skill/SKILL.md
+   • Remove PetApplicationTest examples
+   • Replace with [FeatureName]Test
+   • Remove FLKitOver integration testing section
+   • Replace with generic "Third-Party API Integration Testing"
+   • Generic Playwright examples
+
+6. security-audit-skill/SKILL.md
+   • Remove FLKitOver Integration Security section
+   • Replace with generic "External Service Integration Security"
+   • Remove AWS-specific section
+   • Add "Cloud/External Service Security" checklist
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DOCUMENTATION PROVIDED:
+
+1. SKILLS-UPDATE-GENERIC.md
+   • Detailed before/after examples
+   • For EACH skill: what to change, how to change it
+   • Generic patterns for third-party API integration
+   • Cloud service security (AWS, GCP, Azure, etc.)
+
+2. SKILLS-GENERIC-CHECKLIST.md
+   • Line-by-line checklist for each skill
+   • Specific examples to replace
+   • Validation checklist
+   • Testing strategy for updated skills
+
+3. This file (SKILLS-GENERIC-SUMMARY.txt)
+   • Quick overview of issue and solution
+   • What to update in each skill
+   • Expected result after update
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+EXAMPLES OF CHANGES:
+
+BEFORE (FLKitOver-specific):
+────────────────────────────
+
+tech-writer-spec-skill:
+  "## FLKitOver Integration
+    1. User submits feature request
+    2. System creates FLK document with credentials
+    3. FLK returns document ID
+    4. Webhook notifies when document signed
+    5. System updates feature status"
+
+senior-engineer-laravel-skill:
+  "class FLKService {
+     public function createDocument(array $data): array {
+       // Call FLK API
+     }
+   }"
+
+code-reviewer-quality-skill:
+  "## FLKitOver Integration Security
+   - Webhook signature verification
+   - FLK credential rotation
+   - Document access control"
+
+security-audit-skill:
+  "## FLKitOver Integration Security
+   - FLKitOver webhook verification
+   - FLK credential management"
+
+
+AFTER (Generic for ANY API):
+────────────────────────────
+
+tech-writer-spec-skill:
+  "## Third-Party API Integration
+    
+    ### [API Name] Integration
+    1. User submits feature request
+    2. System calls [API Name] endpoint
+    3. API returns response with data
+    4. System handles API response (success/error)
+    5. System handles webhooks (if applicable)
+    6. System updates feature status
+    
+    ### Authentication
+    - Method: [OAuth 2.0 / API Key / Bearer Token]
+    - Credentials: Environment variables
+    
+    ### Error Handling
+    - Timeout: [specify seconds]
+    - Retries: [specify count and backoff]
+    - Rate limiting: [specify limits]"
+
+senior-engineer-laravel-skill:
+  "class ThirdPartyApiService {
+     public function __construct(
+       private readonly string $apiUrl,
+       private readonly string $apiKey,
+       private readonly int $timeout = 30
+     ) {}
+     
+     public function create(array $data): array {
+       // Call third-party API
+     }
+   }"
+
+code-reviewer-quality-skill:
+  "## Third-Party API Integration Security
+   Check for each external API:
+   - [ ] Credentials in environment variables
+   - [ ] API keys/secrets never logged
+   - [ ] Proper authentication method
+   - [ ] Timeout specified
+   - [ ] Retry logic with exponential backoff
+   - [ ] Error handling catches API exceptions
+   - [ ] Webhook signatures verified (if applicable)
+   - [ ] Rate limiting respected"
+
+security-audit-skill:
+  "## External Service Integration Security
+   
+   For ANY third-party service:
+   
+   ### Authentication & Credentials
+   - [ ] API keys/credentials in environment variables
+   - [ ] Credentials never logged
+   - [ ] Proper auth method (OAuth, API Key, etc.)
+   - [ ] Token expiration handled
+   
+   ### Error Handling
+   - [ ] Specific exception types
+   - [ ] API error details never exposed
+   - [ ] Internal logging with full details
+   - [ ] Graceful degradation
+   - [ ] Retry logic with backoff
+   
+   ### Webhook Security (if applicable)
+   - [ ] Signature verification
+   - [ ] Timestamp validation
+   - [ ] Idempotency keys
+   
+   ### Cloud Service Specific
+   - [ ] IAM/RBAC properly configured
+   - [ ] Encryption at rest
+   - [ ] Encryption in transit
+   - [ ] Audit trails enabled"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TESTING AFTER UPDATE:
+
+These commands should all work after updating skills:
+
+  /invoke tech-writer "Using tech-writer-spec-skill, create spec
+  for Stripe payment integration."
+  
+  /invoke qa-tester "Using qa-testing-skill, test SendGrid email integration
+  with all 4 categories."
+  
+  /invoke security-reviewer "Using security-audit-skill, audit Slack webhook
+  integration for security."
+  
+  /invoke code-reviewer "Using code-reviewer-quality-skill, review Salesforce
+  API integration code."
+
+All should use the same skill, different projects. ✅
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PLACEHOLDERS TO USE:
+
+Replace these everywhere in skills:
+
+  FLKitOver                 → [Third-Party API] or [External Service]
+  PetApplication            → [Feature] or [Resource]
+  PasswordReset             → [FeatureName]
+  password-reset            → [feature-name]
+  password_resets           → [feature_name]_[resources]
+  tenant_name               → [relevant_field_1] or [field_name]
+  pet_type                  → [relevant_field_2] or [field_type]
+  general_consent           → [user_consent]
+  property_id, landlord_id  → [user_id], [related_id]
+  SES                       → [Email Service]
+  S3                        → [Storage Service]
+  Twilio                    → [SMS Service]
+  /api/pet-applications     → /api/[resource-name]
+  FLKService                → ThirdPartyApiService or ExternalApiService
+  PasswordResetService      → [FeatureName]Service
+  PasswordResetController   → [FeatureName]Controller
+  PetApplicationTest        → [FeatureName]Test
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+BENEFITS AFTER UPDATE:
+
+✅ Skills work with ANY project (not just PetApp)
+✅ Skills work with ANY third-party service (not just FLKitOver)
+✅ Can reuse same skills across different teams
+✅ New projects don't need new skills
+✅ Stripe, SendGrid, Slack, Salesforce, etc. all use same skills
+✅ Skills remain authoritative for quality standards
+✅ Easier to maintain (update once, apply everywhere)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+NEXT STEPS:
+
+1. Read: SKILLS-GENERIC-CHECKLIST.md
+   • Get detailed checklist for each skill
+
+2. Read: SKILLS-UPDATE-GENERIC.md
+   • See before/after examples
+   • Understand generic patterns
+
+3. Update each skill file:
+   • tech-lead-gates-skill/SKILL.md
+   • tech-writer-spec-skill/SKILL.md
+   • senior-engineer-laravel-skill/SKILL.md
+   • code-reviewer-quality-skill/SKILL.md
+   • qa-testing-skill/SKILL.md
+   • security-audit-skill/SKILL.md
+
+4. Test with different projects:
+   • Payment processing (Stripe)
+   • Email delivery (SendGrid)
+   • SMS notifications (Twilio)
+   • Communication (Slack)
+   • CRM (Salesforce)
+
+5. Validate:
+   • No FLKitOver-specific references
+   • No PetApplication examples
+   • All use generic placeholders
+   • Skills work across projects
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ESTIMATED EFFORT:
+
+2-3 hours to update all 6 skills with generic patterns
+
+IMPACT:
+
+Skills become truly universal, reusable across ALL projects and ALL APIs
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+FILES PROVIDED:
+
+1. SKILLS-UPDATE-GENERIC.md (2,500+ lines)
+   - Detailed before/after for each skill
+   - Examples of generic patterns
+   - Complete templates for third-party APIs
+   - Cloud service security checklist
+
+2. SKILLS-GENERIC-CHECKLIST.md (800+ lines)
+   - Line-by-line update checklist
+   - Specific examples to replace
+   - Validation tests
+   - Expected results
+
+3. This file (SKILLS-GENERIC-SUMMARY.txt)
+   - Quick overview
+   - What needs to change
+   - Benefits after update
+
+Start with checklist, refer to detailed guide as needed.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

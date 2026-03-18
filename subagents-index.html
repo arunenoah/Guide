@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Subagents Documentation Index - Claude Code Developer Guidelines</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #0066cc;
+            --primary-dark: #0052a3;
+            --secondary-color: #f0f4f8;
+            --text-color: #1a202c;
+            --text-light: #4a5568;
+            --border-color: #e2e8f0;
+            --code-bg: #f7fafc;
+            --success-color: #22863a;
+            --warning-color: #cb2431;
+            --info-color: #0366d6;
+            --line-height-main: 1.6;
+            --line-height-heading: 1.2;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: var(--line-height-main);
+            color: var(--text-color);
+            background-color: #ffffff;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+            color: white;
+            padding: 3rem 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            line-height: var(--line-height-heading);
+            color: var(--text-color);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 0.8rem;
+            line-height: var(--line-height-heading);
+            color: var(--text-color);
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            margin: 1rem 0 0.5rem;
+            line-height: var(--line-height-heading);
+            color: var(--text-color);
+        }
+
+        /* Paragraphs and Lists */
+        p {
+            margin-bottom: 1rem;
+            line-height: var(--line-height-main);
+        }
+
+        ul, ol {
+            margin: 1rem 0 1rem 2rem;
+            line-height: 1.8;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        ul li::marker {
+            color: var(--primary-color);
+        }
+
+        ol li::marker {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* Horizontal Rule */
+        hr {
+            border: none;
+            border-top: 2px solid var(--border-color);
+            margin: 2rem 0;
+        }
+
+        /* Code Blocks */
+        code {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            background-color: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+            color: #d73a49;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            line-height: 1.5;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: #1a202c;
+        }
+
+        /* Inline Formatting */
+        strong {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        em {
+            font-style: italic;
+            color: var(--text-light);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        thead {
+            background-color: var(--secondary-color);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tbody tr:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Callout */
+        .callout {
+            background-color: var(--secondary-color);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+        }
+
+        .callout.warning {
+            border-left-color: var(--warning-color);
+            background-color: #fff5f5;
+        }
+
+        .callout.success {
+            border-left-color: var(--success-color);
+            background-color: #f0f9f6;
+        }
+
+        .callout.info {
+            border-left-color: var(--info-color);
+            background-color: #f0f7ff;
+        }
+
+        .callout strong {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Cards */
+        .card {
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .card h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .card p {
+            margin-bottom: 0;
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .card ul {
+            margin: 0.5rem 0 0;
+            padding-left: 1.5rem;
+        }
+
+        .card li {
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: var(--secondary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Document Link */
+        .doc-link {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .doc-link:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-color);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 2rem 1rem;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            main {
+                padding: 2rem 1rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            th, td {
+                padding: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.2rem;
+            }
+
+            header p {
+                font-size: 0.9rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+
+            h3 {
+                font-size: 1rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                font-size: 11pt;
+                line-height: 1.5;
+            }
+
+            section {
+                page-break-inside: avoid;
+            }
+
+            h2, h3 {
+                page-break-after: avoid;
+            }
+
+            code {
+                background-color: white;
+                border: 1px solid #ddd;
+                padding: 0.1em 0.2em;
+            }
+
+            pre {
+                border: 1px solid #ddd;
+                background-color: #f5f5f5;
+            }
+
+            a {
+                color: #0066cc;
+                text-decoration: underline;
+            }
+
+            footer {
+                border-top: 1px solid #ddd;
+                margin-top: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Custom Subagents Documentation Index</h1>
+            <p>Complete documentation navigation for creating and managing custom subagents in Claude Code</p>
+        </div>
+    </header>
+
+    <main>
+        <!-- Documentation Files Overview -->
+        <section>
+            <h2>Documentation Files</h2>
+
+            <div class="grid">
+                <div class="card">
+                    <h4>SUBAGENT_QUICK_START.md</h4>
+                    <p><strong>12 KB, approximately 580 lines</strong></p>
+                    <p>Start here for rapid implementation of your first subagent in just 5 minutes. Contains quick reference templates and patterns.</p>
+                    <ul>
+                        <li>30-second overview of subagents</li>
+                        <li>Step-by-step guide to create your first subagent</li>
+                        <li>10 essential agent patterns with templates</li>
+                        <li>Common issues and solutions</li>
+                        <li>Cheat sheet for quick reference</li>
+                    </ul>
+                    <p><strong>Best for:</strong> Getting your first agent working quickly, choosing the right template, quick troubleshooting.</p>
+                    <p><strong>Read first if:</strong> You want to create a subagent immediately.</p>
+                </div>
+
+                <div class="card">
+                    <h4>CUSTOM_SUBAGENTS_GUIDE.md</h4>
+                    <p><strong>51 KB, approximately 1,958 lines</strong></p>
+                    <p>Comprehensive reference guide covering all aspects of subagent development from foundations to advanced features.</p>
+                    <ul>
+                        <li>Getting started - concepts and architecture</li>
+                        <li>Five fully-documented real-world examples</li>
+                        <li>Advanced features (memory, hooks, chaining)</li>
+                        <li>Best practices and naming conventions</li>
+                        <li>Detailed troubleshooting guide</li>
+                    </ul>
+                    <p><strong>Best for:</strong> Deep understanding, advanced workflows, creating specialized agents.</p>
+                    <p><strong>Read for:</strong> In-depth learning and advanced use cases.</p>
+                </div>
+
+                <div class="card">
+                    <h4>SUBAGENTS_INDEX.md (This Document)</h4>
+                    <p><strong>8 KB, approximately 250 lines</strong></p>
+                    <p>Navigation hub and quick reference for all subagent documentation with learning paths and checklists.</p>
+                    <ul>
+                        <li>Documentation sections map and navigation</li>
+                        <li>Learning paths for different goals</li>
+                        <li>Quick reference tables</li>
+                        <li>File locations and scope priority</li>
+                    </ul>
+                    <p><strong>Best for:</strong> Finding specific topics, understanding relationships between documents, planning learning path.</p>
+                    <p><strong>Read for:</strong> Navigation and getting oriented.</p>
+                </div>
+            </div>
+
+            <div class="callout info">
+                <strong>Total Documentation Package: 71 KB with 5 complete working examples</strong>
+                <p>Approximately 2,800 lines of comprehensive reference material covering all aspects of custom subagent creation and management in Claude Code.</p>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- Documentation Sections Map -->
+        <section>
+            <h2>Quick Navigation by Topic</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Topic</th>
+                        <th>Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Getting Started</td>
+                        <td>Quick Start: 30-Second Overview</td>
+                    </tr>
+                    <tr>
+                        <td>Your First Agent</td>
+                        <td>Quick Start: Create Your First Subagent</td>
+                    </tr>
+                    <tr>
+                        <td>Agent Templates</td>
+                        <td>Quick Start: 10 Essential Patterns; Full Guide: Examples</td>
+                    </tr>
+                    <tr>
+                        <td>Tool Permissions</td>
+                        <td>Quick Start: Tool Permissions; Full Guide: Advanced Features</td>
+                    </tr>
+                    <tr>
+                        <td>Naming Conventions</td>
+                        <td>Full Guide: Best Practices</td>
+                    </tr>
+                    <tr>
+                        <td>System Prompts</td>
+                        <td>Full Guide: Anatomy of a Subagent</td>
+                    </tr>
+                    <tr>
+                        <td>Workflows</td>
+                        <td>Quick Start: Connecting Agents; Full Guide: Chaining Subagents</td>
+                    </tr>
+                    <tr>
+                        <td>Troubleshooting</td>
+                        <td>Quick Start: Common Issues; Full Guide: Troubleshooting</td>
+                    </tr>
+                    <tr>
+                        <td>Testing</td>
+                        <td>Full Guide: Best Practices - Testing Your Subagent</td>
+                    </tr>
+                    <tr>
+                        <td>Memory & Learning</td>
+                        <td>Full Guide: Advanced Features - Persistent Memory</td>
+                    </tr>
+                    <tr>
+                        <td>Real Examples</td>
+                        <td>Quick Start: Real-World Examples; Full Guide: Complete Examples</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <hr>
+
+        <!-- Learning Paths -->
+        <section>
+            <h2>Learning Paths</h2>
+
+            <div class="grid">
+                <div class="card">
+                    <h4>Path 1: Quick Implementation (15 minutes)</h4>
+                    <p><strong>Goal:</strong> Create your first working subagent</p>
+                    <ol>
+                        <li>Read Quick Start - 30-Second Overview</li>
+                        <li>Read Quick Start - Create Your First Subagent</li>
+                        <li>Read Quick Start - Common Subagent Templates</li>
+                        <li>Create one subagent using a template</li>
+                        <li>Read Quick Start - Testing Your Subagent</li>
+                        <li>Test and iterate</li>
+                    </ol>
+                    <p><strong>Result:</strong> Working subagent for your specific use case</p>
+                </div>
+
+                <div class="card">
+                    <h4>Path 2: Understanding Best Practices (45 minutes)</h4>
+                    <p><strong>Goal:</strong> Learn how to create quality subagents</p>
+                    <ol>
+                        <li>Complete Path 1 above</li>
+                        <li>Read Full Guide - Getting Started</li>
+                        <li>Read Full Guide - Anatomy of a Subagent</li>
+                        <li>Read Full Guide - Best Practices (all sections)</li>
+                        <li>Review Full Guide - Complete Examples (at least 2)</li>
+                        <li>Refactor your first agent based on best practices</li>
+                    </ol>
+                    <p><strong>Result:</strong> Well-designed, maintainable subagent</p>
+                </div>
+
+                <div class="card">
+                    <h4>Path 3: Advanced Workflows (2 hours)</h4>
+                    <p><strong>Goal:</strong> Build multi-agent workflows with advanced features</p>
+                    <ol>
+                        <li>Complete Path 2 above</li>
+                        <li>Read Full Guide - Advanced Features (all sections)</li>
+                        <li>Read Full Guide - Complete Examples (all 5 examples)</li>
+                        <li>Read Full Guide - Troubleshooting</li>
+                        <li>Create 2-3 specialized agents for different domains</li>
+                        <li>Design a workflow connecting 3+ agents</li>
+                    </ol>
+                    <p><strong>Result:</strong> Advanced multi-agent system for complex processes</p>
+                </div>
+
+                <div class="card">
+                    <h4>Path 4: Full Mastery (4 hours)</h4>
+                    <p><strong>Goal:</strong> Complete understanding of subagent system</p>
+                    <ol>
+                        <li>Complete Path 3 above</li>
+                        <li>Read Full Guide - File Structure & Location (all details)</li>
+                        <li>Read Full Guide - Troubleshooting (all sections)</li>
+                        <li>Read Full Guide - Quick Reference (all sections)</li>
+                        <li>Create memory file for agent learning patterns</li>
+                        <li>Set up validation hooks for quality gates</li>
+                        <li>Document your agent system</li>
+                    </ol>
+                    <p><strong>Result:</strong> Expert-level understanding and custom agent ecosystem</p>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- Quick Reference Tables -->
+        <section>
+            <h2>Quick Reference Tables</h2>
+
+            <h3>File Locations</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Path</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Agent files</td>
+                        <td><code>.claude/agents/</code></td>
+                    </tr>
+                    <tr>
+                        <td>Agent README</td>
+                        <td><code>.claude/README.md</code></td>
+                    </tr>
+                    <tr>
+                        <td>Memory file</td>
+                        <td><code>.claude/memory/MEMORY.md</code></td>
+                    </tr>
+                    <tr>
+                        <td>Hooks (optional)</td>
+                        <td><code>.claude/hooks/</code></td>
+                    </tr>
+                    <tr>
+                        <td>Config</td>
+                        <td><code>.claude/settings.local.json</code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Agent Scope Priority</h3>
+            <ol>
+                <li><strong>CLI Scope</strong> - <code>.claude/agents/</code> in current directory (highest priority)</li>
+                <li><strong>Project Scope</strong> - <code>.claude/agents/</code> in project root</li>
+                <li><strong>User Scope</strong> - <code>~/.claude/agents/</code> in home directory</li>
+                <li><strong>Plugin Scope</strong> - From installed plugins (lowest priority)</li>
+            </ol>
+
+            <h3>Tool Combinations by Agent Type</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Agent Type</th>
+                        <th>Read</th>
+                        <th>Write</th>
+                        <th>Edit</th>
+                        <th>Bash</th>
+                        <th>Grep</th>
+                        <th>Glob</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Validator</td>
+                        <td>✓</td>
+                        <td>✗</td>
+                        <td>✗</td>
+                        <td>⚠</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>Read-only review</td>
+                    </tr>
+                    <tr>
+                        <td>Reviewer</td>
+                        <td>✓</td>
+                        <td>✗</td>
+                        <td>✗</td>
+                        <td>✗</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>No code changes</td>
+                    </tr>
+                    <tr>
+                        <td>Auditor</td>
+                        <td>✓</td>
+                        <td>✗</td>
+                        <td>✗</td>
+                        <td>✗</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>Security focused</td>
+                    </tr>
+                    <tr>
+                        <td>Developer</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>Full access</td>
+                    </tr>
+                    <tr>
+                        <td>Lead</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>No restrictions</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Model Selection Guide</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>Best For</th>
+                        <th>Speed</th>
+                        <th>Cost</th>
+                        <th>Thinking</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>claude-haiku-4-5</code></td>
+                        <td>Read-only validation, quick checks</td>
+                        <td>Very Fast</td>
+                        <td>$</td>
+                        <td>Good</td>
+                    </tr>
+                    <tr>
+                        <td><code>inherit</code></td>
+                        <td>General purpose (uses project default)</td>
+                        <td>Medium</td>
+                        <td>$$</td>
+                        <td>Good</td>
+                    </tr>
+                    <tr>
+                        <td><code>claude-opus-4-6</code></td>
+                        <td>Complex analysis, reasoning</td>
+                        <td>Slower</td>
+                        <td>$$$</td>
+                        <td>Excellent</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Color Codes (Suggested)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Color</th>
+                        <th>Typical Use</th>
+                        <th>Examples</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Red</td>
+                        <td>Critical/Leadership</td>
+                        <td>tech-lead</td>
+                    </tr>
+                    <tr>
+                        <td>Blue</td>
+                        <td>Implementation</td>
+                        <td>senior-engineer</td>
+                    </tr>
+                    <tr>
+                        <td>Green</td>
+                        <td>Quality review</td>
+                        <td>code-reviewer</td>
+                    </tr>
+                    <tr>
+                        <td>Yellow</td>
+                        <td>Testing</td>
+                        <td>qa-tester</td>
+                    </tr>
+                    <tr>
+                        <td>Orange</td>
+                        <td>Security</td>
+                        <td>security-reviewer</td>
+                    </tr>
+                    <tr>
+                        <td>Purple</td>
+                        <td>Documentation</td>
+                        <td>tech-writer</td>
+                    </tr>
+                    <tr>
+                        <td>Grey</td>
+                        <td>Utility</td>
+                        <td>Default</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <hr>
+
+        <!-- Key Concepts Reference -->
+        <section>
+            <h2>Key Concepts Reference</h2>
+
+            <h3>YAML Frontmatter Fields</h3>
+            <pre><code>---
+name: agent-name              # Required: kebab-case identifier
+description: Short line       # Required: one-line summary
+model: inherit                # Optional: inherit/claude-opus/claude-haiku
+color: blue                   # Optional: UI indicator color
+tools:                        # Optional: permission configuration
+  allow: [Read, Grep]         # Allowlist: only these tools
+  # OR
+  deny: [Write, Bash]         # Denylist: all except these
+---</code></pre>
+
+            <h3>Permission Strategies</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Strategy</th>
+                        <th>Use Case</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Allowlist</td>
+                        <td>Restrict to specific tools</td>
+                        <td>Read-only validator</td>
+                    </tr>
+                    <tr>
+                        <td>Denylist</td>
+                        <td>Full access except specific</td>
+                        <td>Block Write but allow Read</td>
+                    </tr>
+                    <tr>
+                        <td>No restrictions</td>
+                        <td>Full tool access</td>
+                        <td>Senior developer agent</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Common Patterns Quick Reference</h3>
+            <div class="grid">
+                <div class="card">
+                    <h4>Read-Only Validator</h4>
+                    <pre><code>model: claude-haiku-4-5
+tools:
+  allow:
+    - Read
+    - Grep
+    - Glob</code></pre>
+                </div>
+
+                <div class="card">
+                    <h4>Full Implementation Agent</h4>
+                    <pre><code>model: inherit
+tools:
+  deny:
+    - WebSearch</code></pre>
+                </div>
+
+                <div class="card">
+                    <h4>Complex Analyzer</h4>
+                    <pre><code>model: claude-opus-4-6
+tools:
+  allow:
+    - Read
+    - Grep
+    - Glob
+    - Bash</code></pre>
+                </div>
+
+                <div class="card">
+                    <h4>Documentation Writer</h4>
+                    <pre><code>model: claude-haiku-4-5
+tools:
+  allow:
+    - Read
+    - Write
+    - Edit
+    - Glob
+    - Grep</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- How to Use These Documents -->
+        <section>
+            <h2>How to Use These Documents</h2>
+
+            <h3>Scenario 1: "I need to create a subagent RIGHT NOW"</h3>
+            <ol>
+                <li>Read Quick Start (5-10 min)</li>
+                <li>Pick a template</li>
+                <li>Create and test</li>
+                <li>Done</li>
+            </ol>
+
+            <h3>Scenario 2: "I want to understand the system deeply"</h3>
+            <ol>
+                <li>Read Quick Start (10-15 min)</li>
+                <li>Read Full Guide (45-60 min)</li>
+                <li>Review examples (20-30 min)</li>
+                <li>Create multiple test agents</li>
+                <li>Done</li>
+            </ol>
+
+            <h3>Scenario 3: "I need to troubleshoot an issue"</h3>
+            <ol>
+                <li>Check Quick Start - Common Issues & Solutions</li>
+                <li>If not resolved, check Full Guide - Troubleshooting</li>
+                <li>Review Full Guide - Examples for similar patterns</li>
+                <li>Modify and test</li>
+            </ol>
+
+            <h3>Scenario 4: "I want to learn specific topics"</h3>
+            <p>Use the Quick Navigation table above to find exact sections.</p>
+        </section>
+
+        <hr>
+
+        <!-- File Size Reference -->
+        <section>
+            <h2>File Size Reference</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Document</th>
+                        <th>Size</th>
+                        <th>Lines</th>
+                        <th>Reading Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Quick Start</td>
+                        <td>12 KB</td>
+                        <td>580</td>
+                        <td>10-15 min</td>
+                    </tr>
+                    <tr>
+                        <td>Full Guide</td>
+                        <td>51 KB</td>
+                        <td>1,958</td>
+                        <td>45-60 min</td>
+                    </tr>
+                    <tr>
+                        <td>This Index</td>
+                        <td>8 KB</td>
+                        <td>250</td>
+                        <td>5-10 min</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><strong>71 KB</strong></td>
+                        <td><strong>2,800</strong></td>
+                        <td><strong>60-85 min</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <hr>
+
+        <!-- Resources -->
+        <section>
+            <h2>Resources</h2>
+
+            <h3>Primary Documentation</h3>
+            <ul>
+                <li><strong>Quick Start Guide:</strong> /Users/arunkumar/Documents/Application/expenseSettle/SUBAGENT_QUICK_START.md</li>
+                <li><strong>Full Guide:</strong> /Users/arunkumar/Documents/Application/expenseSettle/CUSTOM_SUBAGENTS_GUIDE.md</li>
+                <li><strong>This Index:</strong> /Users/arunkumar/Documents/Application/expenseSettle/SUBAGENTS_INDEX.md</li>
+            </ul>
+
+            <h3>Project Agents</h3>
+            <ul>
+                <li><strong>Tech Lead:</strong> <code>.claude/agents/tech-lead.md</code></li>
+                <li><strong>Senior Engineer:</strong> <code>.claude/agents/senior-engineer.md</code></li>
+                <li><strong>Code Reviewer:</strong> <code>.claude/agents/code-reviewer.md</code></li>
+                <li><strong>QA Tester:</strong> <code>.claude/agents/qa-tester.md</code></li>
+                <li><strong>Security Reviewer:</strong> <code>.claude/agents/security-reviewer.md</code></li>
+                <li><strong>Tech Writer:</strong> <code>.claude/agents/tech-writer.md</code></li>
+            </ul>
+
+            <h3>Related Documentation</h3>
+            <ul>
+                <li><strong>Agent README:</strong> <code>.claude/README.md</code></li>
+                <li><strong>Memory File:</strong> <code>.claude/memory/MEMORY.md</code></li>
+                <li><strong>Project README:</strong> <code>README.md</code></li>
+            </ul>
+        </section>
+
+        <hr>
+
+        <!-- Checklists -->
+        <section>
+            <h2>Checklists</h2>
+
+            <h3>Before Creating Your Agent</h3>
+            <ul>
+                <li>Understand your agent's primary responsibility</li>
+                <li>Choose appropriate model (fast vs powerful)</li>
+                <li>Decide on tool permissions</li>
+                <li>Draft description for auto-delegation</li>
+                <li>Plan output format for consistency</li>
+                <li>Consider how agent fits in workflow</li>
+                <li>Review similar agents for patterns</li>
+                <li>Choose appropriate color indicator</li>
+                <li>Plan testing strategy</li>
+            </ul>
+
+            <h3>After Creating Your Agent</h3>
+            <ul>
+                <li>Agent appears in <code>/list-agents</code></li>
+                <li>Agent loads with <code>/invoke agent-name</code></li>
+                <li>File is in correct location (<code>.claude/agents/</code>)</li>
+                <li>YAML frontmatter is valid</li>
+                <li>Tool permissions work as expected</li>
+                <li>Output format is consistent</li>
+                <li>Agent works with sample input</li>
+                <li>Documentation is complete</li>
+                <li>Committed to version control</li>
+            </ul>
+        </section>
+
+        <hr>
+
+        <!-- Summary -->
+        <section>
+            <h2>Summary</h2>
+
+            <p>This documentation package provides:</p>
+
+            <div class="grid">
+                <div class="card">
+                    <h4>Quick Start Guide (12 KB)</h4>
+                    <p>Fastest path to your first working agent. Essential patterns and templates with quick troubleshooting.</p>
+                </div>
+
+                <div class="card">
+                    <h4>Comprehensive Guide (51 KB)</h4>
+                    <p>Complete system understanding with 5 full real-world examples, advanced features, and best practices.</p>
+                </div>
+
+                <div class="card">
+                    <h4>This Index (8 KB)</h4>
+                    <p>Navigation and cross-referencing with learning paths for different goals and quick reference tables.</p>
+                </div>
+            </div>
+
+            <div class="callout success">
+                <strong>Total: 71 KB of documentation with 5 complete working examples and comprehensive reference material.</strong>
+                <p>Start with the Quick Start guide and progress to the Full Guide as needed. All examples are production-ready and can be adapted to your specific use cases.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p><strong>Custom Subagents Documentation Index</strong></p>
+            <p>Navigation Hub for Claude Code Developer Guidelines</p>
+            <p>Version 1.0 | Last Updated: February 2025</p>
+            <p>Navigation Guide for SUBAGENT_QUICK_START.md, CUSTOM_SUBAGENTS_GUIDE.md</p>
+        </div>
+    </footer>
+</body>
+</html>

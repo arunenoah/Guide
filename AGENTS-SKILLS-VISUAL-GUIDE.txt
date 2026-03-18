@@ -1,0 +1,291 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                    AGENTS + SKILLS - VISUAL GUIDE                          ║
+║                                                                            ║
+║   How to use your 6 specialized agents with their training skills         ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+                          THE BASIC RELATIONSHIP
+
+                    Agent = Worker (Executes Task)
+                     Skill = Training Manual (Guidance)
+
+                When you invoke an agent, it loads its skill
+                and follows that skill's checklist
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+                         THE 5-PHASE PIPELINE
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                                                                         │
+│  PHASE 1: DESIGN                                                        │
+│  └─ Agent: tech-lead (loads tech-lead-gates-skill)                     │
+│     Task: Review requirement → Create design [feature-name].md         │
+│     Gate: GATE A ✓ (Approve or request revision)                       │
+│                                                                         │
+│  ↓ HANDOFF: [feature-name].md design document                          │
+│                                                                         │
+│  PHASE 2: SPECIFICATION                                                │
+│  └─ Agent: tech-writer (loads tech-writer-spec-skill)                  │
+│     Task: Create [feature-name]-intended-docs.md with:                 │
+│           ✓ Testable acceptance criteria (AC1, AC2, AC3)              │
+│           ✓ API endpoints with validation rules                        │
+│           ✓ Security requirements (explicit, not vague)               │
+│           ✓ Performance targets with NUMBERS                           │
+│           ✓ Testing strategy (all 4 categories)                       │
+│                                                                         │
+│  ↓ HANDOFF: [feature-name]-intended-docs.md specification             │
+│                                                                         │
+│  PHASE 3: IMPLEMENTATION                                               │
+│  └─ Agent: senior-engineer (loads senior-engineer-laravel-skill)      │
+│     Task: Implement feature following patterns:                        │
+│           ✓ Migrations with UUID keys + indexes                       │
+│           ✓ Models with relationships + casts                         │
+│           ✓ Services with composition (DI)                            │
+│           ✓ Controllers (thin - no logic)                             │
+│           ✓ Form Requests (validation)                                │
+│           ✓ Tests (unit, feature, integration)                        │
+│           ✓ PHPDoc documentation                                      │
+│           ✓ Strict typing on all functions                            │
+│     Auto-invokes: Code-Reviewer                                        │
+│                                                                         │
+│  ↓ HANDOFF: Code PR (auto-invokes code-reviewer)                      │
+│                                                                         │
+│  PHASE 4: CODE REVIEW                                                  │
+│  └─ Agent: code-reviewer (loads code-reviewer-quality-skill)          │
+│     Task: Review code against checklist:                               │
+│           ✓ 10 Critical Issues (blocking)                             │
+│           ✓ 8 High Priority Issues (should fix)                       │
+│           ✓ 5 Medium Priority suggestions                             │
+│     Decision: Approve OR request changes                               │
+│                                                                         │
+│  ↓ HANDOFF: Approved code ready for testing                           │
+│                                                                         │
+│  PHASE 5: TESTING                                                      │
+│  └─ Agent: qa-tester (loads qa-testing-skill)                         │
+│     Task: Test ALL 4 CATEGORIES (mandatory):                           │
+│           ✓ Positive tests (happy path)                               │
+│           ✓ Negative tests (error cases, edge cases)                  │
+│           ✓ Non-functional (performance, security, load)              │
+│           ✓ Regression tests (existing features)                      │
+│     Also: Playwright E2E tests, bug reports                           │
+│     Decision: All passed OR bugs found                                │
+│                                                                         │
+│  ↓ HANDOFF: Test results (passed or bugs found)                       │
+│                                                                         │
+│  ★ GATE B: DRIFT & TEST AUDIT ★                                       │
+│  └─ Agent: tech-lead (loads tech-lead-gates-skill)                    │
+│     Task: Spot-check implementation:                                   │
+│           ✓ Read actual code (not test reports)                       │
+│           ✓ Spot-check for circular tests                             │
+│           ✓ Review drift.md (spec vs actual)                          │
+│     Decision: APPROVE or request fixes                                │
+│                                                                         │
+│  ↓ HANDOFF: Ready for security audit                                  │
+│                                                                         │
+│  SECURITY AUDIT                                                        │
+│  └─ Agent: security-reviewer (loads security-audit-skill)             │
+│     Task: Check OWASP Top 10:                                          │
+│           ✓ Authentication/Authorization                              │
+│           ✓ Injection prevention                                      │
+│           ✓ Sensitive data protection                                 │
+│           ✓ Rate limiting, CSRF, XSS prevention                       │
+│           ✓ FLKitOver security                                        │
+│           ✓ AWS service security                                      │
+│     Decision: Security approved OR issues found                        │
+│                                                                         │
+│  ↓ HANDOFF: Security approved                                         │
+│                                                                         │
+│  ★ GATE C: PRODUCTION DEPLOYMENT ★                                     │
+│  └─ Agent: tech-lead + SRE (load tech-lead-gates-skill)              │
+│     Task: Pre-deployment verification:                                │
+│           ✓ Tests passed ✓ Logs clean ✓ Performance OK               │
+│           ✓ Rollback tested ✓ Alerts configured                       │
+│     Decision: DEPLOY with dual signature (Tech-Lead + SRE)            │
+│     Action: Deploy → Monitor 30 minutes → Stable ✓                    │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+                           INVOKING AGENTS
+
+The syntax is simple:
+
+    /invoke [agent-name] "Using [skill-name], [task]"
+
+Examples:
+
+Phase 1 - Design:
+    /invoke tech-lead "Using tech-lead-gates-skill, review this requirement..."
+
+Phase 2 - Specification:
+    /invoke tech-writer "Using tech-writer-spec-skill, create intended-docs.md..."
+
+Phase 3 - Implementation:
+    /invoke senior-engineer "Using senior-engineer-laravel-skill, implement..."
+
+Phase 4 - Code Review:
+    /invoke code-reviewer "Using code-reviewer-quality-skill, review this PR..."
+
+Phase 5 - Testing:
+    /invoke qa-tester "Using qa-testing-skill, test with all 4 categories..."
+
+Gate B - Drift Audit:
+    /invoke tech-lead "Using tech-lead-gates-skill, conduct Gate B audit..."
+
+Security Audit:
+    /invoke security-reviewer "Using security-audit-skill, audit security..."
+
+Gate C - Deploy:
+    /invoke tech-lead "Using tech-lead-gates-skill, authorize Gate C deployment..."
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+                          WHAT EACH SKILL CHECKS
+
+tech-lead-gates-skill (Gate A, B, C):
+    • Design spec: Requirements testable? Security explicit? Performance numbered?
+    • Code: Does code match spec? Are tests valid (not circular)?
+    • Deployment: All tests pass? No errors? Rollback tested?
+
+tech-writer-spec-skill:
+    • Prevents vague language ("< 200ms" not "fast")
+    • Ensures testable acceptance criteria (AC1, AC2, AC3)
+    • Documents security, APIs, database schema
+    • Includes testing strategy (all 4 categories)
+
+senior-engineer-laravel-skill:
+    • Strict types on all functions
+    • UUID primary keys, relationships, migrations
+    • Services with dependency injection
+    • Form Request validation
+    • Tests (unit, feature, integration)
+    • Comprehensive PHPDoc
+    • Code quality checklist
+
+code-reviewer-quality-skill:
+    • 10 Critical Issues (blocking merge)
+    • 8 High Priority Issues (should fix)
+    • 5 Medium Priority suggestions
+    • File:line specific feedback
+    • Security vulnerability detection
+
+qa-testing-skill:
+    • 4 Test Categories (ALL mandatory):
+      1. Positive (happy path)
+      2. Negative (error cases, edge cases)
+      3. Non-functional (performance, security)
+      4. Regression (existing features work)
+    • Playwright E2E tests
+    • Bug reporting with reproduction steps
+
+security-audit-skill:
+    • OWASP Top 10 complete checklist
+    • FLKitOver security verification
+    • AWS service security (S3, SES)
+    • Input validation, authorization, rate limiting
+    • Hardcoded credentials detection
+    • Security report generation
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+                            KEY PRINCIPLES
+
+✓ Every agent loads its skill when invoked
+✓ Every skill is a checklist the agent follows
+✓ Every phase requires approval/completion before next phase
+✓ Three gates ensure quality: Design (A), Code (B), Deploy (C)
+✓ Four test categories required (not optional)
+✓ Security audit is mandatory (not optional)
+
+❌ Don't invoke agent without skill reference
+❌ Don't skip test categories
+❌ Don't skip gates
+❌ Don't assume agent checked everything (verify against checklist)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+                         REAL-WORLD WORKFLOW
+
+Day 1 Morning: You have a business requirement
+    /invoke tech-lead "Using tech-lead-gates-skill, design this requirement..."
+    → Tech-Lead creates design ✓ Gate A approved
+
+Day 1 Afternoon: Tech-Lead design ready
+    /invoke tech-writer "Using tech-writer-spec-skill, create spec from design..."
+    → Tech-Writer creates specification ✓
+
+Day 2 Morning: Spec ready
+    /invoke senior-engineer "Using senior-engineer-laravel-skill, implement..."
+    → Senior-Engineer codes feature ✓ Auto-invokes code-reviewer
+
+Day 2 Afternoon: Code ready
+    /invoke code-reviewer "Using code-reviewer-quality-skill, review PR..."
+    → Code-Reviewer approves ✓ Ready for testing
+
+Day 3 Morning: Code approved
+    /invoke qa-tester "Using qa-testing-skill, test all 4 categories..."
+    → QA-Tester tests feature ✓ All pass
+
+Day 3 Afternoon: Tests pass
+    /invoke tech-lead "Using tech-lead-gates-skill, conduct Gate B audit..."
+    → Tech-Lead audits code and tests ✓ Gate B approved
+
+Day 3 Evening: Ready for security
+    /invoke security-reviewer "Using security-audit-skill, audit security..."
+    → Security-Reviewer confirms safe ✓
+
+Day 4 Morning: Everything approved
+    /invoke tech-lead "Using tech-lead-gates-skill, authorize Gate C deployment..."
+    → Tech-Lead + SRE authorize deployment ✓
+
+Day 4 Afternoon: In production ✓
+
+RESULT: Feature in production with:
+    ✓ Design review (Gate A)
+    ✓ Comprehensive specification
+    ✓ Quality code (checklist verified)
+    ✓ Four test categories (all covered)
+    ✓ Code audit (Gate B)
+    ✓ Security audit
+    ✓ Production approval (Gate C)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+                          REFERENCE FILES
+
+Main Policy:
+    /claude_agents/agents/tech-lead.md
+    /claude_agents/agents/tech-writer.md
+    /claude_agents/agents/senior-engineer.md
+    /claude_agents/agents/code-reviewer.md
+    /claude_agents/agents/qa-tester.md
+    /claude_agents/agents/security-reviewer.md
+
+Skills (Training Manuals):
+    /skills/tech-lead-gates-skill/SKILL.md
+    /skills/tech-writer-spec-skill/SKILL.md
+    /skills/senior-engineer-laravel-skill/SKILL.md
+    /skills/code-reviewer-quality-skill/SKILL.md
+    /skills/qa-testing-skill/SKILL.md
+    /skills/security-audit-skill/SKILL.md
+
+Documentation:
+    AGENTS-SKILLS-COMMAND-REFERENCE.md     ← Copy-paste commands
+    HOW-TO-USE-AGENTS-WITH-SKILLS.md       ← Detailed guide
+    SKILLS-QUICK-START.md                  ← Print-friendly reference
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Now you're ready to use Agents + Skills effectively!
+
+Start with a business requirement → Tech-Lead Gate A → Follow the pipeline
+with skill guidance at each step. Your 6 specialized agents will ensure
+enterprise-grade quality at every phase.
+
+Happy shipping! 🚀
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

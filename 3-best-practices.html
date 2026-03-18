@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Practices - Claude Integration Guide</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6; color: #333; background: #f5f7fa;
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 30px 20px; border-radius: 8px; margin-bottom: 40px;
+        }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        .breadcrumb { margin-bottom: 20px; color: #666; }
+        .breadcrumb a { color: #667eea; text-decoration: none; }
+        section {
+            background: white; padding: 30px; border-radius: 8px;
+            margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        h2 {
+            color: #667eea; margin-top: 0; margin-bottom: 20px;
+            border-bottom: 2px solid #667eea; padding-bottom: 10px;
+        }
+        h3 { color: #764ba2; margin-top: 20px; margin-bottom: 10px; }
+        .do-box {
+            background: #e8f5e9; border-left: 4px solid #4caf50;
+            padding: 15px; margin: 15px 0; border-radius: 4px;
+        }
+        .dont-box {
+            background: #ffebee; border-left: 4px solid #f44336;
+            padding: 15px; margin: 15px 0; border-radius: 4px;
+        }
+        .do-box strong { color: #2e7d32; }
+        .dont-box strong { color: #c62828; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; color: #d63384; font-family: monospace; }
+        pre {
+            background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 6px;
+            overflow-x: auto; margin: 15px 0; font-size: 0.9em;
+        }
+        .tip-box {
+            background: #fff3cd; border-left: 4px solid #ffc107;
+            padding: 15px; margin: 15px 0; border-radius: 4px;
+        }
+        table {
+            width: 100%; border-collapse: collapse; margin: 15px 0;
+        }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background: #667eea; color: white; }
+        tr:nth-child(even) { background: #f9f9f9; }
+        .nav-links {
+            display: flex; justify-content: space-between; margin-top: 40px; gap: 10px;
+        }
+        .nav-links a {
+            flex: 1; padding: 12px; background: #667eea; color: white;
+            text-decoration: none; border-radius: 6px; text-align: center; transition: background 0.3s;
+        }
+        .nav-links a:hover { background: #764ba2; }
+        footer { text-align: center; color: #666; margin-top: 40px; padding: 20px; border-top: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="ai-guide-index.html">Home</a> / Best Practices
+        </div>
+
+        <header>
+            <h1>✅ Best Practices & Guidelines</h1>
+            <p>Do's and don'ts for effective Claude integration in your development workflow</p>
+        </header>
+
+        <section>
+            <h2>🎯 Writing Effective Prompts</h2>
+
+            <h3>DO: Be Specific and Detailed</h3>
+            <div class="do-box">
+                <strong>✓ Good:</strong>
+                <pre>"Create a React form component for user registration with:
+- Email and password fields
+- Real-time validation using React Hook Form
+- Error messages below each field
+- Loading spinner during submission
+- Use TypeScript with proper interfaces
+- Follow Tailwind CSS conventions from our codebase
+- Include accessibility features (ARIA labels)"</pre>
+            </div>
+
+            <h3>DON'T: Be Vague</h3>
+            <div class="dont-box">
+                <strong>✗ Bad:</strong>
+                <pre>"Create a form component"</pre>
+                <p>Claude needs context to create what you actually want.</p>
+            </div>
+
+            <h3>DO: Provide Context</h3>
+            <div class="do-box">
+                <strong>✓ Include:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Framework versions (React 18.2, Laravel 10.x)</li>
+                    <li>Project conventions and standards</li>
+                    <li>File paths and existing code patterns</li>
+                    <li>Error messages (full stack trace)</li>
+                    <li>Expected behavior vs actual behavior</li>
+                </ul>
+            </div>
+
+            <h3>DO: Ask for Explanations</h3>
+            <div class="do-box">
+                <strong>✓ When learning, ask:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>"Explain the code changes step by step"</li>
+                    <li>"Why did you use this pattern?"</li>
+                    <li>"What are the pros and cons of this approach?"</li>
+                    <li>"How would we test this?"</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <section>
+            <h2>🔍 Code Review Standards</h2>
+
+            <h3>DO: Review Generated Code</h3>
+            <div class="do-box">
+                <strong>✓ Always:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Review code for security vulnerabilities</li>
+                    <li>Check for performance issues</li>
+                    <li>Verify it follows your team's conventions</li>
+                    <li>Ensure proper error handling</li>
+                    <li>Check test coverage</li>
+                    <li>Verify accessibility compliance</li>
+                </ul>
+            </div>
+
+            <h3>DO: Apply Your Team's Standards</h3>
+            <div class="do-box">
+                <strong>✓ Enforce:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Code style and formatting</li>
+                    <li>SOLID principles and design patterns</li>
+                    <li>Naming conventions</li>
+                    <li>Documentation standards</li>
+                    <li>Testing practices</li>
+                </ul>
+            </div>
+
+            <h3>DON'T: Accept Generated Code Blindly</h3>
+            <div class="dont-box">
+                <strong>✗ Avoid:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Merging without review</li>
+                    <li>Ignoring security warnings</li>
+                    <li>Skipping tests</li>
+                    <li>Accepting suboptimal solutions</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <section>
+            <h2>🚀 Development Workflow</h2>
+
+            <h3>DO: Chain Prompts Together</h3>
+            <div class="do-box">
+                <strong>✓ Effective workflow:</strong>
+                <pre>1. "Explain this codebase structure"
+2. "Build feature X following the patterns"
+3. "Write comprehensive tests"
+4. "Optimize for performance"
+5. "Use /commit to create commit"</pre>
+            </div>
+
+            <h3>DO: Test Generated Code</h3>
+            <div class="do-box">
+                <strong>✓ Always run:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Linters and formatters</li>
+                    <li>Unit tests</li>
+                    <li>Integration tests</li>
+                    <li>Build process</li>
+                    <li>Security checks</li>
+                </ul>
+            </div>
+
+            <h3>DON'T: Skip Testing</h3>
+            <div class="dont-box">
+                <strong>✗ Never skip:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Running tests before committing</li>
+                    <li>Testing edge cases</li>
+                    <li>Verifying error handling</li>
+                    <li>Manual testing on target platforms</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <section>
+            <h2>🔐 Security Best Practices</h2>
+
+            <h3>DO: Think Security</h3>
+            <div class="do-box">
+                <strong>✓ When building features:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Validate all user inputs</li>
+                    <li>Use parameterized queries (prevent SQL injection)</li>
+                    <li>Sanitize output (prevent XSS)</li>
+                    <li>Implement proper authentication</li>
+                    <li>Use HTTPS for all external requests</li>
+                    <li>Hash passwords securely</li>
+                    <li>Store secrets in environment variables</li>
+                </ul>
+            </div>
+
+            <h3>DON'T: Commit Secrets</h3>
+            <div class="dont-box">
+                <strong>✗ Never commit:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>API keys or tokens</li>
+                    <li>Database passwords</li>
+                    <li>Private credentials</li>
+                    <li>.env files with sensitive data</li>
+                    <li>OAuth secrets</li>
+                </ul>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 Tip:</strong> Use <code>.gitignore</code> to exclude .env files, and use environment variables or AWS Secrets Manager for sensitive data.
+            </div>
+
+        </section>
+
+        <section>
+            <h2>⚡ Performance Optimization</h2>
+
+            <h3>DO: Optimize from the Start</h3>
+            <div class="do-box">
+                <strong>✓ Request:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>"Include performance optimizations"</li>
+                    <li>"Avoid N+1 queries"</li>
+                    <li>"Implement caching where appropriate"</li>
+                    <li>"Use pagination for large datasets"</li>
+                    <li>"Optimize images for web"</li>
+                </ul>
+            </div>
+
+            <h3>DO: Measure Performance</h3>
+            <div class="do-box">
+                <strong>✓ Use tools:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Lighthouse for web performance</li>
+                    <li>Chrome DevTools for frontend</li>
+                    <li>Laravel Debugbar for backend</li>
+                    <li>Database query profiling</li>
+                    <li>Bundle analysis tools</li>
+                </ul>
+            </div>
+
+            <h3>DON'T: Prematurely Optimize</h3>
+            <div class="dont-box">
+                <strong>✗ Avoid:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Optimizing before profiling</li>
+                    <li>Over-engineering solutions</li>
+                    <li>Complex caching for simple data</li>
+                    <li>Sacrificing readability for speed</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <section>
+            <h2>📝 Documentation & Comments</h2>
+
+            <h3>DO: Document Complex Logic</h3>
+            <div class="do-box">
+                <strong>✓ Write comments for:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Why something is done (not what)</li>
+                    <li>Workarounds and hacks with explanations</li>
+                    <li>Complex algorithms</li>
+                    <li>Non-obvious business logic</li>
+                    <li>Known limitations</li>
+                </ul>
+            </div>
+
+            <h3>DON'T: Comment the Obvious</h3>
+            <div class="dont-box">
+                <strong>✗ Avoid:</strong>
+                <pre>// Increment counter
+counter++
+
+// Check if user exists
+if (user) { ... }</pre>
+            </div>
+
+        </section>
+
+        <section>
+            <h2>🔄 Git & Version Control</h2>
+
+            <h3>DO: Use Meaningful Commits</h3>
+            <div class="do-box">
+                <strong>✓ Good commit message:</strong>
+                <pre>feat: Add user authentication endpoint
+
+- Implement JWT token generation
+- Add password hashing with bcrypt
+- Validate email format
+- Return token in response
+
+Closes #123</pre>
+            </div>
+
+            <h3>DO: Keep Commits Atomic</h3>
+            <div class="do-box">
+                <strong>✓ Each commit should:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Do one logical change</li>
+                    <li>Build and pass tests</li>
+                    <li>Be reviewable</li>
+                    <li>Have a clear purpose</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <section>
+            <h2>🧪 Testing Standards</h2>
+
+            <h3>DO: Write Tests with Code</h3>
+            <div class="do-box">
+                <strong>✓ Always include:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Unit tests for utilities and services</li>
+                    <li>Component tests for UI</li>
+                    <li>Integration tests for features</li>
+                    <li>E2E tests for critical paths</li>
+                    <li>Positive and negative test cases</li>
+                </ul>
+            </div>
+
+            <h3>DO: Aim for Good Coverage</h3>
+            <div class="do-box">
+                <strong>✓ Target coverage:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Business logic: 90%+</li>
+                    <li>UI components: 70%+</li>
+                    <li>Critical paths: 100%</li>
+                </ul>
+            </div>
+
+            <h3>DON'T: Test Implementation Details</h3>
+            <div class="dont-box">
+                <strong>✗ Avoid:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Testing private methods</li>
+                    <li>Over-mocking internals</li>
+                    <li>Testing the test framework</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <section>
+            <h2>🤝 Collaboration Guidelines</h2>
+
+            <h3>DO: Use Claude for Code Review</h3>
+            <div class="do-box">
+                <strong>✓ Ask Claude to:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>"Review this PR for security issues"</li>
+                    <li>"Check for performance problems"</li>
+                    <li>"Verify SOLID principles are followed"</li>
+                    <li>"Suggest refactoring improvements"</li>
+                </ul>
+            </div>
+
+            <h3>DO: Share Knowledge with Team</h3>
+            <div class="do-box">
+                <strong>✓ When Claude creates something:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Explain to team members how it works</li>
+                    <li>Document unusual patterns</li>
+                    <li>Share best practices discovered</li>
+                    <li>Update team documentation</li>
+                </ul>
+            </div>
+
+            <h3>DON'T: Use Claude to Avoid Learning</h3>
+            <div class="dont-box">
+                <strong>✗ Don't:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Accept code without understanding it</li>
+                    <li>Ship features you can't maintain</li>
+                    <li>Stop learning core concepts</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <section>
+            <h2>📊 Context Management</h2>
+
+            <h3>DO: Provide Necessary Context</h3>
+            <div class="do-box">
+                <strong>✓ When asking for help:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Share relevant file excerpts</li>
+                    <li>Include error messages and stack traces</li>
+                    <li>Provide framework/library versions</li>
+                    <li>Explain what you've already tried</li>
+                    <li>Share project structure/conventions</li>
+                </ul>
+            </div>
+
+            <h3>DON'T: Share Sensitive Information</h3>
+            <div class="dont-box">
+                <strong>✗ Never share:</strong>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>API keys or credentials</li>
+                    <li>Personal customer data</li>
+                    <li>Proprietary algorithms</li>
+                    <li>Security-sensitive information</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <div class="nav-links">
+            <a href="2-prompt-examples.html">← Prompt Examples</a>
+            <a href="4-quick-reference.html">Quick Reference →</a>
+        </div>
+
+        <footer>
+            <p>These guidelines help maximize Claude's effectiveness while maintaining code quality and security.</p>
+        </footer>
+    </div>
+</body>
+</html>

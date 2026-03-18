@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Compliance Audit Checklist</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1a1a1a;
+            background: #f0f0f0;
+            padding: 30px 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        header {
+            background: #0f3460;
+            color: white;
+            padding: 30px;
+            border-bottom: 3px solid #e94560;
+        }
+        header h1 { font-size: 1.8em; margin-bottom: 10px; }
+        .content { padding: 40px; }
+        h2 {
+            color: #0f3460;
+            border-bottom: 3px solid #e94560;
+            padding-bottom: 10px;
+            margin: 30px 0 20px 0;
+            font-size: 1.4em;
+        }
+        .audit-section {
+            margin: 25px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+        .audit-section h3 {
+            color: #0f3460;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 12px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 3px;
+        }
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            border: 2px solid #0f3460;
+            border-radius: 3px;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+        .checkbox:hover {
+            background: #e94560;
+        }
+        .checklist-item input[type="checkbox"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #0f3460;
+            border-radius: 3px;
+            cursor: pointer;
+            margin: 0;
+            margin-right: 15px;
+        }
+        .checklist-item input[type="checkbox"]:checked {
+            background: #0f3460;
+        }
+        .item-text {
+            flex: 1;
+        }
+        .item-text strong {
+            color: #0f3460;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .item-text p {
+            color: #666;
+            font-size: 0.9em;
+            margin: 5px 0 0 0;
+        }
+        .frequency {
+            display: inline-block;
+            background: #e94560;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+        .risk-level {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        .risk-critical {
+            background: #dc3545;
+            color: white;
+        }
+        .risk-high {
+            background: #fd7e14;
+            color: white;
+        }
+        .risk-medium {
+            background: #ffc107;
+            color: #333;
+        }
+        .notes-section {
+            margin-top: 30px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .notes-section textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        .summary {
+            background: #e7f3ff;
+            border-left: 4px solid #0066cc;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 3px;
+        }
+        .summary h3 {
+            color: #0066cc;
+            margin-bottom: 10px;
+        }
+        .summary p {
+            margin: 5px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background: #0f3460;
+            color: white;
+            font-weight: 600;
+        }
+        .footer {
+            background: #0f3460;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 30px;
+            border-top: 3px solid #e94560;
+        }
+        .print-button {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+        .print-button:hover {
+            background: #07253f;
+        }
+        @media print {
+            body { background: white; padding: 0; }
+            .print-button { display: none; }
+            .container { border: none; box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Claude Code Compliance Audit Checklist</h1>
+            <p style="margin-top: 15px;">Security & Governance Team - Quarterly & On-Demand Audits</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Use this checklist to verify team compliance with Claude Code Internal Policy</p>
+        </header>
+
+        <div class="content">
+            <button class="print-button" onclick="window.print()">🖨️ Print Audit Report</button>
+
+            <div class="summary">
+                <h3>📋 Audit Information</h3>
+                <p><strong>Audit Date:</strong> <input type="date" style="padding: 5px;"></p>
+                <p><strong>Auditor Name:</strong> <input type="text" style="padding: 5px; width: 300px;"></p>
+                <p><strong>Team:</strong> <input type="text" style="padding: 5px; width: 300px;"></p>
+                <p><strong>Audit Type:</strong>
+                    <select style="padding: 5px;">
+                        <option>Quarterly Review</option>
+                        <option>Incident Investigation</option>
+                        <option>Random Check</option>
+                        <option>Post-Violation</option>
+                        <option>Onboarding Verification</option>
+                    </select>
+                </p>
+            </div>
+
+            <!-- SECTION 1: CODE REPOSITORY AUDIT -->
+            <h2>1. Code Repository Audit</h2>
+            <p style="color: #666; margin-bottom: 20px;">Scan git history and active code for secrets and sensitive data</p>
+
+            <div class="audit-section">
+                <h3>1.1 Secret Scanning</h3>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Git History Scan for Credentials</strong>
+                        <p>Run: git log -p --all | grep -E 'password|api_key|secret|token' (or use truffleHog)</p>
+                        <span class="frequency">Monthly</span>
+                        <span class="risk-critical">CRITICAL</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>GitHub Secret Scanning Enabled</strong>
+                        <p>Verify repository has secret scanning enabled in Settings → Security & analysis</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-critical">CRITICAL</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>.env Files Not Committed</strong>
+                        <p>Verify .env files are in .gitignore and not in git history. Only .env.example should be committed.</p>
+                        <span class="frequency">Monthly</span>
+                        <span class="risk-critical">CRITICAL</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>No AWS Keys/Credentials</strong>
+                        <p>Scan for: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, STRIPE_SECRET, etc.</p>
+                        <span class="frequency">Monthly</span>
+                        <span class="risk-critical">CRITICAL</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>No Database Passwords</strong>
+                        <p>Verify no plaintext database passwords in code/config files</p>
+                        <span class="frequency">Monthly</span>
+                        <span class="risk-critical">CRITICAL</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>No OAuth/API Tokens</strong>
+                        <p>Scan for: client_secret, oauth_token, github_token, slack_token</p>
+                        <span class="frequency">Monthly</span>
+                        <span class="risk-critical">CRITICAL</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: CLAUDE CONVERSATION AUDIT -->
+            <h2>2. Claude Conversation Audit</h2>
+            <p style="color: #666; margin-bottom: 20px;">Review Claude Code conversation history for policy violations</p>
+
+            <div class="audit-section">
+                <h3>2.1 Conversation Content Review (Sample)</h3>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Random Sample of 5-10 Conversations Per Developer</strong>
+                        <p>Review conversation transcripts for: secrets shared, production data shared, inappropriate requests</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-critical">CRITICAL</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>No Secrets in Conversations</strong>
+                        <p>Check conversations don't contain: API keys, DB passwords, OAuth tokens, private keys</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-critical">CRITICAL</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>No Production Data Shared</strong>
+                        <p>Verify no customer data, emails, payment info, or production database dumps shared</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-critical">CRITICAL</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>No Proprietary Code Shared</strong>
+                        <p>Verify company proprietary algorithms/code not shared (unless approved)</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-high">HIGH</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Conversation Purpose Is Work-Related</strong>
+                        <p>All conversations should be for company development, not personal projects</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-medium">MEDIUM</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: CODE REVIEW AUDIT -->
+            <h2>3. Code Review Audit</h2>
+            <p style="color: #666; margin-bottom: 20px;">Verify code reviews are being conducted properly</p>
+
+            <div class="audit-section">
+                <h3>3.1 PR Review Process</h3>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>All PRs Have At Least 1 Reviewer Approval</strong>
+                        <p>Check last 20 merged PRs - all should have approval before merge</p>
+                        <span class="frequency">Monthly</span>
+                        <span class="risk-high">HIGH</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Critical Code Has 2+ Reviews</strong>
+                        <p>Security, auth, payment code should have 2 approvals minimum</p>
+                        <span class="frequency">Monthly</span>
+                        <span class="risk-high">HIGH</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>AI-Generated Code Flagged In PRs</strong>
+                        <p>PRs with significant AI code should mention it and have extra scrutiny</p>
+                        <span class="frequency">Monthly</span>
+                        <span class="risk-high">HIGH</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>All CI/CD Checks Pass Before Merge</strong>
+                        <p>Verify: tests pass, linting passes, security scans pass, no coverage regression</p>
+                        <span class="frequency">Monthly</span>
+                        <span class="risk-high">HIGH</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>No Secrets In PR Code/Diffs</strong>
+                        <p>Review PR diffs for accidentally committed secrets</p>
+                        <span class="frequency">Monthly</span>
+                        <span class="risk-critical">CRITICAL</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Reviewer Comments Show Deep Review</strong>
+                        <p>Random sample: Do reviewer comments show they actually read the code?</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-high">HIGH</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 4: SECURITY CODE AUDIT -->
+            <h2>4. Security Code Audit</h2>
+            <p style="color: #666; margin-bottom: 20px;">Check for common security vulnerabilities</p>
+
+            <div class="audit-section">
+                <h3>4.1 OWASP Top 10 Quick Check</h3>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>SQL Injection Vulnerabilities</strong>
+                        <p>Grep for: string concatenation in queries, not using parameterized queries</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-critical">CRITICAL</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Authentication Issues</strong>
+                        <p>Verify: passwords hashed, JWT validated, session timeouts, rate limiting</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-critical">CRITICAL</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Authorization Check</strong>
+                        <p>Verify: all protected endpoints check user permissions, not just authentication</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-critical">CRITICAL</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Input Validation</strong>
+                        <p>Check that user input is validated (length, format, type) on server-side</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-high">HIGH</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>XSS Prevention</strong>
+                        <p>Verify output encoding, CSP headers, sanitization of user input</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-high">HIGH</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Sensitive Data Exposure</strong>
+                        <p>Check: encryption in transit (HTTPS), encryption at rest, no secrets in logs</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-critical">CRITICAL</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Dependency Vulnerabilities</strong>
+                        <p>Run: npm audit, composer audit, check for known CVEs in dependencies</p>
+                        <span class="frequency">Monthly</span>
+                        <span class="risk-high">HIGH</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 5: DEPLOYMENT AUDIT -->
+            <h2>5. Deployment Audit</h2>
+            <p style="color: #666; margin-bottom: 20px;">Verify proper deployment procedures are followed</p>
+
+            <div class="audit-section">
+                <h3>5.1 Deployment Process</h3>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>All Deployments Go To Staging First</strong>
+                        <p>Check deployment logs: verify code was tested in staging before production</p>
+                        <span class="frequency">Monthly</span>
+                        <span class="risk-high">HIGH</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Only Authorized Personnel Deploy To Production</strong>
+                        <p>Verify: only Tech Lead, DevOps team can merge/deploy (not all developers)</p>
+                        <span class="frequency">Monthly</span>
+                        <span class="risk-high">HIGH</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Deployment Requires Approval</strong>
+                        <p>Check: merge to main requires approval, CI passes, documented deploy logs</p>
+                        <span class="frequency">Monthly</span>
+                        <span class="risk-high">HIGH</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Rollback Plan In Place</strong>
+                        <p>Verify: team has documented rollback procedure and tests it regularly</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-medium">MEDIUM</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Post-Deployment Monitoring</strong>
+                        <p>Verify: metrics/logs monitored for 30 mins after deploy for errors</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-medium">MEDIUM</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 6: TRAINING & AWARENESS -->
+            <h2>6. Training & Awareness Audit</h2>
+            <p style="color: #666; margin-bottom: 20px;">Verify team compliance with training requirements</p>
+
+            <div class="audit-section">
+                <h3>6.1 Developer Training</h3>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>All Developers Completed Policy Training</strong>
+                        <p>Verify: all developers took 30-min Claude Code policy training (tracked in HRIS)</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-high">HIGH</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Junior Developers Have Additional Training</strong>
+                        <p>Verify: juniors completed extra security/code review training</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-medium">MEDIUM</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Team Understands Policy</strong>
+                        <p>Random sample: Ask 3-5 developers about policy (secrets, code review, etc.)</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-high">HIGH</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Security Team Training Completed</strong>
+                        <p>Verify: security team trained on audit procedures and escalation</p>
+                        <span class="frequency">Annually</span>
+                        <span class="risk-medium">MEDIUM</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 7: INCIDENT & VIOLATION AUDIT -->
+            <h2>7. Incident & Violation Audit</h2>
+            <p style="color: #666; margin-bottom: 20px;">Review any violations and how they were handled</p>
+
+            <div class="audit-section">
+                <h3>7.1 Violation Management</h3>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>All Policy Violations Logged</strong>
+                        <p>Verify: violations tracked in security log with date, developer, violation type</p>
+                        <span class="frequency">Monthly</span>
+                        <span class="risk-high">HIGH</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Violations Investigated Promptly</strong>
+                        <p>Verify: all violations investigated within 24 hours</p>
+                        <span class="frequency">Monthly</span>
+                        <span class="risk-high">HIGH</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Consequences Applied According To Policy</strong>
+                        <p>Verify: violations handled with correct escalation (warning → suspension → revocation)</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-high">HIGH</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Secret Leaks Properly Handled</strong>
+                        <p>If secret leaked: verify credentials rotated, conversation archived, incident logged</p>
+                        <span class="frequency">As-needed</span>
+                        <span class="risk-critical">CRITICAL</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Violation Trends Analyzed</strong>
+                        <p>Quarterly: review violation patterns (is one person a repeat offender? common mistakes?)</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-medium">MEDIUM</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 8: GENERAL COMPLIANCE -->
+            <h2>8. General Compliance Audit</h2>
+            <p style="color: #666; margin-bottom: 20px;">Overall policy compliance check</p>
+
+            <div class="audit-section">
+                <h3>8.1 Overall Compliance</h3>
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Policy Documentation Current</strong>
+                        <p>Verify: Internal Policy document is current version (not outdated)</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-medium">MEDIUM</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>CLAUDE.md Files Exist In Projects</strong>
+                        <p>Verify: all projects have CLAUDE.md documenting project-specific guidelines</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-medium">MEDIUM</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Access Control Properly Maintained</strong>
+                        <p>Verify: offboarded developers had Claude access revoked, new hires granted correctly</p>
+                        <span class="frequency">Monthly</span>
+                        <span class="risk-high">HIGH</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Audit Logs Maintained</strong>
+                        <p>Verify: previous audit reports stored and compared for trends</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-medium">MEDIUM</span>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <strong>Management Briefed On Compliance Status</strong>
+                        <p>Verify: executive summary of audit results shared with leadership</p>
+                        <span class="frequency">Quarterly</span>
+                        <span class="risk-medium">MEDIUM</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOTES SECTION -->
+            <div class="notes-section">
+                <h3>Audit Notes & Findings</h3>
+                <p style="margin-bottom: 10px;">Document any violations, issues, or recommendations below:</p>
+                <textarea placeholder="List violations found, recommendations, follow-up items, etc."></textarea>
+            </div>
+
+            <!-- SUMMARY -->
+            <div class="summary" style="margin-top: 30px;">
+                <h3>Audit Summary</h3>
+                <table>
+                    <tr>
+                        <td><strong>Total Items Checked:</strong></td>
+                        <td>39</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Items Passed:</strong></td>
+                        <td><input type="number" value="0" style="width: 50px; padding: 5px;"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Items Failed:</strong></td>
+                        <td><input type="number" value="0" style="width: 50px; padding: 5px;"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Items Not Applicable:</strong></td>
+                        <td><input type="number" value="0" style="width: 50px; padding: 5px;"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Overall Compliance Rate:</strong></td>
+                        <td><input type="number" value="0" min="0" max="100" style="width: 50px; padding: 5px;"> %</td>
+                    </tr>
+                </table>
+
+                <h4 style="margin-top: 20px; color: #0f3460;">Risk Assessment:</h4>
+                <p><strong>Critical Issues Found:</strong> <input type="number" value="0" style="width: 50px; padding: 5px;"></p>
+                <p><strong>Overall Risk Level:</strong>
+                    <select style="padding: 5px;">
+                        <option>Low - All policies followed</option>
+                        <option>Medium - Minor violations, corrected</option>
+                        <option>High - Significant violations, action required</option>
+                        <option>Critical - Major breaches, immediate action needed</option>
+                    </select>
+                </p>
+            </div>
+
+            <!-- RECOMMENDATIONS -->
+            <div class="summary" style="background: #fff3cd; border-color: #ffc107; margin-top: 20px;">
+                <h3 style="color: #856404;">Recommended Actions</h3>
+                <textarea style="width: 100%; height: 100px; padding: 10px; border: 1px solid #ccc; border-radius: 3px; font-family: monospace;" placeholder="List recommended corrective actions, retraining, process improvements, etc."></textarea>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <p><strong>Compliance Audit Checklist v1.0</strong></p>
+            <p>Use this checklist quarterly and after any suspected violations</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Security Team | Keep signed copy on file | Next audit due: ___________</p>
+        </div>
+    </div>
+</body>
+</html>

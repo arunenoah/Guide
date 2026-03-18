@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Policy - Crisp Reference</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1a1a1a;
+            background: white;
+            padding: 40px 20px;
+            line-height: 1.6;
+            font-size: 1em;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        header {
+            background: #1a1a1a;
+            color: white;
+            padding: 40px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #1a1a1a;
+            border-bottom: 3px solid #333;
+            padding: 20px 0 10px 0;
+            margin: 40px 0 20px 0;
+            font-size: 1.6em;
+        }
+        h3 {
+            color: #333;
+            margin: 25px 0 12px 0;
+            font-size: 1.2em;
+        }
+        .workflow {
+            background: #f9f9f9;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #0066cc;
+            font-family: monospace;
+            font-size: 0.95em;
+            line-height: 1.8;
+        }
+        .critical {
+            background: #ffe7e7;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .rule {
+            margin: 12px 0;
+            padding-left: 20px;
+        }
+        .rule strong {
+            color: #1a1a1a;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background: #1a1a1a;
+            color: white;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-family: monospace;
+        }
+        .mcp-box {
+            background: #e7f3ff;
+            border-left: 4px solid #0066cc;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        li {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Claude Code Policy - Crisp Reference</h1>
+            <p>Everything you need. Nothing you don't.</p>
+        </header>
+
+        <h2>Non-Negotiable Rules (7 Rules for Everyone)</h2>
+        <div class="critical">
+            <div class="rule"><strong>1. No secrets in prompts</strong> - Remove API keys, passwords, tokens before asking Claude</div>
+            <div class="rule"><strong>2. No copy-paste from .env</strong> - Use .env.example with placeholders instead</div>
+            <div class="rule"><strong>3. Verify before committing</strong> - Run tests locally, understand code, don't blindly commit</div>
+            <div class="rule"><strong>4. Get code reviewed</strong> - Never merge your own code. Always get 2nd pair of eyes</div>
+            <div class="rule"><strong>5. Test before deploying</strong> - Deploy to staging first, verify it works there</div>
+            <div class="rule"><strong>6. Report violations</strong> - If you see secrets leaked, tell security team immediately</div>
+            <div class="rule"><strong>7. Stay focused</strong> - One feature per session. Don't build 5 things at once</div>
+        </div>
+
+        <h2>Feature Development Workflow (Start to Finish)</h2>
+
+        <h3>Step 1: Invoke Tech-Lead</h3>
+        <div class="workflow">
+/invoke tech-lead
+"Build password reset feature:
+- Users enter email
+- Get reset link
+- Confirm identity
+- Set new password
+- No external services"
+        </div>
+        <p><strong>Tech-Lead will:</strong> Create design document, delegate to team, validate at checkpoints</p>
+
+        <h3>Step 2-5: Pipeline Runs Autonomously</h3>
+        <table>
+            <tr>
+                <th>Phase</th>
+                <th>Agent</th>
+                <th>Does What</th>
+                <th>Duration</th>
+            </tr>
+            <tr>
+                <td>Design</td>
+                <td>tech-lead</td>
+                <td>Creates [feature].md with architecture</td>
+                <td>—</td>
+            </tr>
+            <tr>
+                <td>Spec</td>
+                <td>tech-writer</td>
+                <td>Documents acceptance criteria (auto-delegated)</td>
+                <td>—</td>
+            </tr>
+            <tr>
+                <td>Code</td>
+                <td>senior-engineer</td>
+                <td>Implements with tests (auto-delegated)</td>
+                <td>30-120 min</td>
+            </tr>
+            <tr>
+                <td>Review</td>
+                <td>code-reviewer</td>
+                <td>Reviews code (auto-invoked, iterates with engineer)</td>
+                <td>15-45 min</td>
+            </tr>
+            <tr>
+                <td>Test</td>
+                <td>qa-tester</td>
+                <td>Tests end-to-end (auto-delegated)</td>
+                <td>20-60 min</td>
+            </tr>
+            <tr>
+                <td>Docs</td>
+                <td>tech-writer</td>
+                <td>Final docs + drift.md (auto-delegated)</td>
+                <td>15-30 min</td>
+            </tr>
+        </table>
+
+        <h3>Tech-Lead Checkpoints (Your Job)</h3>
+        <div class="critical">
+            <strong>Checkpoint 1:</strong> After code-reviewer approves
+            <ul>
+                <li>Compare implementation to design doc</li>
+                <li>Verify requirements met</li>
+                <li>Check UUID, security, Laravel patterns</li>
+                <li>Approve or send back to engineer with specific issues</li>
+            </ul>
+        </div>
+        <div class="critical">
+            <strong>Checkpoint 2:</strong> After qa-tester finishes
+            <ul>
+                <li>Review test results</li>
+                <li>Check any bugs found</li>
+                <li>If pass: approve for final docs</li>
+                <li>If fail: qa-tester and engineer iterate autonomously</li>
+            </ul>
+        </div>
+        <div class="critical">
+            <strong>Checkpoint 3:</strong> After tech-writer finishes
+            <ul>
+                <li>Review final docs and drift.md</li>
+                <li>Verify completeness</li>
+                <li>Mark feature done</li>
+            </ul>
+        </div>
+
+        <h2>Playwright MCP for E2E Testing (QA-Tester)</h2>
+
+        <h3>Why Playwright + QA-Tester?</h3>
+        <table>
+            <tr>
+                <th>Capability</th>
+                <th>PHPUnit Only</th>
+                <th>+ Playwright</th>
+            </tr>
+            <tr>
+                <td>Unit tests (backend logic)</td>
+                <td>✅</td>
+                <td>✅</td>
+            </tr>
+            <tr>
+                <td>Integration tests (API)</td>
+                <td>✅</td>
+                <td>✅</td>
+            </tr>
+            <tr>
+                <td>E2E tests (user workflows)</td>
+                <td>❌</td>
+                <td>✅ NEW</td>
+            </tr>
+            <tr>
+                <td>UI validation (buttons, forms)</td>
+                <td>❌</td>
+                <td>✅ NEW</td>
+            </tr>
+            <tr>
+                <td>FLKitOver iframe testing</td>
+                <td>❌</td>
+                <td>✅ NEW</td>
+            </tr>
+            <tr>
+                <td>Screenshots/videos as evidence</td>
+                <td>❌</td>
+                <td>✅ NEW</td>
+            </tr>
+            <tr>
+                <td>Responsive design testing</td>
+                <td>❌</td>
+                <td>✅ NEW</td>
+            </tr>
+        </table>
+
+        <h3>What Playwright Tests Can Do</h3>
+        <div class="workflow">
+// Test complete user workflow (not just API)
+test('user can reset password end-to-end', async ({ page }) => {
+  // Navigate to reset page
+  await page.goto('/password-reset');
+
+  // Fill form
+  await page.fill('input[type="email"]', 'user@example.com');
+  await page.click('button[type="submit"]');
+
+  // Verify success message
+  await expect(page.locator('text=Check your email')).toBeVisible();
+
+  // Capture evidence
+  await page.screenshot({ path: 'test-evidence/reset-success.png' });
+});
+
+// Test FLKitOver iframe integration
+test('can submit FLKitOver form', async ({ page }) => {
+  await page.goto('/pet-application');
+
+  // Fill form fields
+  await page.fill('input[name="tenant_name"]', 'John Doe');
+
+  // Interact with FLKitOver iframe
+  const flkFrame = page.frameLocator('iframe[name="flk-form"]');
+  await flkFrame.locator('[name="signature"]').fill('John Doe');
+
+  // Submit and verify
+  await page.click('button[type="submit"]');
+  await expect(page.locator('text=Submitted successfully')).toBeVisible();
+
+  // Video evidence
+  await page.video?.saveAs('test-evidence/flk-flow.webm');
+});
+
+// Test responsive design
+test('works on mobile', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 667 });
+  await page.goto('/password-reset');
+
+  // Verify mobile layout works
+  await page.fill('input[type="email"]', 'test@example.com');
+  await page.click('button[type="submit"]');
+  await expect(page.locator('text=Check your email')).toBeVisible();
+});
+        </div>
+
+        <h3>Four Test Types (Required for Every Feature)</h3>
+
+        <h4>1. POSITIVE Tests (Happy Path)</h4>
+        <p><strong>What:</strong> User does everything right - valid input, proper sequence</p>
+        <div class="workflow">
+// Positive Test: Password Reset Happy Path
+test('user can reset password with valid email', async ({ page }) => {
+  // User enters valid email
+  await page.fill('input[type="email"]', 'user@example.com');
+
+  // User clicks submit
+  await page.click('button[type="submit"]');
+
+  // Success message appears
+  await expect(page.locator('text=Check your email')).toBeVisible();
+
+  // Email was actually sent
+  // (verify in database or email service)
+
+  // Take screenshot as proof
+  await page.screenshot({ path: 'test-evidence/reset-success.png' });
+});
+        </div>
+        <p><strong>When to Run:</strong> After code-reviewer approves (first phase of qa-tester)</p>
+        <p><strong>Pass Criteria:</strong> User gets success message, all backend operations work</p>
+
+        <h4>2. NEGATIVE Tests (Error Cases)</h4>
+        <p><strong>What:</strong> User enters invalid data or violates constraints - test error handling</p>
+        <div class="workflow">
+// Negative Test: Invalid Email
+test('shows error for invalid email format', async ({ page }) => {
+  await page.fill('input[type="email"]', 'not-an-email');
+  await page.click('button[type="submit"]');
+
+  // Should show validation error
+  await expect(page.locator('text=Invalid email')).toBeVisible();
+  await page.screenshot({ path: 'test-evidence/invalid-email-error.png' });
+});
+
+// Negative Test: Non-existent User
+test('shows error when email not in system', async ({ page }) => {
+  await page.fill('input[type="email"]', 'nobody@example.com');
+  await page.click('button[type="submit"]');
+
+  // Should show user-friendly error
+  await expect(page.locator('text=Email not found')).toBeVisible();
+  await page.screenshot({ path: 'test-evidence/user-not-found.png' });
+});
+
+// Negative Test: Expired Token
+test('rejects expired reset token', async ({ page }) => {
+  // User tries to use old reset link
+  await page.goto('/password-reset/old-expired-token');
+
+  // Should show error
+  await expect(page.locator('text=Link expired')).toBeVisible();
+  await page.screenshot({ path: 'test-evidence/expired-token-error.png' });
+});
+
+// Negative Test: Rate Limiting
+test('blocks user after 5 reset attempts in 1 hour', async ({ page }) => {
+  // Attempt to reset 6 times rapidly
+  for (let i = 0; i < 6; i++) {
+    await page.fill('input[type="email"]', 'test@example.com');
+    await page.click('button[type="submit"]');
+  }
+
+  // 6th attempt should be blocked
+  await expect(page.locator('text=Too many attempts')).toBeVisible();
+  await page.screenshot({ path: 'test-evidence/rate-limit-error.png' });
+});
+        </div>
+        <p><strong>When to Run:</strong> Same phase as positive tests (qa-tester phase)</p>
+        <p><strong>Pass Criteria:</strong> All error messages clear, user can't bypass validation</p>
+
+        <h4>3. NON-FUNCTIONAL Tests (Performance, Security, Load, Accessibility)</h4>
+        <p><strong>What:</strong> Test quality attributes beyond basic functionality</p>
+        <div class="workflow">
+// Non-Functional Test: Performance
+test('password reset page loads in < 500ms', async ({ page }) => {
+  const start = Date.now();
+  await page.goto('/password-reset');
+  const loadTime = Date.now() - start;
+
+  expect(loadTime).toBeLessThan(500);
+});
+
+// Non-Functional Test: Security (No Hardcoded Secrets)
+test('no API keys exposed in HTML or JavaScript', async ({ page }) => {
+  await page.goto('/password-reset');
+
+  // Check HTML source
+  const html = await page.content();
+  expect(html).not.toContain('sk_live_');
+  expect(html).not.toContain('FLKIT_SECRET');
+});
+
+// Non-Functional Test: Security (CSRF Protection)
+test('requires CSRF token for form submission', async ({ page }) => {
+  await page.goto('/password-reset');
+
+  // Get CSRF token
+  const csrfToken = await page.getAttribute('input[name="_token"]', 'value');
+  expect(csrfToken).toBeTruthy();
+
+  // Try to submit without token
+  const response = await page.request.post('/api/password-reset', {
+    data: { email: 'test@example.com' },
+    // No CSRF token
+  });
+
+  // Should be rejected
+  expect(response.status()).toBe(419); // Token mismatch
+});
+
+// Non-Functional Test: Accessibility (Keyboard Navigation)
+test('form is fully keyboard accessible', async ({ page }) => {
+  await page.goto('/password-reset');
+
+  // Tab to email field
+  await page.keyboard.press('Tab');
+  const emailInput = page.locator('input[type="email"]');
+  await expect(emailInput).toBeFocused();
+
+  // Type email
+  await page.keyboard.type('test@example.com');
+
+  // Tab to submit button
+  await page.keyboard.press('Tab');
+  const submitBtn = page.locator('button[type="submit"]');
+  await expect(submitBtn).toBeFocused();
+
+  // Press Enter to submit
+  await page.keyboard.press('Enter');
+
+  // Should submit
+  await expect(page.locator('text=Check your email')).toBeVisible();
+});
+
+// Non-Functional Test: Mobile Responsiveness
+test('works correctly on mobile (375px)', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 667 });
+  await page.goto('/password-reset');
+
+  // All elements should be visible and clickable
+  await page.fill('input[type="email"]', 'test@example.com');
+  await page.click('button[type="submit"]');
+
+  await expect(page.locator('text=Check your email')).toBeVisible();
+});
+
+// Non-Functional Test: Load Testing (Concurrent Requests)
+test('handles 10 simultaneous reset requests', async ({ page }) => {
+  const requests = [];
+
+  for (let i = 0; i < 10; i++) {
+    const promise = page.request.post('/api/password-reset', {
+      data: { email: `user${i}@example.com` },
+    });
+    requests.push(promise);
+  }
+
+  const responses = await Promise.all(requests);
+
+  // All should succeed (not timeout or 500 error)
+  responses.forEach(response => {
+    expect(response.ok()).toBeTruthy();
+  });
+});
+        </div>
+        <p><strong>When to Run:</strong> After positive/negative tests pass (same phase)</p>
+        <p><strong>Pass Criteria:</strong> Performance within SLA, no security issues, fully accessible</p>
+
+        <h4>4. REGRESSION Tests (Ensure Old Features Still Work)</h4>
+        <p><strong>What:</strong> Re-run existing tests to ensure new code didn't break old features</p>
+        <div class="workflow">
+// Regression Test: Login Still Works
+test('login feature still works after password reset changes', async ({ page }) => {
+  // This test existed before password reset feature
+  // We re-run it to ensure we didn't break anything
+
+  await page.goto('/login');
+  await page.fill('input[name="email"]', 'existing@example.com');
+  await page.fill('input[name="password"]', 'correct-password');
+  await page.click('button[type="submit"]');
+
+  // Should still work
+  await expect(page.locator('text=Dashboard')).toBeVisible();
+});
+
+// Regression Test: User Registration Still Works
+test('registration still works after password reset changes', async ({ page }) => {
+  // This test existed before password reset feature
+  // We re-run it to ensure we didn't break anything
+
+  await page.goto('/register');
+  await page.fill('input[name="email"]', 'newuser@example.com');
+  await page.fill('input[name="password"]', 'secure-password-123');
+  await page.click('button[type="submit"]');
+
+  // Should still work
+  await expect(page.locator('text=Email verification')).toBeVisible();
+});
+
+// Regression Test: Profile Update Still Works
+test('user profile update still works', async ({ page }) => {
+  // Login first
+  await page.goto('/login');
+  await page.fill('input[name="email"]', 'user@example.com');
+  await page.fill('input[name="password"]', 'correct-password');
+  await page.click('button[type="submit"]');
+
+  // Go to profile
+  await page.goto('/profile');
+  await page.fill('input[name="name"]', 'Updated Name');
+  await page.click('button[type="submit"]');
+
+  // Should still work
+  await expect(page.locator('text=Profile updated')).toBeVisible();
+});
+        </div>
+        <p><strong>When to Run:</strong> Before deployment (QA-tester validates regression)</p>
+        <p><strong>Pass Criteria:</strong> All existing tests still pass (0 new failures)</p>
+
+        <h3>Complete QA-Tester Test Checklist</h3>
+        <table>
+            <tr>
+                <th>Test Type</th>
+                <th>Examples</th>
+                <th>When</th>
+                <th>Tool</th>
+            </tr>
+            <tr>
+                <td><strong>Positive</strong><br>(Happy Path)</td>
+                <td>Valid input → success<br>User does everything right</td>
+                <td>First</td>
+                <td>PHPUnit + Playwright</td>
+            </tr>
+            <tr>
+                <td><strong>Negative</strong><br>(Error Cases)</td>
+                <td>Invalid email<br>Non-existent user<br>Rate limiting<br>Expired token</td>
+                <td>Second</td>
+                <td>PHPUnit + Playwright</td>
+            </tr>
+            <tr>
+                <td><strong>Non-Functional</strong><br>(Quality)</td>
+                <td>Performance < 500ms<br>No secrets exposed<br>CSRF protection<br>Accessibility<br>Mobile responsive<br>Load handling</td>
+                <td>Third</td>
+                <td>Playwright + Manual</td>
+            </tr>
+            <tr>
+                <td><strong>Regression</strong><br>(Existing)</td>
+                <td>Login still works<br>Registration still works<br>Profile update works<br>All old tests pass</td>
+                <td>Last</td>
+                <td>PHPUnit + Playwright</td>
+            </tr>
+        </table>
+
+        <h3>QA-Tester Workflow with Playwright</h3>
+        <div class="critical">
+            <strong>Step 1: Run All Tests</strong>
+            <ul>
+                <li>✅ Positive tests (happy path)</li>
+                <li>✅ Negative tests (error cases)</li>
+                <li>✅ Non-functional tests (performance, security, accessibility)</li>
+                <li>✅ Regression tests (existing features)</li>
+            </ul>
+        </div>
+
+        <div class="critical">
+            <strong>Step 2: Validate Database & Services</strong>
+            <ul>
+                <li>Database state correct after operations</li>
+                <li>Emails sent via SES/SendGrid</li>
+                <li>S3 uploads working</li>
+                <li>FLKitOver callbacks processed</li>
+            </ul>
+        </div>
+
+        <div class="critical">
+            <strong>Step 3: Capture Evidence</strong>
+            <ul>
+                <li>Screenshots of happy path</li>
+                <li>Screenshots of error states</li>
+                <li>Videos of complete workflows</li>
+                <li>Browser console logs if errors occur</li>
+            </ul>
+        </div>
+
+        <div class="critical">
+            <strong>Step 4: Report Results</strong>
+            <ul>
+                <li><strong>If Pass:</strong> Test report with evidence screenshots/videos</li>
+                <li><strong>If Fail:</strong> Bug report with exact repro steps + screenshots + video</li>
+            </ul>
+        </div>
+
+        <h3>Test Report Template (QA-Tester Output)</h3>
+        <div class="workflow">
+# Test Results: Password Reset Feature
+
+## Summary
+- Total Tests: 24
+- Passed: 22 ✅
+- Failed: 2 ❌
+- Duration: 2m 34s
+
+## Test Breakdown
+- Unit Tests (PHPUnit): 8/8 ✅
+- Integration Tests (PHPUnit): 10/10 ✅
+- E2E Tests (Playwright): 4/5 ❌
+- Security Tests: 2/2 ✅
+
+## Failed Tests (With Evidence)
+### Test: Expired Token Error Message (Critical)
+- Expected: "Token expired, request new one"
+- Actual: Generic 404 page
+- Evidence: [screenshot: expired-token.png]
+- Video: [test-evidence/expired-flow.webm]
+
+## Database Validation
+- Reset tokens created: ✅
+- Token expiry set (1 hour): ✅
+- Emails sent via SES: ✅
+- User passwords updated: ✅
+
+## Security Checks
+- Rate limiting (5/hour): ✅
+- CSRF protection: ✅
+- Input validation: ✅
+- Session tokens secure: ✅
+
+## Recommendation
+NOT READY - Fix 2 bugs, re-test with Playwright
+        </div>
+
+        <h3>Benefits of Playwright Testing</h3>
+        <table>
+            <tr>
+                <th>Benefit</th>
+                <th>Impact</th>
+            </tr>
+            <tr>
+                <td>Visual Evidence</td>
+                <td>Bug reports include screenshots/videos → engineers fix faster</td>
+            </tr>
+            <tr>
+                <td>Real Browser Testing</td>
+                <td>Catches CSS bugs, timing issues, JavaScript errors PHPUnit misses</td>
+            </tr>
+            <tr>
+                <td>FLKitOver Validation</td>
+                <td>Can actually test iframe forms and document signing workflows</td>
+            </tr>
+            <tr>
+                <td>User Workflow Testing</td>
+                <td>Tests complete journeys: login → actions → logout (not just API)</td>
+            </tr>
+            <tr>
+                <td>Responsive Design</td>
+                <td>Automatically test mobile, tablet, desktop layouts</td>
+            </tr>
+            <tr>
+                <td>Regression Prevention</td>
+                <td>E2E tests prevent bugs from coming back</td>
+            </tr>
+        </table>
+
+        <h2>Your Agents & MCPs</h2>
+
+        <h3>Agent MCP Integrations</h3>
+
+        <div class="mcp-box">
+            <strong>tech-lead</strong>
+            <ul>
+                <li><code>github</code> - Fetch requirements from issues/PRs</li>
+                <li><code>jira</code> - Track user stories</li>
+                <li><code>context-mode</code> - Manage long design sessions</li>
+            </ul>
+        </div>
+
+        <div class="mcp-box">
+            <strong>senior-engineer</strong>
+            <ul>
+                <li><code>mysql</code> - Query schema, understand migrations</li>
+                <li><code>github</code> - Study existing patterns in code</li>
+                <li><code>context-mode</code> - Handle long implementation sessions</li>
+            </ul>
+        </div>
+
+        <div class="mcp-box">
+            <strong>code-reviewer</strong>
+            <ul>
+                <li><code>github</code> - Access PR details, branch diffs</li>
+                <li><code>mysql</code> - Review schema changes</li>
+                <li><code>context-mode</code> - Review large codebases</li>
+            </ul>
+        </div>
+
+        <div class="mcp-box">
+            <strong>qa-tester</strong>
+            <ul>
+                <li><code>mysql</code> - Check database state, seeds</li>
+                <li><code>github</code> - Review CI/CD logs, test results</li>
+                <li><code>playwright</code> - Run e2e tests, capture screenshots, validate UI</li>
+                <li><code>context-mode</code> - Analyze complex bug reports</li>
+            </ul>
+        </div>
+
+        <div class="mcp-box">
+            <strong>tech-writer</strong>
+            <ul>
+                <li><code>github</code> - Review commits, PR changes</li>
+                <li><code>mysql</code> - Document schema migrations</li>
+                <li><code>context-mode</code> - Compare intended vs actual</li>
+            </ul>
+        </div>
+
+        <div class="mcp-box">
+            <strong>security-reviewer (Optional)</strong>
+            <ul>
+                <li><code>github</code> - Scan commits for secrets</li>
+                <li><code>mysql</code> - Audit database access</li>
+                <li><code>context-mode</code> - Analyze security scope</li>
+            </ul>
+        </div>
+
+        <h2>Security: What NOT to Do</h2>
+        <table>
+            <tr>
+                <th>Don't</th>
+                <th>Instead</th>
+            </tr>
+            <tr>
+                <td>Share API keys in chat</td>
+                <td>Use env variables, never paste secrets</td>
+            </tr>
+            <tr>
+                <td>Commit .env file</td>
+                <td>Commit .env.example with placeholders</td>
+            </tr>
+            <tr>
+                <td>Hardcode credentials in code</td>
+                <td>Always use environment variables</td>
+            </tr>
+            <tr>
+                <td>Trust code without testing</td>
+                <td>Run tests locally before committing</td>
+            </tr>
+            <tr>
+                <td>Deploy directly to production</td>
+                <td>Deploy to staging first, verify, then prod</td>
+            </tr>
+            <tr>
+                <td>Skip code review</td>
+                <td>Always get 2nd pair of eyes minimum</td>
+            </tr>
+            <tr>
+                <td>Merge your own code</td>
+                <td>Wait for approved review</td>
+            </tr>
+        </table>
+
+        <h2>Passing Context Between Agents (Handoff Pattern)</h2>
+
+        <h3>How Context Flows in the Pipeline</h3>
+        <table>
+            <tr>
+                <th>Phase</th>
+                <th>Agent Creates</th>
+                <th>Passes To</th>
+                <th>Format</th>
+            </tr>
+            <tr>
+                <td>1. Design</td>
+                <td>tech-lead: [feature].md (architecture, requirements)</td>
+                <td>tech-writer</td>
+                <td>Markdown file</td>
+            </tr>
+            <tr>
+                <td>2. Spec</td>
+                <td>tech-writer: [feature]-spec.md (acceptance criteria)</td>
+                <td>senior-engineer</td>
+                <td>Markdown file</td>
+            </tr>
+            <tr>
+                <td>3. Code</td>
+                <td>senior-engineer: Code + [feature]-implementation.md</td>
+                <td>code-reviewer</td>
+                <td>Code + Markdown</td>
+            </tr>
+            <tr>
+                <td>4. Review</td>
+                <td>code-reviewer: [feature]-review.md (feedback/issues)</td>
+                <td>senior-engineer (fix)</td>
+                <td>Markdown file</td>
+            </tr>
+            <tr>
+                <td>5. Test</td>
+                <td>qa-tester: [feature]-test-results.md (pass/fail)</td>
+                <td>tech-lead</td>
+                <td>Markdown + evidence</td>
+            </tr>
+            <tr>
+                <td>6. Docs</td>
+                <td>tech-writer: [feature]-final.md + drift.md</td>
+                <td>tech-lead (approval)</td>
+                <td>Markdown files</td>
+            </tr>
+        </table>
+
+        <h3>Key Pattern: Always Include Source Context</h3>
+        <p><strong>When invoking next agent, always include the previous document.</strong></p>
+        <div class="workflow">
+# Tech-Lead invokes Tech-Writer
+/invoke tech-writer
+"Write acceptance criteria based on this design:
+
+[PASTE FULL password-reset.md HERE]
+
+Create: password-reset-spec.md with:
+- Feature overview
+- Acceptance criteria (AC1, AC2, etc.)
+- Test categories
+"
+        </div>
+
+        <h3>Document Naming Convention</h3>
+        <div class="workflow">
+[feature-name].md                    = Design doc (tech-lead)
+[feature-name]-spec.md               = Acceptance criteria (tech-writer)
+[feature-name]-implementation.md     = What was built + tests (senior-engineer)
+[feature-name]-review.md             = Code feedback (code-reviewer)
+[feature-name]-test-results.md       = QA approval (qa-tester)
+[feature-name]-final.md              = Final docs (tech-writer)
+drift.md                             = Spec vs implementation diff (tech-writer)
+        </div>
+
+        <h3>Practical Example: Password Reset Feature</h3>
+
+        <h4>Tech-Lead Creates: password-reset.md</h4>
+        <div class="workflow">
+# Password Reset Feature
+
+## Requirements
+- User enters email address
+- System sends password reset link (valid 1 hour)
+- User clicks link and sets new password
+- Email verified via link token
+- Rate limit: 5 requests per hour per user
+
+## Technical
+- New table: password_reset_tokens
+- Routes: /forgot-password, /reset-password
+- Integration: AWS SES for email
+- Token: 64 chars, cryptographically secure
+- One-time use only
+
+## Security
+- CSRF protection
+- No user enumeration (same message for valid/invalid email)
+- Log all reset attempts
+- Rate limiting prevents brute force
+
+## Success Criteria
+1. User receives email within 2 seconds
+2. Link valid exactly 1 hour
+3. Cannot reuse old passwords
+4. No brute force attacks possible
+        </div>
+
+        <h4>Tech-Writer Creates: password-reset-spec.md</h4>
+        <div class="workflow">
+# Password Reset - Acceptance Criteria
+
+## AC1: Request Password Reset
+Given user is on login page
+When user clicks "Forgot Password"
+Then form appears for email entry
+
+When user submits email
+Then success message "Check your email"
+And password_reset_tokens table updated
+And email sent within 2 seconds
+
+## AC2: Validate Reset Link
+Given user has reset email
+When user clicks link
+Then /reset-password?token=[token] page displays
+
+If token expired (> 1 hour)
+Then error "Link expired, request new"
+
+## AC3: Set New Password
+Given valid reset page
+When user enters new password
+And password meets requirements (8+ chars)
+Then password updated in database
+And redirected to login
+
+## AC4: Rate Limiting
+Given user requests reset 6 times in 1 hour
+When submitting 6th request
+Then HTTP 429 response
+And message "Too many attempts"
+
+## AC5: One-Time Use
+Given token already used
+When trying to use same token
+Then error "Link already used"
+
+## AC6: No User Enumeration
+Given unknown email in reset form
+When submitted
+Then same success message as valid email
+And no email sent
+And no token created
+        </div>
+
+        <h4>Senior-Engineer Creates: password-reset-implementation.md</h4>
+        <div class="workflow">
+# Password Reset - Implementation Done
+
+Based on spec: password-reset-spec.md
+
+## Built
+- Migration: create_password_reset_tokens_table
+- Model: PasswordResetToken
+- Controller: PasswordResetController
+- Service: PasswordResetService
+- Tests: 12 feature tests, 4 unit tests, 5 security tests
+
+## Test Results
+- All tests PASS (24/24)
+- Coverage: 94%
+- AC1-AC6: All acceptance criteria verified
+- Security: Rate limiting, CSRF, no enumeration working
+
+## Key Implementation
+- Token: random_bytes(32) hex = 64 chars
+- Expiry: 1 hour after creation
+- Rate limit: 5/hour per email + 20/hour global
+- Database: Indexed on user_id, expires_at
+
+Ready for code review.
+        </div>
+
+        <h4>Code-Reviewer Creates: password-reset-review.md</h4>
+        <div class="workflow">
+# Password Reset - Code Review
+
+## Issues Found
+
+### CRITICAL (Must Fix)
+1. Missing CSRF token on POST request (line 24)
+   Fix: Add csrf_token() validation
+
+2. Rate limiting too weak - per email only (line 45)
+   Fix: Add global rate limit to prevent DDoS
+
+### HIGH (Should Fix)
+3. Error message reveals if email exists (line 58)
+   Fix: Use same message for valid/invalid
+
+4. No logging of password reset events
+   Fix: Add audit log
+
+## Strengths
+- Good service pattern
+- Comprehensive tests
+- Security considerations present
+
+## Approval
+NOT APPROVED - Fix critical issues #1 and #2, then resubmit.
+        </div>
+
+        <h4>Senior-Engineer Updates: password-reset-implementation-v2.md</h4>
+        <div class="workflow">
+# Password Reset - Implementation (Revised)
+
+## Issues Fixed
+
+### CRITICAL (Done)
+1. CSRF protection added to all POST routes
+2. Global rate limit added: 20/hour across all users
+
+### HIGH (Done)
+3. Error message fixed - same for valid/invalid email
+4. Audit logging added to PasswordResetMail
+
+## Test Results (Updated)
+- All tests PASS (26/26)
+- New DDoS test: PASS
+- New enumeration test: PASS
+- Coverage: 96%
+
+Ready for code review approval.
+        </div>
+
+        <h4>QA-Tester Creates: password-reset-test-results.md</h4>
+        <div class="workflow">
+# Password Reset - Test Results
+
+Tested against spec: password-reset-spec.md
+Implementation: password-reset-implementation-v2.md
+
+## Results
+- Total Tests: 24 (all types)
+- Positive Tests: 6/6 PASS
+- Negative Tests: 8/8 PASS (invalid email, expired token, rate limit, etc.)
+- Non-Functional: 6/6 PASS (performance < 500ms, security, accessibility)
+- Regression Tests: 4/4 PASS (login, registration, password change)
+
+## Database Checks
+- password_reset_tokens table: OK
+- Indexes present: OK
+- Expiration working: OK
+
+## Security Validation
+- Rate limiting enforced: OK
+- CSRF protection active: OK
+- No user enumeration: OK
+- Tokens unpredictable: OK
+
+## Evidence
+- Screenshots: 10 key steps
+- Video: Full flow recording (4:32)
+- Browser logs: No errors
+
+## Approval
+APPROVED FOR PRODUCTION - All tests pass, ready for release.
+        </div>
+
+        <h2>QA-Tester: Playwright & Four Test Types</h2>
+
+        <h3>Why Playwright MCP?</h3>
+        <p>QA-Tester uses Playwright for end-to-end testing that PHPUnit cannot cover: real browser interactions, UI validation, FLKitOver iframe testing, and visual evidence (screenshots/videos). All bugs reported include reproduction steps and visual proof.</p>
+
+        <h3>Four Required Test Types (Each Feature)</h3>
+        <p>QA-Tester must write all four test types for every feature before approving for release:</p>
+
+        <h4>1. Positive Tests (Happy Path)</h4>
+        <p>User does everything right. Test the expected flow end-to-end.</p>
+        <div class="workflow">
+// Password reset happy path (Playwright E2E)
+test('can reset password successfully', async ({ page }) => {
+  await page.goto('/login');
+  await page.click('text=Forgot Password');
+  await page.fill('input[type="email"]', 'user@test.com');
+  await page.click('button[type="submit"]');
+
+  // Verify success message
+  await expect(page.locator('text=Check your email')).toBeVisible();
+
+  // In PHPUnit: verify database
+  // - Reset token created
+  // - Email sent to SES
+  // - User password unchanged
+});
+        </div>
+
+        <h4>2. Negative Tests (Error Cases)</h4>
+        <p>Invalid input, edge cases, constraints violated. Must handle gracefully with clear error messages.</p>
+        <div class="workflow">
+// Test invalid email
+test('shows error for invalid email', async ({ page }) => {
+  await page.goto('/login');
+  await page.click('text=Forgot Password');
+  await page.fill('input[type="email"]', 'invalid-email');
+  await page.click('button[type="submit"]');
+
+  // Verify validation error
+  await expect(page.locator('text=Invalid email')).toBeVisible();
+});
+
+// Test rate limiting
+test('rate limiting prevents brute force', async ({ page }) => {
+  for (let i = 0; i < 11; i++) {
+    const response = await page.context().request.post('/api/password-reset', {
+      data: { email: 'test@example.com' }
+    });
+
+    if (i === 10) {
+      expect(response.status()).toBe(429); // Too Many Requests
+    }
+  }
+});
+
+// Test expired token
+test('shows error for expired token', async ({ page }) => {
+  // Try to use token older than 1 hour
+  await page.goto('/reset-password?token=expired-token');
+
+  // Verify proper error message (not generic 404)
+  await expect(page.locator('text=Token expired')).toBeVisible();
+});
+        </div>
+
+        <h4>3. Non-Functional Tests</h4>
+        <p>Performance, security, accessibility, responsiveness, load testing.</p>
+        <div class="workflow">
+// Performance: API responds under 500ms
+test('password reset API responds under 500ms', async ({ page }) => {
+  const startTime = Date.now();
+  const response = await page.context().request.post('/api/password-reset', {
+    data: { email: 'test@example.com' }
+  });
+  const duration = Date.now() - startTime;
+
+  expect(duration).toBeLessThan(500);
+  expect(response.ok()).toBeTruthy();
+});
+
+// Security: no sensitive data in HTML
+test('does not expose reset token in HTML', async ({ page }) => {
+  await page.goto('/reset-password?token=secret-token');
+  const html = await page.content();
+
+  expect(html).not.toContain('secret-token');
+});
+
+// Accessibility: keyboard navigation works
+test('keyboard navigation works', async ({ page }) => {
+  await page.goto('/login');
+  await page.click('text=Forgot Password');
+
+  // Tab through form fields
+  await page.keyboard.press('Tab');
+  await page.keyboard.type('user@test.com');
+  await page.keyboard.press('Tab');
+  await page.keyboard.press('Enter');
+
+  // Form should submit
+  await expect(page.locator('text=Check your email')).toBeVisible();
+});
+
+// Responsive: mobile layout works
+test('layout works on mobile 375px', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 667 });
+  await page.goto('/login');
+  await page.click('text=Forgot Password');
+
+  // Button should still be clickable, form readable
+  const submitButton = page.locator('button[type="submit"]');
+  await expect(submitButton).toBeVisible();
+  await expect(submitButton).toBeInViewport();
+});
+        </div>
+
+        <h4>4. Regression Tests</h4>
+        <p>Ensure existing features still work after changes. Run before every release.</p>
+        <div class="workflow">
+// Login still works
+test('user can still login after password reset changes', async ({ page }) => {
+  // Reset password first
+  await resetPassword(page, 'user@test.com', 'newpassword123');
+
+  // Then verify login works with new password
+  await page.goto('/login');
+  await page.fill('input[type="email"]', 'user@test.com');
+  await page.fill('input[type="password"]', 'newpassword123');
+  await page.click('button[type="submit"]');
+
+  // Should be logged in
+  await expect(page.locator('text=Dashboard')).toBeVisible();
+});
+
+// Email service still works
+test('password reset email still sends successfully', async ({ page }) => {
+  await page.goto('/login');
+  await page.click('text=Forgot Password');
+  await page.fill('input[type="email"]', 'user@test.com');
+  await page.click('button[type="submit"]');
+
+  // Check database: email was queued in jobs table
+  // Check SES logs: email delivered
+});
+        </div>
+
+        <h3>QA-Tester Workflow</h3>
+        <table>
+            <tr>
+                <th>Phase</th>
+                <th>Action</th>
+                <th>Output</th>
+            </tr>
+            <tr>
+                <td>1. Receive Code</td>
+                <td>code-reviewer approved, feature ready for testing</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>2. Write Tests</td>
+                <td>Create all 4 test types: positive, negative, non-functional, regression</td>
+                <td>Test files in tests/</td>
+            </tr>
+            <tr>
+                <td>3. Run Tests</td>
+                <td>composer test + npx playwright test (PHPUnit + E2E)</td>
+                <td>Pass/fail results</td>
+            </tr>
+            <tr>
+                <td>4. Capture Evidence</td>
+                <td>Screenshots, videos, database state, browser logs</td>
+                <td>test-evidence/ folder</td>
+            </tr>
+            <tr>
+                <td>5. Report Bugs</td>
+                <td>If failures: exact steps, screenshots, DB state</td>
+                <td>Bug report to senior-engineer</td>
+            </tr>
+            <tr>
+                <td>6. Iterate</td>
+                <td>Engineer fixes, QA retests (max 3 cycles)</td>
+                <td>All tests pass OR escalate</td>
+            </tr>
+        </table>
+
+        <h3>Test Report Template</h3>
+        <div class="workflow">
+# Test Results: Password Reset Feature
+
+## Summary
+- Total Tests: 24
+- Passed: 22
+- Failed: 2
+- Duration: 2m 34s
+
+## Tests by Type
+- Positive: 5 passed
+- Negative: 7 passed, 2 failed (see bugs)
+- Non-Functional: 8 passed
+- Regression: 2 passed
+
+## Bugs Found
+### Bug #1: Expired Token Error (Critical)
+- Steps: Get reset link, wait 61+ minutes, click link
+- Expected: "Token expired" message
+- Actual: Generic 404 page
+- Evidence: [test-evidence/expired-token.png]
+
+## Database Checks
+- Reset tokens created: OK
+- Token expiry set correctly: OK
+- User password updated: OK
+
+## Security Validation
+- Rate limiting enforced: OK
+- CSRF token required: OK
+- Token unpredictable: OK
+
+## Recommendation
+READY for release (2 bugs fixed and verified)
+        </div>
+
+        <h2>Common Issues & Fixes</h2>
+        <table>
+            <tr>
+                <th>Problem</th>
+                <th>Solution</th>
+            </tr>
+            <tr>
+                <td>Code-reviewer keeps rejecting same issue</td>
+                <td>Senior-engineer: re-read feedback carefully, show specific fix to reviewer</td>
+            </tr>
+            <tr>
+                <td>QA-tester finds bugs after many iterations</td>
+                <td>Root cause: unclear spec. Tech-lead must demand clearer requirements</td>
+            </tr>
+            <tr>
+                <td>Features taking too long</td>
+                <td>Check scope: too big? Break into smaller features. Ask tech-lead to scope</td>
+            </tr>
+            <tr>
+                <td>Drift.md shows huge differences</td>
+                <td>Normal. Indicates requirements changed during implementation. Document why</td>
+            </tr>
+            <tr>
+                <td>Code reviewer and engineer stuck in loop</td>
+                <td>Escalate to tech-lead after 3 cycles. Tech-lead resolves ambiguity</td>
+            </tr>
+        </table>
+
+        <h2>How to Invoke QA-Tester for Each Test Type</h2>
+
+        <h3>Template 1: Positive Tests (Happy Path)</h3>
+        <div class="workflow">
+/invoke qa-tester
+"Write positive test cases for password reset feature:
+
+Test happy path (user does everything right):
+1. User enters valid email → gets success message
+2. Reset token created in database
+3. Email sent successfully
+4. User can click reset link from email
+5. User can set new password
+6. New password works on next login
+
+Use Playwright for UI validation + PHPUnit for backend.
+Capture screenshots of success states.
+No errors should occur."
+        </div>
+
+        <h3>Template 2: Negative Tests (Error Cases)</h3>
+        <div class="workflow">
+/invoke qa-tester
+"Write negative test cases for password reset:
+
+Test error handling (user makes mistakes):
+1. Invalid email format → validation error
+2. Non-existent email → user-friendly error
+3. Rate limiting: 6 requests in 1 hour → blocked
+4. Expired reset token → clear error message
+5. Empty email field → validation required
+6. SQL injection attempt → safely rejected
+7. Token reuse attempt → rejected
+
+For each test: provide screenshot of error state.
+Verify error messages are helpful (not generic).
+Use Playwright for UI + PHPUnit for security."
+        </div>
+
+        <h3>Template 3: Non-Functional Tests (Quality Attributes)</h3>
+        <div class="workflow">
+/invoke qa-tester
+"Write non-functional tests for password reset:
+
+PERFORMANCE:
+- Page loads in < 500ms
+- Form submission completes in < 2 seconds
+- No console errors or warnings
+
+SECURITY:
+- No API keys in HTML/JavaScript
+- CSRF token required for submission
+- Rate limiting enforced
+- Password not logged or exposed
+
+ACCESSIBILITY:
+- Fully keyboard navigable (no mouse needed)
+- Form labels accessible to screen readers
+- Error messages clear and associated with fields
+- Sufficient color contrast
+
+RESPONSIVE:
+- Works on mobile (375px)
+- Works on tablet (768px)
+- Works on desktop (1920px)
+
+Use Playwright for performance + security + accessibility.
+Run lighthouse for accessibility score."
+        </div>
+
+        <h3>Template 4: Regression Tests (Existing Features)</h3>
+        <div class="workflow">
+/invoke qa-tester
+"Write regression tests for password reset:
+
+Verify these existing features still work:
+1. User login (not broken by password reset changes)
+2. User registration (not broken by auth changes)
+3. User profile update (password field still works)
+4. Email sending (not broken by new reset emails)
+5. Database migrations (no conflicts)
+6. API endpoints (not broken by new routes)
+
+Re-run ALL existing tests to ensure:
+- 0 new failures
+- No breaking changes
+- All old functionality intact
+
+Generate report: passing tests + any regressions found."
+        </div>
+
+        <h2>Quick Start: Today's First Feature</h2>
+        <div class="workflow">
+# Copy this exactly:
+
+/invoke tech-lead
+"Build [feature-name]:
+- Requirement 1
+- Requirement 2
+- Constraint: [constraint]"
+
+# Then wait. Tech-lead orchestrates the rest.
+# Your job: validate at 3 checkpoints.
+
+# When QA-Tester is invoked by tech-lead:
+/invoke qa-tester
+"Test [feature-name]:
+- Positive tests (happy path works)
+- Negative tests (errors handled correctly)
+- Non-functional tests (performance, security, accessibility)
+- Regression tests (existing features still work)"
+        </div>
+
+        <h2>Resources</h2>
+        <ul>
+            <li><strong>Agents:</strong> <code>/Users/arunkumar/Documents/Application/Agents/claude_agents/agents/</code></li>
+            <li><strong>Full Policy:</strong> DEVELOPER-COMPLETE-POLICY.html (details if you need)</li>
+            <li><strong>Subagent Guide:</strong> CUSTOM_SUBAGENTS_GUIDE.md (advanced agent creation)</li>
+        </ul>
+
+        <footer style="margin-top: 60px; padding-top: 20px; border-top: 1px solid #ddd; text-align: center; color: #999; font-size: 0.9em;">
+            Claude Code Policy - Crisp Version | Last Updated: March 2026
+        </footer>
+    </div>
+</body>
+</html>
