@@ -599,6 +599,7 @@
                 <h2>Table of Contents</h2>
                 <ul>
                     <li><a href="#introduction">1. Introduction & Overview</a></li>
+                    <li><a href="#setup">1.5 Setup & Prerequisites (Getting Started)</a></li>
                     <li><a href="#critical-rules">2. Critical Non-Negotiable Rules</a></li>
                     <li><a href="#team-adoption">2.5 Team Adoption & Implementation Strategy</a></li>
                     <li><a href="#security">3. Security Hardening Strategy</a></li>
@@ -607,6 +608,7 @@
                     <li><a href="#advanced-workflows">4.7 Advanced Claude Code Workflows</a></li>
                     <li><a href="#mcp">5. Model Context Protocol (MCP)</a></li>
                     <li><a href="#subagents">6. Custom Subagents Guide</a></li>
+                    <li><a href="#subagent-isolation">6.1 Sub-Agents as Isolated Context (Token Efficiency &amp; Permissions)</a></li>
                     <li><a href="#claude-skills">6.5 Claude Code Skills: Supercharging Subagents</a></li>
                     <li><a href="#github-integration">7. GitHub MCP for PR Review</a></li>
                     <li><a href="#github-actions">7.5 Claude Code Action for GitHub Automation</a></li>
@@ -649,6 +651,128 @@
                     <li><strong>Audit Everything:</strong> All Claude Code usage, agent creation, and deployments logged</li>
                     <li><strong>Fail Safe:</strong> Code never commits/deploys without human review</li>
                 </ul>
+            </div>
+
+            <!-- SECTION 1.5: SETUP & PREREQUISITES -->
+            <h2 id="setup">1.5 Setup & Prerequisites (Getting Started)</h2>
+            <div class="section">
+                <h3>Installation & Environment</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Requirement</th>
+                            <th>Details</th>
+                            <th>Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Claude Code CLI</strong></td>
+                            <td>Terminal installation. Requires adding to PATH environment variable.</td>
+                            <td>Free (requires API key)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Anthropic API Key</strong></td>
+                            <td>Generated from <code>console.anthropic.com</code>. Each developer needs their own key with prepaid credits.</td>
+                            <td>Prepaid credits (see Cost Tracking)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Python &amp; Terminal</strong></td>
+                            <td>Basic Python knowledge + terminal/bash fluency required. Claude Code executes commands in your shell.</td>
+                            <td>Free (open-source)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MCP Servers (Optional)</strong></td>
+                            <td>GitHub MCP, MySQL MCP, AWS MCP. Installed separately for specialized agents. Each requires auth setup.</td>
+                            <td>Free (requires auth tokens)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>API Key Setup &amp; Management</h3>
+                <pre><code># Step 1: Get Your API Key
+1. Visit https://console.anthropic.com/login
+2. Create account or login
+3. Generate new API key
+4. Export to environment: export ANTHROPIC_API_KEY="sk-ant-..."
+
+# Step 2: Verify Installation
+claude-code --version
+
+# Step 3: Start First Project
+cd your-project
+claude-code  # Opens interactive session
+
+# Step 4: Create .claude/claude.md (project context)
+# See "Claude Code Operational Workflow" section</code></pre>
+
+                <h3>Cost Tracking &amp; Budget</h3>
+                <p><strong>Why Cost Tracking Matters:</strong> Claude Code uses API credits for every prompt, tool call, and agent invocation. Unmonitored usage can exceed budget quickly.</p>
+
+                <pre><code># Check Your Remaining Credits
+1. Visit console.anthropic.com/account/billing
+2. View "Balance" - shows prepaid credits remaining
+3. View "Usage" - shows cost by model (Haiku vs Sonnet vs Opus)
+
+# Cost Examples (as of March 2026)
+- Claude Haiku: $0.80 / 1M tokens (CHEAPEST - fast validation)
+- Claude Sonnet: $3 / 1M tokens (BALANCED - most tasks)
+- Claude Opus: $15 / 1M tokens (EXPENSIVE - complex reasoning only)
+
+# Real Feature Cost Examples:
+Password Reset Feature:
+- Tech-Lead design: 50K tokens (Sonnet) = $0.15
+- Spec writing: 30K tokens (Haiku) = $0.02
+- Implementation: 200K tokens (Sonnet) = $0.60
+- Code review: 100K tokens (Sonnet) = $0.30
+- Testing: 150K tokens (Haiku) = $0.12
+- Documentation: 75K tokens (Haiku) = $0.06
+TOTAL: ~$1.25 for entire feature
+
+# Cost Monitoring Checklist:
+[ ] Check remaining balance weekly
+[ ] Monitor model usage (avoid Opus for simple tasks)
+[ ] Set budget alerts in Anthropic console
+[ ] Review agent efficiency (idle agents = wasted credits)
+[ ] Track feature costs to forecast sprints</code></pre>
+
+                <h3>Minimum Requirements by Role</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Role</th>
+                            <th>Required</th>
+                            <th>Optional MCPs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Tech-Lead</strong></td>
+                            <td>Claude Code + API Key + Python knowledge</td>
+                            <td>GitHub MCP (fetching requirements), Jira MCP</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Senior-Engineer</strong></td>
+                            <td>Claude Code + API Key + Python + Git + DB knowledge</td>
+                            <td>MySQL MCP (schema inspection), GitHub MCP</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Code-Reviewer</strong></td>
+                            <td>Claude Code + API Key + Code review experience</td>
+                            <td>GitHub MCP (PR details), MySQL MCP</td>
+                        </tr>
+                        <tr>
+                            <td><strong>QA-Tester</strong></td>
+                            <td>Claude Code + API Key + Testing knowledge</td>
+                            <td>Playwright MCP (E2E testing), MySQL MCP (DB validation)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tech-Writer</strong></td>
+                            <td>Claude Code + API Key + Documentation skills</td>
+                            <td>GitHub MCP (commit history), MySQL MCP (schema)</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- SECTION 2: CRITICAL RULES -->
@@ -2734,6 +2858,148 @@ claude code --test-mcp context-mode
                     <li><strong>Documentation Writer:</strong> Generate/update documentation</li>
                     <li><strong>Test Generator:</strong> Create unit tests from code</li>
                 </ul>
+
+                <h3 id="subagent-isolation">Sub-Agents as Isolated Context (Token Efficiency &amp; Permission Isolation)</h3>
+
+                <h4>Why Sub-Agents Matter</h4>
+                <p><strong>Problem with single large agent:</strong> Context window fills up. Token count balloons. Costs explode. Permissions become too broad.</p>
+                <p><strong>Solution with sub-agents:</strong> Each agent has a focused scope, clean context, and minimal permissions. Like specialized professionals instead of one generalist.</p>
+
+                <div style="background: #ffe7e7; border-left: 4px solid #dc3545; padding: 15px; margin: 15px 0;">
+                    <strong>Key Benefit:</strong> Sub-agents are ISOLATED. They run in their own context window with only the data they need. No token bloat.
+                </div>
+
+                <h4>Token Efficiency Through Isolation</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Scenario</th>
+                            <th>Single Agent</th>
+                            <th>Sub-Agents (Isolated)</th>
+                            <th>Savings</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Feature Development</td>
+                            <td>200K tokens (whole codebase in context)</td>
+                            <td>50K tokens (only relevant files)</td>
+                            <td>75% reduction</td>
+                        </tr>
+                        <tr>
+                            <td>Code Review Loop</td>
+                            <td>150K tokens × 3 iterations = 450K total</td>
+                            <td>30K tokens × 3 iterations = 90K total</td>
+                            <td>80% reduction</td>
+                        </tr>
+                        <tr>
+                            <td>Test Generation</td>
+                            <td>100K tokens (all tests + implementation)</td>
+                            <td>20K tokens (only implementation to test)</td>
+                            <td>80% reduction</td>
+                        </tr>
+                        <tr>
+                            <td>Monthly Feature Cost</td>
+                            <td>5 features × 800K tokens = $2.40</td>
+                            <td>5 features × 150K tokens = $0.45</td>
+                            <td>80% savings = $1.95/month</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Permission Isolation: Minimal Access Principle</h4>
+                <p><strong>Each agent gets ONLY the tools and data it needs. Nothing more.</strong></p>
+
+                <pre><code># tech-lead Agent
+- CAN: Read design docs, invoke other agents, approve checkpoints
+- CAN: Access GitHub issues/requirements
+- CANNOT: Write code, run tests, execute deployments
+
+# senior-engineer Agent
+- CAN: Write code, run tests locally, commit changes
+- CAN: Access GitHub, MySQL for schema inspection
+- CANNOT: Deploy to production, delete data, access secrets
+
+# code-reviewer Agent
+- CAN: Read code, review PRs, suggest improvements
+- CAN: Access GitHub PR details
+- CANNOT: Approve own work, merge code, run production queries
+
+# qa-tester Agent
+- CAN: Run Playwright tests, generate test cases, capture evidence
+- CAN: Query test database (READ-ONLY), access test logs
+- CANNOT: Write to production database, deploy, commit code
+
+# tech-writer Agent
+- CAN: Read code/commits, write documentation
+- CAN: Access GitHub commit history
+- CANNOT: Modify code, write to database, execute commands
+
+# security-reviewer Agent (OPTIONAL)
+- CAN: Review security issues, analyze code for vulnerabilities
+- CAN: Access GitHub logs, read audit trails
+- CANNOT: Fix security issues directly, deploy changes</code></pre>
+
+                <h4>How Isolation Prevents Disasters</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Risk</th>
+                            <th>Single Large Agent</th>
+                            <th>Isolated Sub-Agents</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Accidental Prod Delete</strong></td>
+                            <td>❌ Agent has DB access, might delete production data</td>
+                            <td>✅ QA-tester has READ-ONLY test DB only</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Secrets Leaked in Code</strong></td>
+                            <td>❌ Large context includes all files, easier to miss secrets</td>
+                            <td>✅ Engineer-agent focused on feature, harder to accidentally share secrets</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Token Bloat &amp; Hallucination</strong></td>
+                            <td>❌ 1M+ token context leads to confusion, mistakes</td>
+                            <td>✅ Each agent &lt; 100K tokens, focused reasoning</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Unauthorized Access</strong></td>
+                            <td>❌ Single agent might access customer data it shouldn't</td>
+                            <td>✅ Each agent scoped to its role (QA doesn't access customer data)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Wrong Tool Invocation</strong></td>
+                            <td>❌ Too many tools available, agent might use wrong one</td>
+                            <td>✅ Each agent has 3-5 tools, clear purpose</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Context Handoff Pattern (Maintaining Isolation)</h4>
+                <p><strong>Key Rule:</strong> When one agent invokes another, pass ONLY the relevant document. Never dump the entire codebase.</p>
+
+                <pre><code># ✅ GOOD: Isolated Context Handoff
+tech-lead invokes senior-engineer:
+"Build password reset based on this spec:
+
+[PASTE ONLY password-reset-spec.md HERE]
+
+Constraint: 1 hour token budget"
+
+Result: Engineer gets clean context, focused work, low tokens
+
+# ❌ BAD: Context Bloat
+tech-lead invokes senior-engineer:
+"Build password reset based on this:
+
+[PASTE ENTIRE CODEBASE HERE]
+[PASTE ALL DESIGN DOCS HERE]
+[PASTE SCHEMA HERE]"
+
+Result: 1M+ tokens, confusion, hallucination, $3+ cost</code></pre>
 
                 <h3>Model Selection Guide: Which Model to Use</h3>
                 <p><strong>Choosing the right model for each subagent is critical for cost, speed, and quality.</strong></p>

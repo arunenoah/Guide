@@ -104,6 +104,124 @@
             <p>Everything you need. Nothing you don't.</p>
         </header>
 
+        <h2>Setup & Prerequisites (Getting Started)</h2>
+
+        <h3>Installation & Environment</h3>
+        <table>
+            <tr>
+                <th>Requirement</th>
+                <th>Details</th>
+                <th>Cost</th>
+            </tr>
+            <tr>
+                <td><strong>Claude Code CLI</strong></td>
+                <td>Terminal installation. Requires adding to PATH environment variable.</td>
+                <td>Free (requires API key)</td>
+            </tr>
+            <tr>
+                <td><strong>Anthropic API Key</strong></td>
+                <td>Generated from <code>console.anthropic.com</code>. Each developer needs their own key with prepaid credits.</td>
+                <td>Prepaid credits (see Cost Tracking)</td>
+            </tr>
+            <tr>
+                <td><strong>Python & Terminal</strong></td>
+                <td>Basic Python knowledge + terminal/bash fluency required. Claude Code executes commands in your shell.</td>
+                <td>Free (open-source)</td>
+            </tr>
+            <tr>
+                <td><strong>MCP Servers (Optional)</strong></td>
+                <td>GitHub MCP, MySQL MCP, AWS MCP. Installed separately for specialized agents. Each requires auth setup.</td>
+                <td>Free (requires auth tokens)</td>
+            </tr>
+        </table>
+
+        <h3>API Key Setup & Management</h3>
+        <div class="workflow">
+# Step 1: Get Your API Key
+1. Visit https://console.anthropic.com/login
+2. Create account or login
+3. Generate new API key
+4. Export to environment: export ANTHROPIC_API_KEY="sk-ant-..."
+
+# Step 2: Verify Installation
+claude-code --version
+
+# Step 3: Start First Project
+cd your-project
+claude-code  # Opens interactive session
+
+# Step 4: Create .claude/claude.md (project context)
+# See "Project Standards with claude.md" section
+        </div>
+
+        <h3>Cost Tracking & Budget</h3>
+        <div class="critical">
+            <strong>Why Cost Tracking Matters:</strong> Claude Code uses API credits for every prompt, tool call, and agent invocation. Unmonitored usage can exceed budget quickly.
+        </div>
+
+        <div class="workflow">
+# Check Your Remaining Credits
+1. Visit console.anthropic.com/account/billing
+2. View "Balance" - shows prepaid credits remaining
+3. View "Usage" - shows cost by model (Haiku vs Sonnet vs Opus)
+
+# Cost Examples (as of March 2026)
+- Claude Haiku: $0.80 / 1M tokens (CHEAPEST - fast validation)
+- Claude Sonnet: $3 / 1M tokens (BALANCED - most tasks)
+- Claude Opus: $15 / 1M tokens (EXPENSIVE - complex reasoning only)
+
+# Real Feature Cost Examples:
+Password Reset Feature:
+- Tech-Lead design: 50K tokens (Sonnet) = $0.15
+- Spec writing: 30K tokens (Haiku) = $0.02
+- Implementation: 200K tokens (Sonnet) = $0.60
+- Code review: 100K tokens (Sonnet) = $0.30
+- Testing: 150K tokens (Haiku) = $0.12
+- Documentation: 75K tokens (Haiku) = $0.06
+TOTAL: ~$1.25 for entire feature
+
+# Cost Monitoring Checklist:
+[ ] Check remaining balance weekly
+[ ] Monitor model usage (avoid Opus for simple tasks)
+[ ] Set budget alerts in Anthropic console
+[ ] Review agent efficiency (idle agents = wasted credits)
+[ ] Track feature costs to forecast sprints
+        </div>
+
+        <h3>Minimum Requirements by Role</h3>
+        <table>
+            <tr>
+                <th>Role</th>
+                <th>Required</th>
+                <th>Optional MCPs</th>
+            </tr>
+            <tr>
+                <td><strong>Tech-Lead</strong></td>
+                <td>Claude Code + API Key + Python knowledge</td>
+                <td>GitHub MCP (fetching requirements), Jira MCP</td>
+            </tr>
+            <tr>
+                <td><strong>Senior-Engineer</strong></td>
+                <td>Claude Code + API Key + Python + Git + DB knowledge</td>
+                <td>MySQL MCP (schema inspection), GitHub MCP</td>
+            </tr>
+            <tr>
+                <td><strong>Code-Reviewer</strong></td>
+                <td>Claude Code + API Key + Code review experience</td>
+                <td>GitHub MCP (PR details), MySQL MCP</td>
+            </tr>
+            <tr>
+                <td><strong>QA-Tester</strong></td>
+                <td>Claude Code + API Key + Testing knowledge</td>
+                <td>Playwright MCP (E2E testing), MySQL MCP (DB validation)</td>
+            </tr>
+            <tr>
+                <td><strong>Tech-Writer</strong></td>
+                <td>Claude Code + API Key + Documentation skills</td>
+                <td>GitHub MCP (commit history), MySQL MCP (schema)</td>
+            </tr>
+        </table>
+
         <h2>Non-Negotiable Rules (7 Rules for Everyone)</h2>
         <div class="critical">
             <div class="rule"><strong>1. No secrets in prompts</strong> - Remove API keys, passwords, tokens before asking Claude</div>
@@ -665,6 +783,293 @@ NOT READY - Fix 2 bugs, re-test with Playwright
                 <td>E2E tests prevent bugs from coming back</td>
             </tr>
         </table>
+
+        <h2>Model Selection Rationale (Cost & Performance)</h2>
+
+        <h3>Three Models, Three Use Cases</h3>
+        <table>
+            <tr>
+                <th>Model</th>
+                <th>Speed</th>
+                <th>Cost</th>
+                <th>Best For</th>
+                <th>Worst For</th>
+            </tr>
+            <tr>
+                <td><strong>Haiku</strong><br>(Fast &amp; Cheap)</td>
+                <td>~1s response</td>
+                <td>$0.80/1M tokens (CHEAPEST)</td>
+                <td>Code reviews, test generation, documentation, validation, quick fixes</td>
+                <td>Complex architecture, security analysis, deep reasoning</td>
+            </tr>
+            <tr>
+                <td><strong>Sonnet</strong><br>(Balanced)</td>
+                <td>~3s response</td>
+                <td>$3/1M tokens (BALANCED)</td>
+                <td>Feature implementation, API design, general development, debugging</td>
+                <td>None - good at everything, use by default</td>
+            </tr>
+            <tr>
+                <td><strong>Opus</strong><br>(Powerful)</td>
+                <td>~5s response</td>
+                <td>$15/1M tokens (EXPENSIVE)</td>
+                <td>Security reviews, performance optimization, architectural decisions, edge cases</td>
+                <td>Simple tasks, routine code review, basic documentation</td>
+            </tr>
+        </table>
+
+        <h3>Decision Matrix: Which Model for Which Agent?</h3>
+        <table>
+            <tr>
+                <th>Agent Type</th>
+                <th>Model</th>
+                <th>Reasoning</th>
+                <th>Est. Cost/Feature</th>
+            </tr>
+            <tr>
+                <td><strong>tech-lead</strong><br>(Design &amp; Orchestration)</td>
+                <td><strong>Sonnet</strong></td>
+                <td>Needs strong reasoning for architecture decisions. Balanced cost for long sessions.</td>
+                <td>$0.30-0.50</td>
+            </tr>
+            <tr>
+                <td><strong>senior-engineer</strong><br>(Implementation)</td>
+                <td><strong>Sonnet</strong></td>
+                <td>Primary task generator. Code quality matters. Performance not critical.</td>
+                <td>$0.50-0.80</td>
+            </tr>
+            <tr>
+                <td><strong>code-reviewer</strong><br>(Quality Gates)</td>
+                <td><strong>Haiku</strong></td>
+                <td>Validates against known patterns. Pattern matching, not invention. Cheapest option.</td>
+                <td>$0.15-0.25</td>
+            </tr>
+            <tr>
+                <td><strong>qa-tester</strong><br>(Test Writing)</td>
+                <td><strong>Haiku</strong></td>
+                <td>Test generation is structured/formulaic. Haiku sufficient for positive/negative/regression tests. Fast test creation.</td>
+                <td>$0.10-0.20</td>
+            </tr>
+            <tr>
+                <td><strong>tech-writer</strong><br>(Documentation)</td>
+                <td><strong>Haiku</strong></td>
+                <td>Documentation is structural. No complex reasoning needed. Fastest model speeds up doc creation.</td>
+                <td>$0.05-0.10</td>
+            </tr>
+            <tr>
+                <td><strong>security-reviewer</strong><br>(OPTIONAL - Security)</td>
+                <td><strong>Opus</strong></td>
+                <td>Security analysis requires deep reasoning about attack vectors. Never skimp here. Worth the cost.</td>
+                <td>$0.30-0.50</td>
+            </tr>
+        </table>
+
+        <h3>Cost Optimization Strategy</h3>
+        <div class="critical">
+            <strong>Golden Rule:</strong> Use Haiku by default. Upgrade to Sonnet/Opus ONLY when the task truly needs it.
+        </div>
+
+        <div class="workflow">
+# Cost-Optimized Agent Pricing
+
+## Cheap Path ($1-2 per feature):
+tech-lead (Sonnet) → tech-writer (Haiku) →
+senior-engineer (Sonnet) → code-reviewer (Haiku) →
+qa-tester (Haiku) → tech-writer (Haiku)
+Total: ~$1.25
+
+## Medium Path ($2-3 per feature):
+Same as cheap path + security-reviewer (Opus for complex)
+Total: ~$1.75
+
+## Expensive Path ($5+ per feature):
+Using Opus for everything = WASTE
+Code review: Haiku is 95% as good, 1/19th the cost
+Docs: Haiku is 100% as good, 1/19th the cost
+
+## Budget Check: Is this Too Expensive?
+- Feature: $1.25 average
+- Team velocity: 5 features/week = $6.25/week
+- Monthly: ~$25/month per developer (very cheap)
+- Comparison: 1 AI engineer salary = $120K/year = $10K/month
+  → Claude Code costs = 0.25% of salary (incredible ROI)
+        </div>
+
+        <h3>Specific Use Cases by Model</h3>
+
+        <h4>Use Haiku When:</h4>
+        <ul>
+            <li>✅ Generating tests from spec (4 test types)</li>
+            <li>✅ Writing documentation/comments</li>
+            <li>✅ Validating code style and naming</li>
+            <li>✅ Checking test coverage</li>
+            <li>✅ Generating API response schemas</li>
+            <li>✅ Creating changelog entries</li>
+            <li>✅ Checking for obvious bugs (linting)</li>
+            <li>✅ Writing email templates</li>
+            <li>❌ DON'T use for: Core implementation, security analysis, performance optimization</li>
+        </ul>
+
+        <h4>Use Sonnet When:</h4>
+        <ul>
+            <li>✅ Implementing features (your default choice)</li>
+            <li>✅ Debugging complex issues</li>
+            <li>✅ Designing APIs and database schemas</li>
+            <li>✅ Writing business logic</li>
+            <li>✅ Creating Laravel services and controllers</li>
+            <li>✅ Refactoring code</li>
+            <li>✅ Code review with detailed feedback</li>
+            <li>❌ DON'T use for: Simple documentation, test generation, basic validation</li>
+        </ul>
+
+        <h4>Use Opus When:</h4>
+        <ul>
+            <li>✅ Security vulnerability analysis</li>
+            <li>✅ Performance optimization for critical paths</li>
+            <li>✅ Architectural decisions (microservices? monolith?)</li>
+            <li>✅ Complex edge case handling</li>
+            <li>✅ Rare/unusual bug investigation</li>
+            <li>✅ Compliance & regulatory analysis</li>
+            <li>❌ DON'T use for: Everything else. Opus is expensive.</li>
+        </ul>
+
+        <h2>Sub-Agents as Isolated Context (Token Efficiency & Permissions)</h2>
+
+        <h3>Why Sub-Agents Matter</h3>
+        <p><strong>Problem with single large agent:</strong> Context window fills up. Token count balloons. Costs explode. Permissions become too broad.</p>
+        <p><strong>Solution with sub-agents:</strong> Each agent has a focused scope, clean context, and minimal permissions. Like specialized professionals instead of one generalist.</p>
+
+        <div class="critical">
+            <strong>Key Benefit:</strong> Sub-agents are ISOLATED. They run in their own context window with only the data they need. No token bloat.
+        </div>
+
+        <h3>Token Efficiency Through Isolation</h3>
+        <table>
+            <tr>
+                <th>Scenario</th>
+                <th>Single Agent</th>
+                <th>Sub-Agents (Isolated)</th>
+                <th>Savings</th>
+            </tr>
+            <tr>
+                <td>Feature Development</td>
+                <td>200K tokens (whole codebase in context)</td>
+                <td>50K tokens (only relevant files)</td>
+                <td>75% reduction</td>
+            </tr>
+            <tr>
+                <td>Code Review Loop</td>
+                <td>150K tokens × 3 iterations = 450K total</td>
+                <td>30K tokens × 3 iterations = 90K total</td>
+                <td>80% reduction</td>
+            </tr>
+            <tr>
+                <td>Test Generation</td>
+                <td>100K tokens (all tests + implementation)</td>
+                <td>20K tokens (only implementation to test)</td>
+                <td>80% reduction</td>
+            </tr>
+            <tr>
+                <td>Monthly Feature Cost</td>
+                <td>5 features × 800K tokens = $2.40</td>
+                <td>5 features × 150K tokens = $0.45</td>
+                <td>80% savings = $1.95/month</td>
+            </tr>
+        </table>
+
+        <h3>Permission Isolation: Minimal Access Principle</h3>
+        <p><strong>Each agent gets ONLY the tools and data it needs. Nothing more.</strong></p>
+
+        <div class="workflow">
+# tech-lead Agent
+- CAN: Read design docs, invoke other agents, approve checkpoints
+- CAN: Access GitHub issues/requirements
+- CANNOT: Write code, run tests, execute deployments
+
+# senior-engineer Agent
+- CAN: Write code, run tests locally, commit changes
+- CAN: Access GitHub, MySQL for schema inspection
+- CANNOT: Deploy to production, delete data, access secrets
+
+# code-reviewer Agent
+- CAN: Read code, review PRs, suggest improvements
+- CAN: Access GitHub PR details
+- CANNOT: Approve own work, merge code, run production queries
+
+# qa-tester Agent
+- CAN: Run Playwright tests, generate test cases, capture evidence
+- CAN: Query test database (READ-ONLY), access test logs
+- CANNOT: Write to production database, deploy, commit code
+
+# tech-writer Agent
+- CAN: Read code/commits, write documentation
+- CAN: Access GitHub commit history
+- CANNOT: Modify code, write to database, execute commands
+
+# security-reviewer Agent (OPTIONAL)
+- CAN: Review security issues, analyze code for vulnerabilities
+- CAN: Access GitHub logs, read audit trails
+- CANNOT: Fix security issues directly, deploy changes
+        </div>
+
+        <h3>How Isolation Prevents Disasters</h3>
+        <table>
+            <tr>
+                <th>Risk</th>
+                <th>Single Large Agent</th>
+                <th>Isolated Sub-Agents</th>
+            </tr>
+            <tr>
+                <td><strong>Accidental Prod Delete</strong></td>
+                <td>❌ Agent has DB access, might delete production data</td>
+                <td>✅ QA-tester has READ-ONLY test DB only</td>
+            </tr>
+            <tr>
+                <td><strong>Secrets Leaked in Code</strong></td>
+                <td>❌ Large context includes all files, easier to miss secrets</td>
+                <td>✅ Engineer-agent focused on feature, harder to accidentally share secrets</td>
+            </tr>
+            <tr>
+                <td><strong>Token Bloat & Hallucination</strong></td>
+                <td>❌ 1M+ token context leads to confusion, mistakes</td>
+                <td>✅ Each agent < 100K tokens, focused reasoning</td>
+            </tr>
+            <tr>
+                <td><strong>Unauthorized Access</strong></td>
+                <td>❌ Single agent might access customer data it shouldn't</td>
+                <td>✅ Each agent scoped to its role (QA doesn't access customer data)</td>
+            </tr>
+            <tr>
+                <td><strong>Wrong Tool Invocation</strong></td>
+                <td>❌ Too many tools available, agent might use wrong one</td>
+                <td>✅ Each agent has 3-5 tools, clear purpose</td>
+            </tr>
+        </table>
+
+        <h3>Context Handoff Pattern (Maintaining Isolation)</h3>
+        <p><strong>Key Rule:</strong> When one agent invokes another, pass ONLY the relevant document. Never dump the entire codebase.</p>
+
+        <div class="workflow">
+# ✅ GOOD: Isolated Context Handoff
+tech-lead invokes senior-engineer:
+"Build password reset based on this spec:
+
+[PASTE ONLY password-reset-spec.md HERE]
+
+Constraint: 1 hour token budget"
+
+Result: Engineer gets clean context, focused work, low tokens
+
+# ❌ BAD: Context Bloat
+tech-lead invokes senior-engineer:
+"Build password reset based on this:
+
+[PASTE ENTIRE CODEBASE HERE]
+[PASTE ALL DESIGN DOCS HERE]
+[PASTE SCHEMA HERE]"
+
+Result: 1M+ tokens, confusion, hallucination, $3+ cost
+        </div>
 
         <h2>Your Agents & MCPs</h2>
 
